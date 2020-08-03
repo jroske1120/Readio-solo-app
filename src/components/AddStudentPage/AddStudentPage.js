@@ -18,6 +18,11 @@ class AddStudentPage extends Component {
         </form>
 
         <button>Add This Student to your Class!</button>
+        <button onClick={() => {
+          this.props.history.push('/teacher');
+        }} >
+          Back to Teacher Page
+          </button>
         <br></br>
         <LogOutButton className="log-in" />
 

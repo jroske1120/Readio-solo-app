@@ -69,7 +69,7 @@ class App extends Component {
               component={QuizPage}
             />
             <ProtectedRoute
-              exact path="/admin"
+              exact path="/teacher"
               component={TeacherPage}
             />
             <ProtectedRoute

@@ -16,7 +16,12 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import BookSearchPage from '../BookSearchPage/BookSearchPage'
+import QuizPage from '../QuizPage/QuizPage'
+import TeacherPage from '../TeacherPage/TeacherPage'
+import AddStudentPage from '../AddStudentPage/AddStudentPage'
 
+// src/pages/BookSearchPage/BookSearchPage.js
 import './App.css';
 
 class App extends Component {
@@ -55,9 +60,27 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
+            <ProtectedRoute
+              exact path="/search"
+              component={BookSearchPage}
+            />
+            <ProtectedRoute
+              exact path="/quiz"
+              component={QuizPage}
+            />
+            <ProtectedRoute
+              exact path="/admin"
+              component={TeacherPage}
+            />
+            <ProtectedRoute
+              exact path="/addstudent"
+              component={AddStudentPage}
+            />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
+          {/* <Route exact path='/search' component={BookSearchPage} /> */}
+
           <Footer />
         </div>
       </Router>

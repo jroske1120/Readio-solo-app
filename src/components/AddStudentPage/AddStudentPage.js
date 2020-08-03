@@ -2,27 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from "../LogOutButton/LogOutButton";
 
-class UserPage extends Component {
+class AddStudentPage extends Component {
 
   // This is main user profile
   render() {
     return (
       <div>
-        <h1 id="welcome">Welcome, {this.props.user.username}!</h1>
+        <h1 id="welcome">Add Student Page!</h1>
         <p>Your ID is: {this.props.user.id}</p>
-        <button onClick={() => {
-          this.props.history.push('/search');
-        }} >
-          Search for a Book!
-          </button>
-{/* map out books that have been added to server based on id */}
-        
-        
-        <h2>Books that you add will show here below</h2>
-        <ul>
-          <li>Book 1</li>
-          <li>Book 2</li>
-        </ul>
+        <h2>You will only see this if is_teacher = true!</h2>
+
+        <form>
+          <input />
+          <input />
+        </form>
+
+        <button>Add This Student to your Class!</button>
         <br></br>
         <LogOutButton className="log-in" />
 
@@ -37,4 +32,4 @@ const mapStateToProps = (state) => ({
 });
 
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(UserPage);
+export default connect(mapStateToProps)(AddStudentPage);

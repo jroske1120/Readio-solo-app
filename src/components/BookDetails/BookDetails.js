@@ -26,43 +26,18 @@ const styles = {
     },
 };
 
-class BookListItem extends Component {
+class BookDetails extends Component {
 
-    state = {
-        search: ''
-    }
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        console.log('handleSubmit:', this.state.search);
-        this.props.dispatch({ type: "FETCH_BOOKS", payload: this.state.search })
-    }
-
-    handleChange = (event) => {
-        console.log('in search field', event.target.value);
-        this.setState({
-            search: event.target.value
-        })
-    }
-
-    //this.state.user.id
-    addToProfile = (event) => {
-        console.log('book to add...', {...this.props.item})
-        this.props.dispatch({ type: 'ADD_BOOK', payload: {...this.props.item}})
-    }
-    goToDetails = () => {
-        // calls SET_DETAILS (details reducer) with 
-        //payload of the selected movie's details
-        this.props.dispatch({ type: 'SET_DETAILS', payload: { ...this.props.item } })
-        //Then pushes history and brings us to the selected movies' details
-        this.props.history.push('/details');
-    }
 
     render() {
         const { classes } = this.props;
+        const details = this.props.reduxState.details;
         return (
+            // <div>{JSON.stringify(this.props.reduxState.details)}</div>
             <div>
-                <Grid
+               <h2>Book details</h2>
+               <Grid
                     container direction="column"
                     justify="center"
                     alignItems="center">
@@ -73,17 +48,17 @@ class BookListItem extends Component {
                             <CardMedia
                                 className={classes.media}
                                 component="img"
-                                image={this.props.item.volumeInfo.imageLinks.thumbnail}
-                                alt={this.props.item.volumeInfo.title} />
+                                image={details.volumeInfo.imageLinks.thumbnail}
+                                alt={details.volumeInfo.title} />
                             <CardContent>
                                 <Typography
                                     gutterBottom variant="h5" component="h5">
-                                    {this.props.item.volumeInfo.title}
+                                    {details.volumeInfo.title}
                                 </Typography>
                                 <hr color="black" />
                                 <Typography
                                     variant="body2" component="p">
-                                    {this.props.item.volumeInfo.description}
+                                    {details.volumeInfo.description}
                                 </Typography>
                                 <hr />
                                 <Typography
@@ -94,13 +69,13 @@ class BookListItem extends Component {
                             </CardContent>
                         </CardActionArea>
                         <button><a
-                            href={this.props.item.accessInfo.webReaderLink}
+                            href={details.accessInfo.webReaderLink}
                             rel="noopener noreferrer"
                             target="_blank">
                             Read it!
                         </a></button>
                         {/* <button onClick={this.addToProfile}>Add to Profile</button> */}
-                        <button onClick={this.goToDetails}>See details</button>
+                        {/* <button onClick={this.goToDetails}>See details</button> */}
                     </Card>
                 </Grid>
             </div>
@@ -112,4 +87,4 @@ const mapReduxStateToProps = (reduxState) => ({
     reduxState
 });
 
-export default withRouter(connect(mapReduxStateToProps)(withStyles(styles)(BookListItem)));
+export default withRouter(connect(mapReduxStateToProps)(withStyles(styles)(BookDetails)));

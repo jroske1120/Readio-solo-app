@@ -20,6 +20,7 @@ import BookSearchPage from '../BookSearchPage/BookSearchPage'
 import QuizPage from '../QuizPage/QuizPage'
 import TeacherPage from '../TeacherPage/TeacherPage'
 import AddStudentPage from '../AddStudentPage/AddStudentPage'
+import BookDetails from '../BookDetails/BookDetails'
 
 // src/pages/BookSearchPage/BookSearchPage.js
 import './App.css';
@@ -75,6 +76,10 @@ class App extends Component {
             <ProtectedRoute
               exact path="/addstudent"
               component={AddStudentPage}
+            />
+            <ProtectedRoute
+              exact path="/details"
+              component={BookDetails}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

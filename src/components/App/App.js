@@ -78,7 +78,7 @@ class App extends Component {
               component={AddStudentPage}
             />
             <ProtectedRoute
-              exact path="/details"
+              exact path="/details/:id"
               component={BookDetails}
             />
             {/* If none of the other routes matched, we will show a 404. */}

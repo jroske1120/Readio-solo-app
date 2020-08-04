@@ -99,8 +99,8 @@ class BookListItem extends Component {
                             target="_blank">
                             Read it!
                         </a></button>
-                        {/* <button onClick={this.addToProfile}>Add to Profile</button> */}
-                        <button onClick={this.goToDetails}>See details</button>
+                        <button onClick={this.addToProfile}>Add to Profile</button>
+                        {/* <button onClick={this.goToDetails}>See details</button> */}
                     </Card>
                 </Grid>
             </div>

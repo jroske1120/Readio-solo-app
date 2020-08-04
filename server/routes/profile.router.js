@@ -23,7 +23,22 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     }
 });
 
+router.get('/:id', (req, res) => {
+    console.log('req.user:', req.user.id);
+    console.log('req.body:', req.body);
+
+    // let query = `SELECT * FROM user_book WHERE user_id = $1;`;
+    // pool.query(query, [req.user.id])
+    //     .then(results => res.send(results.rows))
+    //     .catch(error => {
+    //         console.log('Error making SELECT for secrets:', error);
+    //         res.sendStatus(500);
+    //     });
+    // res.sendStatus(403);
+
+});
+
 router.post('/', (req, res) => {
-    
+
 });
 module.exports = router;

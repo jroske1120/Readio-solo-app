@@ -28,16 +28,25 @@ const styles = {
 
 class BookDetails extends Component {
 
-
+    componentDidMount() {
+        if (!this.props.reduxState.details.book_id) {
+            this.props.dispatch({
+                type: "FETCH_DETAILS",
+                payload: this.props.match.params.id
+            })
+        } console.log('this.props.reduxState...', this.props.reduxState);
+    }
 
     render() {
         const { classes } = this.props;
         const details = this.props.reduxState.details;
         return (
-            // <div>{JSON.stringify(this.props.reduxState.details)}</div>
             <div>
-               <h2>Book details</h2>
-               <Grid
+                {JSON.stringify(this.props.match)} <br></br>
+                {JSON.stringify(this.props.reduxState.details)}
+
+                <h2>Book details</h2>
+                <Grid
                     container direction="column"
                     justify="center"
                     alignItems="center">
@@ -48,17 +57,17 @@ class BookDetails extends Component {
                             <CardMedia
                                 className={classes.media}
                                 component="img"
-                                image={details.volumeInfo.imageLinks.thumbnail}
-                                alt={details.volumeInfo.title} />
+                                image={details.book_image}
+                                alt={details.book_title} />
                             <CardContent>
                                 <Typography
                                     gutterBottom variant="h5" component="h5">
-                                    {details.volumeInfo.title}
+                                    {details.book_title}
                                 </Typography>
                                 <hr color="black" />
                                 <Typography
                                     variant="body2" component="p">
-                                    {details.volumeInfo.description}
+                                    {details.book_description}
                                 </Typography>
                                 <hr />
                                 <Typography
@@ -69,7 +78,7 @@ class BookDetails extends Component {
                             </CardContent>
                         </CardActionArea>
                         <button><a
-                            href={details.accessInfo.webReaderLink}
+                            href={details.book_text}
                             rel="noopener noreferrer"
                             target="_blank">
                             Read it!

@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { withStyles } from '@material-ui/core/styles';
+import BookListItem from '../BookListItem/BookListItem'
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 const styles = {
   card: {
@@ -20,13 +28,22 @@ const styles = {
 
 
 class UserPage extends Component {
-  
+
   componentDidMount() {
-    this.props.dispatch({type: 'FETCH_PROFILE_BOOKS'});
+    this.props.dispatch({ type: 'FETCH_PROFILE_BOOKS' });
+  }
+
+  goToDetails = (item) => {
+    console.log('in details...', item)
+    //payload of the selected movie's details
+    // this.props.dispatch({ type: 'SET_DETAILS', payload: item })
+    //Then pushes history and brings us to the selected movies' details
+    this.props.history.push(`/details/${item.book_id}`);
   }
 
   // This is main user profile
   render() {
+    const { classes } = this.props;
     return (
       <div>
         <h1 id="welcome">Welcome, {this.props.reduxState.user.username}!</h1>
@@ -37,14 +54,54 @@ class UserPage extends Component {
           Search for a Book!
           </button>
         {/* map out books that have been added to server based on id WHERE user.id === user.id*/}
-
+        {JSON.stringify(this.props.match.params)}
 
         <h2>Books that you add will show here below</h2>
-        {JSON.stringify(this.props.reduxState.profileBooks)}
-        <ul>
-          <li>Book 1</li>
-          <li>Book 2</li>
-        </ul>
+        {this.props.reduxState.profileBooks.map(item =>
+
+          <Grid
+            key={item.book_id}
+            container direction="column"
+            justify="center"
+            alignItems="center">
+            <Card
+              variant="outlined"
+              className={classes.card} >
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  component="img"
+                  image={item.book_image}
+                  alt={item.book_title} />
+                <CardContent>
+                  <Typography
+                    gutterBottom variant="h5" component="h5">
+                    {item.book_title}
+                  </Typography>
+                  <hr color="black" />
+                  <Typography
+                    variant="body2" component="p">
+                    {item.book_description}
+                  </Typography>
+                  <hr />
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p">
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <button><a
+                href={item.book_text}
+                rel="noopener noreferrer"
+                target="_blank">
+                Read it!
+                        </a></button>
+              {/* <button onClick={this.addToProfile}>Add to Profile</button> */}
+              <button onClick={() => this.goToDetails(item)}>See details</button>
+            </Card>
+          </Grid>
+        )}
         <br></br>
         <LogOutButton className="log-in" />
         {/* Conditional rendering if user is a teacher
@@ -55,7 +112,7 @@ class UserPage extends Component {
           }} >
             See Class Info</button>
           : <></>
-}
+        }
       </div>
     );
   }

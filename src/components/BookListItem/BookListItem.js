@@ -46,8 +46,10 @@ class BookListItem extends Component {
         })
     }
 
+    //this.state.user.id
     addToProfile = (event) => {
-        console.log('in addtoProfile...', event)
+        console.log('in addtoProfile...', this.props.item)
+        console.log('in addtoProfile...', this.props.user.id)
         console.log('book to add...', {...this.props.item})
         this.props.dispatch({ type: 'ADD_BOOK', payload: {...this.props.item}})
     }
@@ -101,8 +103,9 @@ class BookListItem extends Component {
     }
 
 }
-const mapReduxStateToProps = (reduxState) => ({
-    reduxState
+const mapStateToProps = (state) => ({
+    user: state.user,
+
 });
 
-export default connect(mapReduxStateToProps)(withStyles(styles)(BookListItem));
+export default connect(mapStateToProps)(withStyles(styles)(BookListItem));

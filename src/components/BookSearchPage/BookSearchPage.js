@@ -56,9 +56,10 @@ class BookSearchPage extends Component {
           <input type="text" onChange={this.handleChange} placeholder="Search"></input>
           <button type="submit">Search</button>
         </form>
-        {/* {this.props.reduxState.searchResultReducer.map((item, index) =>
+        {/* {this.props.reduxState.searchRed} */}
+        {this.props.reduxState.search.map((item, index) =>
           <BookListItem
-            key={index} item={item} />)}   */}
+            key={index} item={item} />)}  
       </div>
     );
   }

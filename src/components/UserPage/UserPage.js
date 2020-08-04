@@ -15,9 +15,9 @@ class UserPage extends Component {
         }} >
           Search for a Book!
           </button>
-{/* map out books that have been added to server based on id */}
-        
-        
+        {/* map out books that have been added to server based on id WHERE user.id === user.id*/}
+
+
         <h2>Books that you add will show here below</h2>
         <ul>
           <li>Book 1</li>
@@ -25,7 +25,15 @@ class UserPage extends Component {
         </ul>
         <br></br>
         <LogOutButton className="log-in" />
-
+        {/* Conditional rendering if user is a teacher
+        then button to see class info (link to /teacher) displays */}
+        {this.props.user.is_teacher ?
+          <button onClick={() => {
+            this.props.history.push('/teacher');
+          }} >
+            See Class Info</button>
+          : <></>
+}
       </div>
     );
   }

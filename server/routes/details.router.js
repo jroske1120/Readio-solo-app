@@ -7,7 +7,7 @@ const router = express.Router();
 
 console.log('api key', process.env.API_KEY);
 
-router.get('/:id', (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('req.user:', req.user.id);
     console.log('req.params.id:', req.params.id);
     const query = `select * from user_book
@@ -21,7 +21,6 @@ router.get('/:id', (req, res) => {
             console.log('Error making SELECT for details:', error);
             res.sendStatus(500);
         });
-
 });
 
 router.post('/', (req, res) => {

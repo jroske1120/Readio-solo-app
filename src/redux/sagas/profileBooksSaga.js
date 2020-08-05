@@ -35,11 +35,35 @@ function* deleteBookSaga(action) {
         console.log('issue with deleteBookSaga :', error)
     }
 }
+function* finishBookSaga(action) {
+    console.log('in finishBookSaga...', action.payload)
+    try {
+        // get request that gets movies from database
+        const response = yield axios.put('/profile/'+ action.payload.book_id)
+        yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
+    } catch (error) {
+        console.log('issue with finishBookSaga :', error)
+    }
+}
 
+function* fetchQuestionSaga() {
+    try {
+      const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      }; 
+      const response = yield axios.get('/quiz', config);
+      yield put({ type: 'SET_QUIZ', payload: response.data });
+    } catch (error) {
+      console.log('Secrets get request failed', error);
+    }
+  }
 function* profileBooksSaga() {
     yield takeLatest('FETCH_PROFILE_BOOKS', fetchProfileBookSaga);
     yield takeLatest('FETCH_DETAILS', fetchDetailSaga);
     yield takeLatest('DELETE_BOOK', deleteBookSaga);
+    yield takeLatest('FINISH_BOOK', finishBookSaga);
+    yield takeLatest('FETCH_QUIZ', fetchQuestionSaga);
   }
 
 export default profileBooksSaga;

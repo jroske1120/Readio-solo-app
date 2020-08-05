@@ -1,12 +1,13 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const { default: Axios } = require('axios');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 const router = express.Router();
 
 console.log('api key', process.env.API_KEY);
 
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('hit server', req.query.search);
     Axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.query.search}&filter=full&key=${process.env.API_KEY}&fields=items/accessInfo/webReaderLink, items/volumeInfo(title, authors, description, imageLinks/thumbnail)&orderBy=relevance&limit=2
   `)
@@ -19,7 +20,7 @@ router.get('/', (req, res) => {
         })
 })
 
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('POST req.body: ', req.body.volumeInfo.title);
     console.log('POST req.user: ', req.user);
     const book = req.body;

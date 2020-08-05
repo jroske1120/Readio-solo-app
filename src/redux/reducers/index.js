@@ -5,6 +5,7 @@ import user from './userReducer';
 import search from './searchReducer';
 import profileBooks from './addBookReducer';
 import details from './bookDetailsReducer';
+import quiz from './quizQuestionReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   search,
   profileBooks,
   details,
+  quiz,
 });
 
 export default rootReducer;

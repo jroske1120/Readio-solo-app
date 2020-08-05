@@ -26,7 +26,6 @@ const styles = {
   },
 };
 
-
 class UserPage extends Component {
 
   componentDidMount() {
@@ -35,9 +34,6 @@ class UserPage extends Component {
 
   goToDetails = (item) => {
     console.log('in details...', item)
-    //payload of the selected movie's details
-    // this.props.dispatch({ type: 'SET_DETAILS', payload: item })
-    //Then pushes history and brings us to the selected movies' details
     this.props.history.push(`/details/${item.book_id}`);
   }
 
@@ -46,6 +42,10 @@ class UserPage extends Component {
     this.props.dispatch({type: 'DELETE_BOOK', payload: item})
   }
 
+  finishBook = (item) => {
+    console.log('item is...', item)
+    this.props.dispatch({type: 'FINISH_BOOK', payload: item})
+  }
   // This is main user profile
   render() {
     const { classes } = this.props;
@@ -59,7 +59,7 @@ class UserPage extends Component {
           Search for a Book!
           </button>
         {/* map out books that have been added to server based on id WHERE user.id === user.id*/}
-        {JSON.stringify(this.props.match.params)}
+        {/* {JSON.stringify(this.props.match.params)} */}
 
         <h2>Books that you add will show here below</h2>
         {this.props.reduxState.profileBooks.map(item =>
@@ -83,7 +83,9 @@ class UserPage extends Component {
                     gutterBottom variant="h5" component="h5">
                     {item.book_title}
                     {item.finish_book === false ?
-                  <button>Finished?</button>
+                  <button
+                  onClick={() => this.finishBook(item)}
+                  >Finished? Click to Finish!</button>
                   :
                   <h5>Finished!</h5>  
                   }

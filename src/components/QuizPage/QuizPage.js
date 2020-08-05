@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from "../LogOutButton/LogOutButton";
+import { withStyles } from '@material-ui/core/styles';
+import BookListItem from '../BookListItem/BookListItem'
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 class QuizPage extends Component {
+
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_QUIZ' });
+        //still need reducer and saga, and router for this
+      }
 
   // This is main user profile
   render() {
@@ -16,7 +30,7 @@ class QuizPage extends Component {
           Search for a Book!
           </button>
 {/* map out books that have been added to server based on id */}
-        
+        {JSON.stringify(this.props.reduxState.quiz)}
         
         <h2>Quiz Questions will appear here</h2>
         <ul>
@@ -32,9 +46,10 @@ class QuizPage extends Component {
 }
 
 // Instead of taking everything from state, we just want the user info.
-const mapStateToProps = (state) => ({
-  user: state.user,
-});
 
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(QuizPage);
+const mapReduxStateToProps = (reduxState) => ({
+    reduxState
+  });
+  
+  export default connect(mapReduxStateToProps)(withStyles(QuizPage));

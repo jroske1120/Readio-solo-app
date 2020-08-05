@@ -11,7 +11,8 @@ router.get('/:id', (req, res) => {
     console.log('req.user:', req.user.id);
     console.log('req.params.id:', req.params.id);
     const query = `select * from user_book
-    WHERE book_id = ${req.params.id};`;
+    WHERE book_id = ${req.params.id}
+    AND user_id = ${req.user.id};`;
     pool.query(query)
         .then((result) => {
             res.send(result.rows);

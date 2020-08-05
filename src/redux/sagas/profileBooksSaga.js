@@ -25,9 +25,21 @@ function* fetchProfileBookSaga() {
     }
 }
 
+function* deleteBookSaga(action) {
+    console.log('in deleteBookSaga...', action.payload)
+    try {
+        // get request that gets movies from database
+        const response = yield axios.delete('/profile/'+ action.payload.book_id)
+        yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
+    } catch (error) {
+        console.log('issue with deleteBookSaga :', error)
+    }
+}
+
 function* profileBooksSaga() {
     yield takeLatest('FETCH_PROFILE_BOOKS', fetchProfileBookSaga);
     yield takeLatest('FETCH_DETAILS', fetchDetailSaga);
+    yield takeLatest('DELETE_BOOK', deleteBookSaga);
   }
 
 export default profileBooksSaga;

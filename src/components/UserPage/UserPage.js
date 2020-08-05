@@ -41,6 +41,11 @@ class UserPage extends Component {
     this.props.history.push(`/details/${item.book_id}`);
   }
 
+  deleteBook = (item) => {
+    console.log('item is...', item)
+    this.props.dispatch({type: 'DELETE_BOOK', payload: item})
+  }
+
   // This is main user profile
   render() {
     const { classes } = this.props;
@@ -77,12 +82,17 @@ class UserPage extends Component {
                   <Typography
                     gutterBottom variant="h5" component="h5">
                     {item.book_title}
+                    {item.finish_book === false ?
+                  <button>Finished?</button>
+                  :
+                  <h5>Finished!</h5>  
+                  }
                   </Typography>
-                  <hr color="black" />
-                  <Typography
+                  {/* <hr color="black" /> */}
+                  {/* <Typography
                     variant="body2" component="p">
                     {item.book_description}
-                  </Typography>
+                  </Typography> */}
                   <hr />
                   <Typography
                     variant="body2"
@@ -97,7 +107,7 @@ class UserPage extends Component {
                 target="_blank">
                 Read it!
                         </a></button>
-              {/* <button onClick={this.addToProfile}>Add to Profile</button> */}
+              <button onClick={() => this.deleteBook(item)}>Remove from Profile</button>
               <button onClick={() => this.goToDetails(item)}>See details</button>
             </Card>
           </Grid>

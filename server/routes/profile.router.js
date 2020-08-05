@@ -38,7 +38,26 @@ router.get('/:id', (req, res) => {
 
 });
 
+//post quiz results/answers
 router.post('/', (req, res) => {
 
 });
+
+//delete from profile
+router.delete('/:id', (req, res) => {
+    console.log('Delete request for id', req.params.id);
+    console.log('Delete request for user.id', req.user.id);
+    let query = 
+    `DELETE FROM user_book
+    WHERE book_id = ${req.params.id}
+    AND user_id = ${req.user.id};`;
+    pool.query(query)
+    .then((result) => {
+        res.send(result.rows);
+    }).catch((error) => {
+        console.log('Error DELETE /profile', error);
+        res.sendStatus(500);
+    })
+});
+
 module.exports = router;

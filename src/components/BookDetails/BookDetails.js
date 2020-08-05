@@ -42,51 +42,54 @@ class BookDetails extends Component {
         const details = this.props.reduxState.details;
         return (
             <div>
-                {JSON.stringify(this.props.match)} <br></br>
-                {JSON.stringify(this.props.reduxState.details)}
 
                 <h2>Book details</h2>
-                <Grid
-                    container direction="column"
-                    justify="center"
-                    alignItems="center">
-                    <Card
-                        variant="outlined"
-                        className={classes.card} >
-                        <CardActionArea>
-                            <CardMedia
-                                className={classes.media}
-                                component="img"
-                                image={details.book_image}
-                                alt={details.book_title} />
-                            <CardContent>
-                                <Typography
-                                    gutterBottom variant="h5" component="h5">
-                                    {details.book_title}
-                                </Typography>
-                                <hr color="black" />
-                                <Typography
-                                    variant="body2" component="p">
-                                    {details.book_description}
-                                </Typography>
-                                <hr />
-                                <Typography
-                                    variant="body2"
-                                    color="textSecondary"
-                                    component="p">
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                        <button><a
-                            href={details.book_text}
-                            rel="noopener noreferrer"
-                            target="_blank">
-                            Read it!
+                {this.props.reduxState.details.map(item =>
+
+                    <Grid key={item.book_id}
+                        container direction="column"
+                        justify="center"
+                        alignItems="center">
+                        <Card
+                            variant="outlined"
+                            className={classes.card} >
+                            <CardActionArea>
+                                <CardMedia
+                                    className={classes.media}
+                                    component="img"
+                                    image={item.book_image}
+                                    alt={item.book_title} />
+                                <CardContent>
+                                    <Typography
+                                        gutterBottom variant="h5" component="h5">
+                                        {item.book_title}
+                                    </Typography>
+                                    <hr color="black" />
+                                    <Typography
+                                        variant="body2" component="p">
+                                        {item.book_description}
+                                    </Typography>
+                                    <hr />
+                                    <Typography
+                                        variant="body2"
+                                        color="textSecondary"
+                                        component="p">
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                            <button><a
+                                href={item.book_text}
+                                rel="noopener noreferrer"
+                                target="_blank">
+                                Read it!
                         </a></button>
-                        {/* <button onClick={this.addToProfile}>Add to Profile</button> */}
-                        {/* <button onClick={this.goToDetails}>See details</button> */}
-                    </Card>
-                </Grid>
+                            <button onClick={() => {
+                                this.props.history.push('/quiz');
+                            }}>Take the quiz!</button>
+                            {/* <button onClick={this.goToDetails}>See details</button> */}
+                        </Card>
+                    </Grid>
+                )}
             </div>
         );
     }

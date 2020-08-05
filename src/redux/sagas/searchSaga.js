@@ -7,7 +7,7 @@ function* getBookSaga(action){
     try {
       // get request that sends search query
       const response = yield axios.get('/api/searchFullText', {params: {search: action.payload}})
-      yield put({type:"SET_BOOKS", payload: response.data.items})
+      yield put({type:"SET_SEARCH", payload: response.data.items})
     } catch (error) {
       console.log('issue with search saga:', error)
     }

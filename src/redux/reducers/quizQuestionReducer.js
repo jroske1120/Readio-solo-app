@@ -1,5 +1,5 @@
 //Used to store the details of the book that was clicked
-const questions = (state = [], action) => {
+const quizQuestionReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_QUIZ':
             return action.payload;
@@ -8,4 +8,4 @@ const questions = (state = [], action) => {
     }
 }
 
-export default questions;
+export default quizQuestionReducer;

@@ -13,6 +13,14 @@ function* fetchProfileBookSaga() {
       console.log('Secrets get request failed', error);
     }
   }
+  function* fetchQuestionSaga(action) {
+    try {
+      const response = yield axios.get('/quiz');
+      yield put({ type: 'SET_QUIZ', payload: response.data });
+    } catch (error) {
+      console.log('Secrets get request failed', error);
+    }
+  }
 
   function* fetchDetailSaga(action) {
     console.log('in detailsSaga...', action.payload)
@@ -46,18 +54,7 @@ function* finishBookSaga(action) {
     }
 }
 
-function* fetchQuestionSaga() {
-    try {
-      const config = {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
-      }; 
-      const response = yield axios.get('/quiz', config);
-      yield put({ type: 'SET_QUIZ', payload: response.data });
-    } catch (error) {
-      console.log('Secrets get request failed', error);
-    }
-  }
+
 function* profileBooksSaga() {
     yield takeLatest('FETCH_PROFILE_BOOKS', fetchProfileBookSaga);
     yield takeLatest('FETCH_DETAILS', fetchDetailSaga);

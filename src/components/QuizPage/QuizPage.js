@@ -11,38 +11,59 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
+const styles = {
+    card: {
+        width: 350,
+        padding: 10,
+        margin: 40,
+        justifyContent: 'center',
+        backgroundColor: 'silver',
+    },
+    media: {
+        height: 250,
+        width: 'auto',
+        marginLeft: 85
+    },
+};
+
 class QuizPage extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_QUIZ' });
-        //still need reducer and saga, and router for this
-      }
+        // still need reducer and saga, and router for this
+    }
 
-  // This is main user profile
-  render() {
-    return (
-      <div>
-        <h1 id="welcome">Quiz Page!</h1>
-        <p>Your ID is: {this.props.user.id}</p>
-        <button onClick={() => {
-          this.props.history.push('/search');
-        }} >
-          Search for a Book!
+    // This is main user profile
+    render() {
+        return (
+            <div>
+                <h1 id="welcome">Quiz Page!</h1>
+                <p>Your ID is: {this.props.reduxState.user.id}</p>
+                <button onClick={() => {
+                    this.props.history.push('/search');
+                }} >
+                    Search for a Book!
           </button>
-{/* map out books that have been added to server based on id */}
-        {JSON.stringify(this.props.reduxState.quiz)}
-        
-        <h2>Quiz Questions will appear here</h2>
-        <ul>
-          <li>Question 1</li>
-          <li>Question 2</li>
-        </ul>
-        <br></br>
-        <LogOutButton className="log-in" />
+                {/* map out books that have been added to server based on id */}
+                {/* {JSON.stringify(this.props.reduxState.questions[0])} */}
+                {this.props.reduxState.questions.map(item => 
+                  <ol> <li>{item.question_1}</li> 
+                   <li>{item.question_2}</li>
+                   <li>{item.question_3}</li>
+                   <li>{item.question_4}</li> </ol>
+                    )}
 
-      </div>
-    );
-  }
+                <h2>Quiz Questions will appear here</h2>
+                <ul>
+                    <li>Question 1</li>
+                    <li>Question 2</li>
+                </ul>
+                <br></br>
+                <LogOutButton className="log-in" />
+
+            </div>
+        );
+    }
 }
 
 // Instead of taking everything from state, we just want the user info.
@@ -50,6 +71,6 @@ class QuizPage extends Component {
 // this allows us to use <App /> in index.js
 const mapReduxStateToProps = (reduxState) => ({
     reduxState
-  });
-  
-  export default connect(mapReduxStateToProps)(withStyles(QuizPage));
+});
+
+export default connect(mapReduxStateToProps)(withStyles(styles)(QuizPage));

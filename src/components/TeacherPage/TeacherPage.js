@@ -3,18 +3,24 @@ import { connect } from 'react-redux';
 import LogOutButton from "../LogOutButton/LogOutButton";
 
 class TeacherPage extends Component {
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_STUDENTS' });
+    // still need reducer and saga, and router for this
+}
 
   // This is main user profile
   render() {
     return (
       <div>
         <h1 id="welcome">Teacher's Page!</h1>
-        <p>Your ID is: {this.props.user.id}</p>
+        <p>Your ID is: {this.props.reduxState.user.id}</p>
         <button onClick={() => {
           this.props.history.push('/search');
         }} >
           Search for a Book!
           </button>
+          {JSON.stringify(this.props.reduxState.students)}
+
           <button onClick={() => {
           this.props.history.push('/addstudent');
         }} >
@@ -33,10 +39,9 @@ class TeacherPage extends Component {
   }
 }
 
-// Instead of taking everything from state, we just want the user info.
-const mapStateToProps = (state) => ({
-  user: state.user,
+const mapReduxStateToProps = (reduxState) => ({
+  reduxState
 });
 
-// this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(TeacherPage);
+export default connect(mapReduxStateToProps)(TeacherPage);
+

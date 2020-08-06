@@ -30,7 +30,6 @@ class QuizPage extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_QUIZ' });
-        // still need reducer and saga, and router for this
     }
 
     // This is main user profile

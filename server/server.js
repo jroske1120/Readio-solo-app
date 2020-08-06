@@ -14,6 +14,7 @@ const searchFTRouter = require('./routes/searchFullText.router');
 const profileRouter = require('./routes/profile.router');
 const detailsRouter = require('./routes/details.router');
 const quizRouter = require('./routes/quiz.router');
+const studentRouter = require('./routes/student.router');
 
 
 // Body parser middleware
@@ -33,6 +34,7 @@ app.use('/api/searchFullText', searchFTRouter);
 app.use('/profile', profileRouter);
 app.use('/details', detailsRouter);
 app.use('/quiz', quizRouter);
+app.use('/student', studentRouter);
 
 
 // Serve static files

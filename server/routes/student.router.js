@@ -7,7 +7,9 @@ const router = express.Router();
 
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('req.user:', req.user.id);
-    let query = `SELECT * FROM user`;
+    let query = `Select distinct "user"."username" from user_book
+    join "user" on "user"."id" = user_book.user_id
+    where is_teacher = false;`;
     pool.query(query)
         .then((results) => {
             res.send(results.rows)

@@ -9,7 +9,7 @@ console.log('api key', process.env.API_KEY);
 
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('hit server', req.query.search);
-    Axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.query.search}&filter=full&key=${process.env.API_KEY}&fields=items/accessInfo/webReaderLink, items/volumeInfo(title, authors, description, imageLinks/thumbnail)&orderBy=relevance&limit=2
+    Axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.query.search}&key=${process.env.API_KEY}&fields=items/accessInfo/webReaderLink, items/volumeInfo(title, authors, description, imageLinks/thumbnail)&orderBy=relevance&limit=2
   `)
         .then((response) => {
             res.send(response.data);
@@ -29,7 +29,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         VALUES ( $1, $2, $3, $4, $5, $6);`;
 
     pool.query(queryString,
-        [req.user.id, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.description, book.accessInfo.webReaderLink
+        [req.user.id, book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.description, book.accessInfo.webReaderLink
         ]).then((result) => {
             // success
             console.log("POST successful")

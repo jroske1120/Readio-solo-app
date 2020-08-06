@@ -29,11 +29,8 @@ class TeacherPage extends Component {
 {/* map out books that have been added to server based on id */}
         
         
-        <h2>You will only see this if is_teacher = true!</h2>
+        <h2>Students will appear here</h2>
         
-        <br></br>
-        <LogOutButton className="log-in" />
-
       </div>
     );
   }

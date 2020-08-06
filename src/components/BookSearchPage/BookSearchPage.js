@@ -36,7 +36,9 @@ class BookSearchPage extends Component {
     event.preventDefault();
     console.log('handleSubmit:', this.state.search);
     this.props.dispatch({ type: "FETCH_BOOKS", payload: this.state.search })
-
+    this.setState({
+      search: ''
+    })
   }
 
   handleChange = (event) => {

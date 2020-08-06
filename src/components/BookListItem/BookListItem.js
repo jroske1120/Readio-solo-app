@@ -28,27 +28,11 @@ const styles = {
 
 class BookListItem extends Component {
 
-    state = {
-        search: ''
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        console.log('handleSubmit:', this.state.search);
-        this.props.dispatch({ type: "FETCH_BOOKS", payload: this.state.search })
-    }
-
-    handleChange = (event) => {
-        console.log('in search field', event.target.value);
-        this.setState({
-            search: event.target.value
-        })
-    }
-
     //this.state.user.id
     addToProfile = (event) => {
         console.log('book to add...', {...this.props.item})
         this.props.dispatch({ type: 'ADD_BOOK', payload: {...this.props.item}})
+        this.props.history.push('/home');
     }
     goToDetails = () => {
         // calls SET_DETAILS (details reducer) with 

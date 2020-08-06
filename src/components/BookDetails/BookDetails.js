@@ -37,6 +37,9 @@ class BookDetails extends Component {
         } console.log('this.props.reduxState...', this.props.reduxState);
     }
 
+    finishBook = (item) => {
+        this.props.dispatch({ type: 'FINISH_BOOK', payload: item })
+    }
     render() {
         const { classes } = this.props;
         const details = this.props.reduxState.details;
@@ -63,6 +66,13 @@ class BookDetails extends Component {
                                     <Typography
                                         gutterBottom variant="h5" component="h5">
                                         {item.book_title}
+                                        {item.finish_book === false ?
+                                            <button
+                                                onClick={() => this.finishBook(item)}
+                                            >Finished? Click to Finish!</button>
+                                            :
+                                            <h5>Finished!</h5>
+                                        }
                                     </Typography>
                                     <hr color="black" />
                                     <Typography

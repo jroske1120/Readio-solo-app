@@ -18,7 +18,7 @@ function* getBookSaga(action){
     try {
       // get request that sends search query
       const response = yield axios.post('/api/searchFullText', action.payload)
-      yield put({type:"FETCH_BOOKS", payload: response.data})
+      yield put({type:"FETCH_PROFILE_BOOKS", payload: response.data})
     } catch (error) {
       console.log('issue with post saga:', error)
     }

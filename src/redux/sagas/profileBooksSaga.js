@@ -15,6 +15,7 @@ function* fetchProfileBookSaga() {
   }
   function* fetchQuestionSaga(action) {
     try {
+
       const response = yield axios.get('/quiz');
       yield put({ type: 'SET_QUIZ', payload: response.data });
     } catch (error) {

@@ -3,32 +3,51 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-
+import IconButton from '@material-ui/core/IconButton';
+import { withRouter } from 'react-router-dom';
 const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
-      <h2 className="nav-title">Prime Solo Project ID: {props.user.id}</h2>
+      <h2 className="nav-title">Readio {props.reduxState.user.username}</h2>
     </Link>
     <div className="nav-right">
-      <Link className="nav-link" to="/home">
+      <Link  to="/home">
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
-        {props.user.id ? 'Profile' : 'Login / Register'}
+        {props.reduxState.user.id ? (<IconButton><img
+          src="https://image.flaticon.com/icons/png/512/46/46285.png"
+          alt="Profile"
+          title="Profile"
+          height="30px"
+          onClick={() => {
+            props.history.push('/home');
+          }}
+        /></IconButton>) : 'Login / Register'}
       </Link>
       {/* Show the link to the info page and the logout button if the user is logged in */}
-      {props.user.id && (
+      {props.reduxState.user.id && (
         <>
-          <Link className="nav-link" to="/info">
-            Info Page
+          <Link to="/search">
+            <IconButton>
+            <img src="https://lh3.googleusercontent.com/proxy/3DvzTlgC3H4AF2p_ofT4zZbmoKj0GYr7H69AZg2tbtqWnPXjq3uWq6kg4Xd7FEIQsOKdnqu34kWCKiZahm5uQpqzUppCAUM"
+          alt="Book Search"
+          title="Book Search"
+          height="30px"  
+          onClick={() => {
+            props.history.push('/search');
+          }}
+          />
+            </IconButton>
           </Link>
-          <LogOutButton className="nav-link"/>
+          <LogOutButton/>
+
         </>
       )}
       {/* Always show this link since the about page is not protected */}
-      <Link className="nav-link" to="/about">
+      {/* <Link className="nav-link" to="/about">
         About
-      </Link>
+      </Link> */}
     </div>
   </div>
 );
@@ -38,8 +57,8 @@ const Nav = (props) => (
 // if they are logged in, we show them a few more links 
 // if you wanted you could write this code like this:
 // const mapStateToProps = ({ user }) => ({ user });
-const mapStateToProps = state => ({
-  user: state.user,
+const mapReduxStateToProps = (reduxState) => ({
+  reduxState
 });
 
-export default connect(mapStateToProps)(Nav);
+export default (withRouter(connect(mapReduxStateToProps)(Nav)));

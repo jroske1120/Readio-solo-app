@@ -34,18 +34,26 @@ class QuizPage extends Component {
 
     // This is main user profile
     render() {
+        const question = this.props.reduxState.questions;
         return (
             <div>
                 <h1 id="welcome">Quiz Page!</h1>
                
                 {/* map out books that have been added to server based on id */}
                 <h2>Quiz Questions will appear here</h2>
-                {this.props.reduxState.questions.map(item =>
+                <form>
+                    {this.props.reduxState.questions.map((item, index) => (
+                       <p key={index}> <label htmlFor='question_1'>{item.question_1}</label>
+                        <input type="text" name="question_1"/>
+                   </p> ))}
+                </form>
+                {/* {this.props.reduxState.questions.map(item =>
                     <ol> <li>{item.question_1}</li>
+                    <input />
                         <li>{item.question_2}</li>
                         <li>{item.question_3}</li>
                         <li>{item.question_4}</li> </ol>
-                )}
+                )} */}
             </div>
         );
     }

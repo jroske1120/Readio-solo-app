@@ -13,7 +13,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         pool.query(query, [req.user.id])
             .then(results => res.send(results.rows))
             .catch(error => {
-                console.log('Error making SELECT for secrets:', error);
+                console.log('Error making SELECT for books:', error);
                 res.sendStatus(500);
             });
     } 
@@ -42,8 +42,7 @@ router.delete('/:id', rejectUnauthenticated,(req, res) => {
 });
 
 router.put('/:id', rejectUnauthenticated,(req, res) => {
-    console.log('Delete request for id', req.params.id);
-    console.log('Delete request for user.id', req.user.id);
+    console.log('put request for id', req.params.id);
     let query = 
     `UPDATE user_book SET finish_book = true
     WHERE book_id = ${req.params.id}

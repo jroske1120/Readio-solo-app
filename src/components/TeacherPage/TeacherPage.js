@@ -32,7 +32,7 @@ class TeacherPage extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <h1 id="welcome">Teacher's Page!</h1>
+        <h1 id="welcome"></h1>
         <h2>Students will appear here</h2>
         <TableContainer className={classes.container} component={Paper}>
       <Table className={classes.table} aria-label="simple table">

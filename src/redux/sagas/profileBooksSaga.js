@@ -10,7 +10,7 @@ function* fetchProfileBookSaga() {
       const response = yield axios.get('/profile', config);
       yield put({ type: 'SET_BOOKS', payload: response.data });
     } catch (error) {
-      console.log('Secrets get request failed', error);
+      console.log('book get request failed', error);
     }
   }
   function* fetchQuestionSaga(action) {
@@ -19,7 +19,7 @@ function* fetchProfileBookSaga() {
       const response = yield axios.get('/quiz');
       yield put({ type: 'SET_QUIZ', payload: response.data });
     } catch (error) {
-      console.log('Secrets get request failed', error);
+      console.log('quiz get request failed', error);
     }
   }
 

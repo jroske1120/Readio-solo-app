@@ -9,14 +9,11 @@ class AddStudentPage extends Component {
     return (
       <div>
         <h1 id="welcome">Add Student Page!</h1>
-        <p>Your ID is: {this.props.user.id}</p>
-        <h2>You will only see this if is_teacher = true!</h2>
 
         <form>
           <input />
           <input />
         </form>
-
         <button>Add This Student to your Class!</button>
         <button onClick={() => {
           this.props.history.push('/teacher');
@@ -24,8 +21,6 @@ class AddStudentPage extends Component {
           Back to Teacher Page
           </button>
         <br></br>
-        <LogOutButton className="log-in" />
-
       </div>
     );
   }

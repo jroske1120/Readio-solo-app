@@ -60,7 +60,9 @@ class BookSearchPage extends Component {
         <form 
           onSubmit={this.handleSubmit}
         >
-          <input type="text" onChange={this.handleChange} placeholder="Search"></input>
+          <input 
+          type="text"
+          onChange={this.handleChange} placeholder="Search"></input>
           <button type="submit">Search</button>
         </form>
         {/* {this.props.reduxState.searchRed} */}

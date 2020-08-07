@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 
 const LogOutButton = props => (
   <IconButton>
-    <img src="https://cdn.onlinewebfonts.com/svg/img_248752.png"
+    <ExitToAppRoundedIcon
       alt="Log Out"
       title="Log Out"
       height="30px"

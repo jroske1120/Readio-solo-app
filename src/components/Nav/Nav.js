@@ -5,6 +5,8 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import IconButton from '@material-ui/core/IconButton';
 import { withRouter } from 'react-router-dom';
+import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
+import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
@@ -15,8 +17,7 @@ const Nav = (props) => (
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
-        {props.reduxState.user.id ? (<IconButton><img
-          src="https://image.flaticon.com/icons/png/512/46/46285.png"
+        {props.reduxState.user.id ? (<IconButton><AccountCircleRoundedIcon
           alt="Profile"
           title="Profile"
           height="30px"
@@ -30,7 +31,7 @@ const Nav = (props) => (
         <>
           <Link to="/search">
             <IconButton>
-            <img src="https://lh3.googleusercontent.com/proxy/3DvzTlgC3H4AF2p_ofT4zZbmoKj0GYr7H69AZg2tbtqWnPXjq3uWq6kg4Xd7FEIQsOKdnqu34kWCKiZahm5uQpqzUppCAUM"
+            <SearchRoundedIcon
           alt="Book Search"
           title="Book Search"
           height="30px"  

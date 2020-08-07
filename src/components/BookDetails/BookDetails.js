@@ -46,7 +46,6 @@ class BookDetails extends Component {
         return (
             <div>
 
-                <h2>Book details</h2>
                 {this.props.reduxState.details.map(item =>
 
                     <Grid key={item.book_id}
@@ -57,16 +56,17 @@ class BookDetails extends Component {
                             variant="outlined"
                             className={classes.card} >
                             <CardActionArea>
+                                <Typography
+                                    gutterBottom variant="h5" component="h5">
+                                    {item.book_title}
+                                </Typography>
                                 <CardMedia
                                     className={classes.media}
                                     component="img"
                                     image={item.book_image}
                                     alt={item.book_title} />
                                 <CardContent>
-                                    <Typography
-                                        gutterBottom variant="h5" component="h5">
-                                        {item.book_title}
-                                    </Typography>
+
                                     <hr color="black" />
                                     <Typography
                                         variant="body2" component="p">

@@ -15,7 +15,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             res.send(response.data);
         })
         .catch((error) => {
-            console.log('error getting trending', error);
+            console.log('error getting books', error);
             res.sendStatus(500);
         })
 })

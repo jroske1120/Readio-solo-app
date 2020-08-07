@@ -6,9 +6,9 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const router = express.Router();
 
 router.get('/', rejectUnauthenticated, (req, res) => {
-    console.log('req.user:', req.user.id);
-    let query = `Select distinct "user"."username" from user_book
-    join "user" on "user"."id" = user_book.user_id
+    if(req.user.is_teacher){
+    console.log('req.user:', req.user.is_teacher);
+    let query = `Select * from "user"
     where is_teacher = false;`;
     pool.query(query)
         .then((results) => {
@@ -18,6 +18,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             console.log('Error making SELECT for user:', error);
             res.sendStatus(500);
         });
+    } else {
+        res.sendStatus(500);
+    }
 } 
 );
 

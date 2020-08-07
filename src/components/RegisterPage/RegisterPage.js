@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class RegisterPage extends Component {
   state = {
     username: '',
     password: '',
-    is_teacher: '',
+    is_teacher: 'false',
   };
 
   registerUser = (event) => {
@@ -21,7 +21,7 @@ class RegisterPage extends Component {
         },
       });
     } else {
-      this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
+      this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
     }
   } // end registerUser
 
@@ -69,12 +69,18 @@ class RegisterPage extends Component {
           <div>
             <label htmlFor="is_teacher">
               Are you a teacher?
-              <input
+              <select 
+              
+              onChange={this.handleInputChangeFor('is_teacher')}>
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+              {/* <input
                 type="is_teacher"
                 name="is_teacher"
                 value={this.state.is_teacher}
                 onChange={this.handleInputChangeFor('is_teacher')}
-              />
+              /> */}
             </label>
           </div>
           <div>
@@ -90,7 +96,7 @@ class RegisterPage extends Component {
           <button
             type="button"
             className="link-button"
-            onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
+            onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
           >
             Login
           </button>

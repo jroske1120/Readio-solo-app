@@ -10,6 +10,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import BookListItem from '../BookListItem/BookListItem'
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const styles = {
   card: {
@@ -23,6 +24,10 @@ const styles = {
     height: 250,
     width: 'auto',
     marginLeft: 85
+  },
+  root: {
+    height: 250,
+    width: '30%',
   },
 };
 
@@ -52,7 +57,7 @@ class BookSearchPage extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <form
+        <form 
           onSubmit={this.handleSubmit}
         >
           <input type="text" onChange={this.handleChange} placeholder="Search"></input>
@@ -61,7 +66,7 @@ class BookSearchPage extends Component {
         {/* {this.props.reduxState.searchRed} */}
         {this.props.reduxState.search.map((item, index) =>
           <BookListItem
-            key={index} item={item} />)}  
+            key={index} item={item} />)}
       </div>
     );
   }

@@ -8,8 +8,11 @@ const router = express.Router();
 router.get('/', rejectUnauthenticated, (req, res) => {
     if(req.user.is_teacher){
     console.log('req.user:', req.user.is_teacher);
-    let query = `Select * from "user"
-    where is_teacher = false;`;
+    let query = `select user_id as id, array_agg(book_title) as books, "user"."username" as username from user_book
+    join "user" on "user"."id" = user_book.user_id
+    where is_teacher = false
+    group by user_id, "user"."username"
+    ;`;
     pool.query(query)
         .then((results) => {
             res.send(results.rows)

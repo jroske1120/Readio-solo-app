@@ -1,11 +1,17 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0px;
+    background-image: linear-gradient(to right,#6062c3, #2ebf91);
+
 }
 
 .alert {
     background-color: #ff4545;
     margin: 50px;
+}
+
+h2 {
+    text-align: center;
 }
 
 form {

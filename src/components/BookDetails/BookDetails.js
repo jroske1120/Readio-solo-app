@@ -66,13 +66,6 @@ class BookDetails extends Component {
                                     <Typography
                                         gutterBottom variant="h5" component="h5">
                                         {item.book_title}
-                                        {item.finish_book === false ?
-                                            <button
-                                                onClick={() => this.finishBook(item)}
-                                            >Finished? Click to Finish!</button>
-                                            :
-                                            <h5>Finished!</h5>
-                                        }
                                     </Typography>
                                     <hr color="black" />
                                     <Typography
@@ -87,15 +80,18 @@ class BookDetails extends Component {
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
-                            <button><a
-                                href={item.book_text}
-                                rel="noopener noreferrer"
-                                target="_blank">
-                                Read it!
-                        </a></button>
-                            <button onClick={() => {
-                                this.props.history.push('/quiz');
-                            }}>Take the quiz!</button>
+
+                            {item.finish_book === false ?
+                                <button><a
+                                    href={item.book_text}
+                                    rel="noopener noreferrer"
+                                    target="_blank">
+                                    Read it!
+                </a></button>
+                                :
+                                <><span>You finished!</span><button onClick={() => {
+                                    this.props.history.push('/quiz');
+                                }}>Take the quiz!</button></>}
                             {/* <button onClick={this.goToDetails}>See details</button> */}
                         </Card>
                     </Grid>

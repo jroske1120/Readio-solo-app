@@ -37,29 +37,15 @@ class QuizPage extends Component {
         return (
             <div>
                 <h1 id="welcome">Quiz Page!</h1>
-                <p>Your ID is: {this.props.reduxState.user.id}</p>
-                <button onClick={() => {
-                    this.props.history.push('/search');
-                }} >
-                    Search for a Book!
-          </button>
+               
                 {/* map out books that have been added to server based on id */}
-                {/* {JSON.stringify(this.props.reduxState.questions[0])} */}
-                {this.props.reduxState.questions.map(item => 
-                  <ol> <li>{item.question_1}</li> 
-                   <li>{item.question_2}</li>
-                   <li>{item.question_3}</li>
-                   <li>{item.question_4}</li> </ol>
-                    )}
-
                 <h2>Quiz Questions will appear here</h2>
-                <ul>
-                    <li>Question 1</li>
-                    <li>Question 2</li>
-                </ul>
-                <br></br>
-                <LogOutButton className="log-in" />
-
+                {this.props.reduxState.questions.map(item =>
+                    <ol> <li>{item.question_1}</li>
+                        <li>{item.question_2}</li>
+                        <li>{item.question_3}</li>
+                        <li>{item.question_4}</li> </ol>
+                )}
             </div>
         );
     }

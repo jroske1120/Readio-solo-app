@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
-      <h2 className="nav-title">Readio {props.reduxState.user.username}</h2>
+      <h1 className="nav-title">Readio  {props.reduxState.user.username}</h1>
     </Link>
     <div className="nav-right">
       <Link  to="/home">

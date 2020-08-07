@@ -13,6 +13,11 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import RemoveCircleRoundedIcon from '@material-ui/icons/RemoveCircleRounded';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import ListIcon from '@material-ui/icons/List';
+import MenuItem from '@material-ui/core/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 const styles = (theme) => ({
   root: {
@@ -20,11 +25,13 @@ const styles = (theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: 'linear-gradient(to right,#6062c3, #2ebf91)',
+    paddingTop: 50,
   },
   gridList: {
     width: 400,
     height: 450,
+    margin: 0,
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
@@ -42,46 +49,60 @@ class UserPage extends Component {
   }
 
   deleteBook = (item) => {
-    this.props.dispatch({type: 'DELETE_BOOK', payload: item})
+    this.props.dispatch({ type: 'DELETE_BOOK', payload: item })
   }
 
   finishBook = (item) => {
-    this.props.dispatch({type: 'FINISH_BOOK', payload: item})
+    this.props.dispatch({ type: 'FINISH_BOOK', payload: item })
   }
+
   // This is main user profile
   render() {
     const { classes } = this.props;
     return (
       <>
-      <div>
-        <h2>Here are your books</h2>
-        <div className={classes.root}>
-      <GridList cellHeight={300} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-          {/* <ListSubheader component="div">Books</ListSubheader> */}
-        </GridListTile>
+        <div>
+          <h2>{this.props.reduxState.user.username}, here are your books</h2>
+          <div className={classes.root}>
+            <GridList cellHeight={300} className={classes.gridList}>
+              <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+                {/* <ListSubheader component="div">Books</ListSubheader> */}
+              </GridListTile>
 
-        {this.props.reduxState.profileBooks.map(item => (
-          <GridListTile 
-          key={item.book_id}>
-          <img src={item.book_image} alt={item.book_title} 
-          onClick={() => this.goToDetails(item)}
-          />
-          <GridListTileBar
-              title={item.book_title}
-              subtitle={<span>by: {item.book_authors}</span>}
-              actionIcon={
-                <IconButton aria-label={`info about ${item.book_title}`} className={classes.icon}>
-                  <RemoveCircleRoundedIcon onClick={() => this.deleteBook(item)}/>
-                </IconButton>
-              }
-            />
-          </GridListTile>
-        ))}
-      </GridList>
-    </div>
-        
-{/* 
+              {this.props.reduxState.profileBooks.map(item => (
+                <GridListTile 
+                  key={item.book_id}>
+                  <img src={item.book_image} alt={item.book_title} 
+                    onClick={() => this.goToDetails(item)}
+                  />
+                  <GridListTileBar
+                    title={item.book_title}
+                    subtitle={<span>by: {item.book_authors}</span>}
+                    actionIcon={
+                      <PopupState variant="popover" popupId="demo-popup-menu">
+                        {(popupState) => (
+                          <React.Fragment>
+                            <Button className={classes.icon} {...bindTrigger(popupState)}>
+                              <ListIcon/>
+          </Button>
+                            <Menu {...bindMenu(popupState)}>
+                              <MenuItem onClick={() => this.finishBook(item)}>Finish</MenuItem>
+                              <MenuItem onClick={() => this.deleteBook(item)}>Remove</MenuItem>
+                            </Menu>
+                          </React.Fragment>
+                        )}
+                      </PopupState>
+                      // <IconButton aria-label={`info about ${item.book_title}`} className={classes.icon}>
+                      //   <RemoveCircleRoundedIcon onClick={() => this.deleteBook(item)}/>
+                      // </IconButton>
+                    }
+                  />
+                </GridListTile>
+              ))}
+            </GridList>
+          </div>
+
+          {/* 
                   <Typography
                     gutterBottom variant="h5" component="h5">
                     {item.book_title}
@@ -98,19 +119,19 @@ class UserPage extends Component {
                     {item.book_description}
               
         )} */}
-       
-        {/* Conditional rendering if user is a teacher
+
+          {/* Conditional rendering if user is a teacher
         then button to see class info (link to /teacher) displays */}
-        {this.props.reduxState.user.is_teacher ?
-          <button onClick={() => {
-            this.props.history.push('/teacher');
-          }} >
-            See Class Info</button>
-          : <></>
-        }
-      </div>
+          {this.props.reduxState.user.is_teacher ?
+            <button onClick={() => {
+              this.props.history.push('/teacher');
+            }} >
+              See Class Info</button>
+            : <></>
+          }
+        </div>
       </>
-      ); 
+    );
   }
 }
 

@@ -55,12 +55,24 @@ function* finishBookSaga(action) {
     }
 }
 
+// function* unFinishBookSaga(action) {
+//   console.log('in finishBookSaga...', action.payload)
+//   try {
+//       // get request that gets movies from database
+//       const response = yield axios.put('/profile/unfinished/'+ action.payload.book_id)
+//       yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
+//   } catch (error) {
+//       console.log('issue with finishBookSaga :', error)
+//   }
+// }
+
 
 function* profileBooksSaga() {
     yield takeLatest('FETCH_PROFILE_BOOKS', fetchProfileBookSaga);
     yield takeLatest('FETCH_DETAILS', fetchDetailSaga);
     yield takeLatest('DELETE_BOOK', deleteBookSaga);
     yield takeLatest('FINISH_BOOK', finishBookSaga);
+    // yield takeLatest('UNFINISH_BOOK', unFinishBookSaga);
     yield takeLatest('FETCH_QUIZ', fetchQuestionSaga);
   }
 

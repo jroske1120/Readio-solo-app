@@ -27,6 +27,21 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 } 
 );
 
+router.delete('/:id', rejectUnauthenticated,(req, res) => {
+    console.log('Delete request for id', req.params.id);
+    console.log('Delete request for user.id', req.user.id);
+    let query = 
+    `DELETE FROM "user"
+    WHERE id = ${req.params.id}
+    ;`;
+    pool.query(query)
+    .then((result) => {
+        res.send(result.rows);
+    }).catch((error) => {
+        console.log('Error DELETE /student', error);
+        res.sendStatus(500);
+    })
+});
 //add a student
 router.post('/', (req, res) => {
 

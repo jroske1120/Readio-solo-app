@@ -14,7 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
   table: {
     // maxWidth: 650,
-    padding: 40, 
+    padding: 40,
   },
   container: {
     // minWidth: 650,
@@ -27,6 +27,10 @@ class TeacherPage extends Component {
     // still need reducer and saga, and router for this
   }
 
+  removeStudent = (student) => {
+    this.props.dispatch({ type: 'REMOVE_STUDENT', payload: student })
+  }
+
   // This is main user profile
   render() {
     const { classes } = this.props;
@@ -35,34 +39,40 @@ class TeacherPage extends Component {
         <h1 id="welcome"></h1>
         <h2>Students will appear here</h2>
         <TableContainer className={classes.container} component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Student ID</TableCell>
-            <TableCell >Username</TableCell>
-            <TableCell >Books Read</TableCell>
-            <TableCell >Avg. Quiz Score</TableCell>
-            <TableCell >Remove Student</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        {this.props.reduxState.students.map(student => (
-           <TableRow key={student.id}>
-           <TableCell component="th" scope="row">
-          {student.id}
-          </TableCell>
-              <TableCell >{student.username}</TableCell>
-              <TableCell >{student.books.join(', ')}</TableCell>
-              <TableCell>0</TableCell>
-              <TableCell ><button>Remove</button></TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-          
-          
-        
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Student ID</TableCell>
+                <TableCell >Username</TableCell>
+                <TableCell >Books Read</TableCell>
+                <TableCell >Avg. Quiz Score</TableCell>
+                <TableCell >Remove Student</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.props.reduxState.students.map(student => (
+                <TableRow key={student.id}>
+                  <TableCell component="th" scope="row">
+                    {student.id}
+                  </TableCell>
+                  <TableCell >{student.username}</TableCell>
+                  <TableCell >{student.books.join(', ')}</TableCell>
+                  <TableCell>0</TableCell>
+                  <TableCell >
+                    <button
+                      onClick={() =>
+                        this.removeStudent(student)}>
+                      Remove
+                  </button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+
+
         <button onClick={() => {
           this.props.history.push('/addstudent');
         }} >

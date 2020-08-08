@@ -9,8 +9,21 @@ function* fetchStudents(action) {
       console.log('Secrets get request failed', error);
     }
   }
+
+  function* removeStudentSaga(action) {
+    console.log('in removeStudentSaga...', action.payload)
+    try {
+        // get request that gets movies from database
+        const response = yield axios.delete('/student/'+ action.payload.id)
+        yield put({ type: 'FETCH_STUDENTS', payload: response.data })
+    } catch (error) {
+        console.log('issue with removeStudentSaga :', error)
+    }
+}
   function* studentSaga() {
     yield takeLatest('FETCH_STUDENTS', fetchStudents);
+    yield takeLatest('REMOVE_STUDENT', removeStudentSaga);
+
   }
 
   export default studentSaga;

@@ -57,7 +57,7 @@ const styles = (theme) => ({
     color: 'rgba(255, 255, 255, 0.54)',
   },
   tile: {
-    padding: 5,
+    // padding: 5,
   },
 });
 

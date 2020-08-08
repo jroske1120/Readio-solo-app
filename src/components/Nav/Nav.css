@@ -1,7 +1,7 @@
 @import url('//db.onlinewebfonts.com/c/56e51b15f9bcb363331159989c474c45?family=TradeGothicforNike365-BdCn');
 
 .nav-title {
-    font-size: 3em;
+    font-size: 200%;
     /* font-weight: 200; */
     display: inline-block;
     color: rgb(243, 242, 242);
@@ -13,14 +13,14 @@
 .nav {
   overflow: hidden;
   background-image: linear-gradient(to right,#0030ce, #0044ff);
-  text-align: center;
+  /* text-align: center; */
   padding: 10px;
   margin: 1px;
 }
 
 .nav-link {
   float: left;
-  color: #f2f2f2;
+  color: rgb(223, 223, 223);
   background-color: #00acb0;
   text-align: center;
   padding: 30px 5px;

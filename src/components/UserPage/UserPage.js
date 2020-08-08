@@ -34,22 +34,30 @@ const styles = (theme) => ({
     padding: '2px',
     border: '1px solid silver',
     borderRadius: '20px',
-    boxShadow: '0 30px 20px black',
+    boxShadow: '10px 30px 20px black',
+    width: '40%',
+    maxWidth: 400,
+    minWidth: 350,
   },
   gridList: {
-    width: 400,
-    height: 450,
+    // width: 400,
+    height: 400,
     margin: 50,
-    // paddingBottom: 30,
-    border: '40px solid black',
-    borderRadius: '20px', 
+    // paddingBottom: 10,
+    border: 'double 40px transparent',
+    borderRadius: '20px',
     // outline: '1px solid white',
-    boxShadow: 'inset 0 0 9px white',  
+    boxShadow: 'inset 0 0 9px white',
     backgroundColor: 'black',
-   backgroundImage: `url(${background})`,
+    backgroundOrigin: 'border-box',
+    backgroundClip: 'content-box, border-box',
+    backgroundImage: `linear-gradient(#363636, #363636), radial-gradient(circle at top right, #6d6d6d,black)`,
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
+  },
+  tile: {
+    padding: 5,
   },
 });
 
@@ -80,42 +88,42 @@ class UserPage extends Component {
           <h2>{this.props.reduxState.user.username}, here are your books</h2>
           <div className={classes.root}>
             <div className={classes.border}>
-            <GridList cellHeight={300} className={classes.gridList}>
-              <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-                {/* <ListSubheader component="div">Books</ListSubheader> */}
-              </GridListTile>
-
-              {this.props.reduxState.profileBooks.map(item => (
-                <GridListTile 
-                  key={item.book_id}>
-                  <img src={item.book_image} alt={item.book_title} 
-                    onClick={() => this.goToDetails(item)}
-                  />
-                  <GridListTileBar
-                    title={item.book_title}
-                    subtitle={<span>by: {item.book_authors}</span>}
-                    actionIcon={
-                      <PopupState variant="popover" popupId="demo-popup-menu">
-                        {(popupState) => (
-                          <React.Fragment>
-                            <Button className={classes.icon} {...bindTrigger(popupState)}>
-                              <ListIcon/>
-          </Button>
-                            <Menu {...bindMenu(popupState)}>
-                              <MenuItem onClick={() => this.finishBook(item)}>Finish</MenuItem>
-                              <MenuItem onClick={() => this.deleteBook(item)}>Remove</MenuItem>
-                            </Menu>
-                          </React.Fragment>
-                        )}
-                      </PopupState>
-                      // <IconButton aria-label={`info about ${item.book_title}`} className={classes.icon}>
-                      //   <RemoveCircleRoundedIcon onClick={() => this.deleteBook(item)}/>
-                      // </IconButton>
-                    }
-                  />
+              <GridList cellHeight={300} className={classes.gridList}>
+                <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+                  {/* <ListSubheader component="div">Books</ListSubheader> */}
                 </GridListTile>
-              ))}
-            </GridList></div>
+
+                {this.props.reduxState.profileBooks.map(item => (
+                  <GridListTile className={classes.tile}
+                    key={item.book_id}>
+                    <img src={item.book_image} alt={item.book_title}
+                      onClick={() => this.goToDetails(item)}
+                    />
+                    <GridListTileBar
+                      title={item.book_title}
+                      subtitle={<span>by: {item.book_authors}</span>}
+                      actionIcon={
+                        <PopupState variant="popover" popupId="demo-popup-menu">
+                          {(popupState) => (
+                            <React.Fragment>
+                              <Button className={classes.icon} {...bindTrigger(popupState)}>
+                                <ListIcon />
+                              </Button>
+                              <Menu {...bindMenu(popupState)}>
+                                <MenuItem onClick={() => this.finishBook(item)}>Finish</MenuItem>
+                                <MenuItem onClick={() => this.deleteBook(item)}>Remove</MenuItem>
+                              </Menu>
+                            </React.Fragment>
+                          )}
+                        </PopupState>
+                        // <IconButton aria-label={`info about ${item.book_title}`} className={classes.icon}>
+                        //   <RemoveCircleRoundedIcon onClick={() => this.deleteBook(item)}/>
+                        // </IconButton>
+                      }
+                    />
+                  </GridListTile>
+                ))}
+              </GridList></div>
           </div>
 
           {/* 

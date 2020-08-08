@@ -30,7 +30,7 @@ input {
 }
 
 .log-in, .log-out, .register {
-  background-color: #00acb0;
+  background-color: #0012b0;
   border-radius: 4px;
   color: #f8f8f8;
   min-height: 50px;
@@ -53,7 +53,4 @@ input {
     outline:0;
     border-bottom:1px solid #444; 
     cursor: pointer;
-}
-ul {
-    margin: 0;
 }

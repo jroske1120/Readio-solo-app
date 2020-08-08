@@ -9,7 +9,7 @@ console.log('api key', process.env.API_KEY);
 
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('hit server', req.query.search);
-    Axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.query.search}&key=${process.env.API_KEY}&fields=items/accessInfo/webReaderLink, items/volumeInfo(title, authors, description, imageLinks/thumbnail)&orderBy=relevance&limit=2
+    Axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.query.search}&key=${process.env.API_KEY}&limit=2&fields=items/accessInfo/webReaderLink, items/volumeInfo(title, authors, description, imageLinks/thumbnail)&orderBy=relevance
   `)
         .then((response) => {
             res.send(response.data);

@@ -18,20 +18,35 @@ import Menu from '@material-ui/core/Menu';
 import ListIcon from '@material-ui/icons/List';
 import MenuItem from '@material-ui/core/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-
+import background from '/Users/joelroske/Documents/Prime/prime-solo-project-master/src/images/phonebackground.jpg';
 const styles = (theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: 'linear-gradient(to right,#6062c3, #2ebf91)',
-    paddingTop: 50,
+    // overflow: 'hidden',
+    paddingTop: 0,
+    padding: 10,
+
+  },
+  border: {
+    position: 'relative',
+    padding: '2px',
+    border: '1px solid silver',
+    borderRadius: '20px',
+    boxShadow: '0 30px 20px black',
   },
   gridList: {
     width: 400,
     height: 450,
-    margin: 0,
+    margin: 50,
+    // paddingBottom: 30,
+    border: '40px solid black',
+    borderRadius: '20px', 
+    // outline: '1px solid white',
+    boxShadow: 'inset 0 0 9px white',  
+    backgroundColor: 'black',
+   backgroundImage: `url(${background})`,
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
@@ -64,6 +79,7 @@ class UserPage extends Component {
         <div>
           <h2>{this.props.reduxState.user.username}, here are your books</h2>
           <div className={classes.root}>
+            <div className={classes.border}>
             <GridList cellHeight={300} className={classes.gridList}>
               <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
                 {/* <ListSubheader component="div">Books</ListSubheader> */}
@@ -99,7 +115,7 @@ class UserPage extends Component {
                   />
                 </GridListTile>
               ))}
-            </GridList>
+            </GridList></div>
           </div>
 
           {/* 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Dekko');
+@import url('//db.onlinewebfonts.com/c/56e51b15f9bcb363331159989c474c45?family=TradeGothicforNike365-BdCn');
 
 .nav-title {
     font-size: 3em;
@@ -6,7 +6,7 @@
     display: inline-block;
     color: black;
     /* padding-left: 35%; */
-    font-family: 'Dekko';
+    font-family: 'Futura-CondensedMedium';
     margin: 0;
 }
 
@@ -14,6 +14,8 @@
   overflow: hidden;
   background-image: linear-gradient(to right,#6062c3, #2ebf91);
   text-align: center;
+  padding: 10px;
+  margin: 1px;
 }
 
 .nav-link {

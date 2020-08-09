@@ -27,7 +27,6 @@ const styles = (theme) => ({
     // overflow: 'hidden',
     paddingTop: 0,
     padding: 10,
-
   },
   border: {
     position: 'relative',
@@ -85,10 +84,12 @@ class UserPage extends Component {
     return (
       <>
         <div>
-          <h2>{this.props.reduxState.user.username}, here are your books</h2>
+          <h2>
+            {/* {this.props.reduxState.user.username}, here are your books */}
+            </h2>
           <div className={classes.root}>
             <div className={classes.border}>
-              <GridList cellHeight={300} className={classes.gridList}>
+              <GridList cellHeight={200} className={classes.gridList}>
                 <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
                   {/* <ListSubheader component="div">Books</ListSubheader> */}
                 </GridListTile>

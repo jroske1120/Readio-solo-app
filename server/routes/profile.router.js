@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/', rejectUnauthenticated, (req, res) => {
         console.log('req.user:', req.user.id);
-        let query = `SELECT * FROM user_book WHERE user_id = $1;`;
+        let query = `SELECT * FROM user_book WHERE user_id = $1 AND book_title is not null;`;
         pool.query(query, [req.user.id])
             .then(results => res.send(results.rows))
             .catch(error => {

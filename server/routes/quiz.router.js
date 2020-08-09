@@ -16,10 +16,34 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             console.log('Error making SELECT for quizzes:', error);
             res.sendStatus(500);
         });
-} 
+}
 );
+//post quiz answers
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('PUT req.body: ', req.body);
+    console.log('PUT req.user: ', req.user);
+    console.log('PUT req.params: ', req.params.id);
 
-router.post('/', (req, res) => {
+    const answer = req.body;
+    const queryString = `UPDATE "user_book" SET
+    question_1 = $1, question_2=$2, 
+    question_3=$3, question_4=$4, 
+    finish_quiz=$5
+    WHERE book_id = ${answer.book_id} 
+    AND user_id = ${req.user.id};`;
 
+    pool.query(queryString,
+        [answer.question_1, answer.question_2, 
+        answer.question_3, answer.question_4, 
+        answer.finish_quiz
+        ]).then((result) => {
+            // success
+            console.log("PUT successful")
+            res.send(result.rows);
+        }).catch((err) => {
+            // failure
+            console.log("----->Error in PUT:", err);
+            res.sendStatus(500)
+        })
 });
 module.exports = router;

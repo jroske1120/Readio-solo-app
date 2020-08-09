@@ -14,7 +14,7 @@ class AddStudentPage extends Component {
 
     if (this.state.username && this.state.password && this.state.is_teacher) {
       this.props.dispatch({
-        type: 'REGISTER',
+        type: 'ADD_STUDENT',
         payload: {
           username: this.state.username,
           password: this.state.password,

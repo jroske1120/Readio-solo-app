@@ -20,9 +20,19 @@ function* fetchStudents(action) {
         console.log('issue with removeStudentSaga :', error)
     }
 }
+function* addStudentSaga(action){
+  console.log('trying to send:', action.payload)
+  try {
+    const response = yield axios.post('/student', action.payload)
+    yield put({type:"FETCH_STUDENTS", payload: response.data})
+  } catch (error) {
+    console.log('issue with post saga:', error)
+  }
+}
   function* studentSaga() {
     yield takeLatest('FETCH_STUDENTS', fetchStudents);
     yield takeLatest('REMOVE_STUDENT', removeStudentSaga);
+    yield takeLatest('ADD_STUDENT', addStudentSaga);
 
   }
 

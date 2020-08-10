@@ -24,28 +24,29 @@ const styles = {
 class TeacherPage extends Component {
   state = {
     quiz_feedback: ' ',
-    questiquiz_scoreon_2: ' ',
-    
-};
+    quiz_score: ' ',
+  };
 
-submitFeedback = (event) => {
-    event.preventDefault();
-    console.log(this.state)
+  submitFeedback = (questions) => {
+    // event.preventDefault();
+    console.log('state is..', this.state)
+    console.log('questions are,', questions)
     this.props.dispatch({
-        type: 'SUBMIT_FEEDBACK',
-        payload: {
-          quiz_feedback: this.state.quiz_feedback,
-            question_2: this.state.questiquiz_scoreon_2,
-            // book_id: this.props.reduxState.details[0].book_id,
-        },     
+      type: 'SUBMIT_FEEDBACK',
+      payload: {
+        quiz_feedback: this.state.quiz_feedback,
+        quiz_score: this.state.quiz_score,
+        user_id: this.props.reduxState.questions[0].user_id,
+        book_id: questions.book_id,
+      },
     });
-} // end registerUser
+  } // end registerUser
 
-handleInputChangeFor = propertyName => (event) => {
+  handleInputChangeFor = propertyName => (event) => {
     this.setState({
-        [propertyName]: event.target.value,
+      [propertyName]: event.target.value,
     });
-}
+  }
 
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_STUDENTS' });
@@ -85,9 +86,9 @@ handleInputChangeFor = propertyName => (event) => {
                   <TableCell >{student.username}</TableCell>
                   <TableCell >{student.books.join(', ')}</TableCell>
                   <TableCell><button
-                      onClick={() =>
-                        this.viewQuiz(student)}>
-                      Grade
+                    onClick={() =>
+                      this.viewQuiz(student)}>
+                    Grade
                   </button></TableCell>
                   <TableCell >
                     <button
@@ -119,30 +120,36 @@ handleInputChangeFor = propertyName => (event) => {
                 <TableCell >Question 4</TableCell>
                 <TableCell >Quiz Feedback</TableCell>
                 <TableCell >Quiz Score</TableCell>
+                <TableCell >Submit Score</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {this.props.reduxState.questions.map((questions, index) => (
-                <TableRow key={index}>
+              {this.props.reduxState.questions.map((questions) => (
+                <TableRow key={questions.book_id}>
                   <TableCell component="th" scope="row">
-                    {questions.book_title}
+                    {questions.book_id}
                   </TableCell>
                   <TableCell >{questions.question_1}</TableCell>
                   <TableCell >{questions.question_2}</TableCell>
                   <TableCell >{questions.question_3}</TableCell>
                   <TableCell >{questions.question_4}</TableCell>
                   <TableCell><textarea
-                type="textexttArea"
-                name="quiz_feedback"
-                value={this.state.quiz_feedback}
-                onChange={this.handleInputChangeFor('quiz_feedback')}
-              /></TableCell>
+                    type="textexttArea"
+                    name="quiz_feedback"
+                    value={questions.quiz_feedback}
+                    onChange={this.handleInputChangeFor('quiz_feedback')}
+                  /></TableCell>
                   <TableCell ><input
-                type="number"
-                name="quiz_score"
-                value={this.state.quiz_score}
-                onChange={this.handleInputChangeFor('quiz_score')}
-              />
+                    type="number"
+                    name="quiz_score"
+                    value={questions.quiz_score}
+                    onChange={this.handleInputChangeFor('quiz_score')}
+                  />
+                  </TableCell>
+                  <TableCell>
+                    <button
+                    onClick={() => this.submitFeedback(questions)}>
+                    Submit</button>
                   </TableCell>
                 </TableRow>
               ))}

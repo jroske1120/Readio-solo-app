@@ -33,7 +33,6 @@ function* addStudentSaga(action){
     yield takeLatest('FETCH_STUDENTS', fetchStudents);
     yield takeLatest('REMOVE_STUDENT', removeStudentSaga);
     yield takeLatest('ADD_STUDENT', addStudentSaga);
-
   }
 
   export default studentSaga;

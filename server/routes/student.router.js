@@ -67,4 +67,29 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         client.release()
     }
 });
+
+//post quiz feedback
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('PUT req.body: ', req.body);
+    console.log('PUT req.user: ', req.user);
+    console.log('PUT req.params: ', req.params.id);
+
+    const feedback = req.body;
+    const queryString = `UPDATE "user_book" SET
+    quiz_feedback = $1, quiz_score=$2 
+    WHERE book_id = ${feedback.book_id} 
+    AND user_id = ${feedback.user_id};`;
+
+    pool.query(queryString,
+        [feedback.quiz_feedback, feedback.quiz_score
+        ]).then((result) => {
+            // success
+            console.log("PUT successful")
+            res.send(result.rows);
+        }).catch((err) => {
+            // failure
+            console.log("----->Error in PUT:", err);
+            res.sendStatus(500)
+        })
+});
 module.exports = router;

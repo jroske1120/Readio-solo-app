@@ -30,13 +30,15 @@ class TeacherPage extends Component {
   removeStudent = (student) => {
     this.props.dispatch({ type: 'REMOVE_STUDENT', payload: student })
   }
-
+  viewQuiz = (student) => {
+    this.props.dispatch({ type: 'FETCH_QUIZZES', payload: student })
+  }
   // This is main user profile
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <h1 id="welcome"></h1>
+        <h1 id="welcome"> </h1>
         <h2>Students will appear here</h2>
         <TableContainer className={classes.container} component={Paper}>
           <Table className={classes.table} aria-label="simple table">
@@ -57,7 +59,11 @@ class TeacherPage extends Component {
                   </TableCell>
                   <TableCell >{student.username}</TableCell>
                   <TableCell >{student.books.join(', ')}</TableCell>
-                  <TableCell>0</TableCell>
+                  <TableCell><button
+                      onClick={() =>
+                        this.viewQuiz(student)}>
+                      Grade
+                  </button></TableCell>
                   <TableCell >
                     <button
                       onClick={() =>
@@ -71,14 +77,43 @@ class TeacherPage extends Component {
           </Table>
         </TableContainer>
 
-
-
         <button onClick={() => {
           this.props.history.push('/addstudent');
         }} >
           Add a student!
           </button>
         {/* map out books that have been added to server based on id */}
+        <TableContainer className={classes.container} component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell >Book Title</TableCell>
+                <TableCell >Question 1</TableCell>
+                <TableCell >Question 2</TableCell>
+                <TableCell >Question 3</TableCell>
+                <TableCell >Question 4</TableCell>
+                <TableCell >Quiz Feedback</TableCell>
+                <TableCell >Quiz Score</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.props.reduxState.questions.map((questions, index) => (
+                <TableRow key={index}>
+                  <TableCell component="th" scope="row">
+                    {questions.book_title}
+                  </TableCell>
+                  <TableCell >{questions.question_1}</TableCell>
+                  <TableCell >{questions.question_2}</TableCell>
+                  <TableCell >{questions.question_3}</TableCell>
+                  <TableCell >{questions.question_4}</TableCell>
+                  <TableCell>Feedback</TableCell>
+                  <TableCell >Score
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
       </div>
     );

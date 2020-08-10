@@ -18,6 +18,22 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         });
 }
 );
+//get quiz for specific student
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('req.user:', req.user.id);
+    console.log('req.params.id:', req.params.id);
+    const query = `SELECT * from user_book
+    WHERE finish_quiz=true AND  user_id =${req.params.id};`;
+    pool.query(query)
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log('Error making SELECT for quiz:', error);
+            res.sendStatus(500);
+        });
+});
+
 //post quiz answers
 router.put('/:id', rejectUnauthenticated, (req, res) => {
     console.log('PUT req.body: ', req.body);

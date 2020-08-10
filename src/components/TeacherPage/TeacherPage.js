@@ -22,6 +22,31 @@ const styles = {
   },
 };
 class TeacherPage extends Component {
+  state = {
+    quiz_feedback: ' ',
+    questiquiz_scoreon_2: ' ',
+    
+};
+
+submitFeedback = (event) => {
+    event.preventDefault();
+    console.log(this.state)
+    this.props.dispatch({
+        type: 'SUBMIT_FEEDBACK',
+        payload: {
+          quiz_feedback: this.state.quiz_feedback,
+            question_2: this.state.questiquiz_scoreon_2,
+            // book_id: this.props.reduxState.details[0].book_id,
+        },     
+    });
+} // end registerUser
+
+handleInputChangeFor = propertyName => (event) => {
+    this.setState({
+        [propertyName]: event.target.value,
+    });
+}
+
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_STUDENTS' });
     // still need reducer and saga, and router for this
@@ -106,8 +131,18 @@ class TeacherPage extends Component {
                   <TableCell >{questions.question_2}</TableCell>
                   <TableCell >{questions.question_3}</TableCell>
                   <TableCell >{questions.question_4}</TableCell>
-                  <TableCell>Feedback</TableCell>
-                  <TableCell >Score
+                  <TableCell><textarea
+                type="textexttArea"
+                name="quiz_feedback"
+                value={this.state.quiz_feedback}
+                onChange={this.handleInputChangeFor('quiz_feedback')}
+              /></TableCell>
+                  <TableCell ><input
+                type="number"
+                name="quiz_score"
+                value={this.state.quiz_score}
+                onChange={this.handleInputChangeFor('quiz_score')}
+              />
                   </TableCell>
                 </TableRow>
               ))}

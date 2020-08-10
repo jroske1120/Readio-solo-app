@@ -9,9 +9,13 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Button from '@material-ui/core/Button';
 
-
-const styles = {
+const styles = (theme) => ({
     card: {
         width: 350,
         padding: 10,
@@ -24,14 +28,38 @@ const styles = {
         width: 'auto',
         marginLeft: 85
     },
-};
+    descr: {
+        fontSize: theme.typography.pxToRem(15),
+        fontWeight: theme.typography.fontWeightRegular,
+        width: '100%',
+        borderRadius: '2px',
+      },
+      readButton: {
+        backgroundColor: 'rgba(255, 255, 255, 0.54)',
+        boxShadow: 'inset 0 0 5px white',
+        border: '1px solid black',
+        float: 'left',
+        marginLeft: '5%',
+
+      },
+      addButton: {
+        backgroundColor: 'rgba(255, 255, 255, 0.54)',
+        boxShadow: 'inset 0 0 5px white',
+        border: '1px solid black',
+        float: 'right',
+        marginRight: '5%',
+      },
+      acc: {
+        borderRadius: '5px',
+      },
+});
 
 class BookListItem extends Component {
 
     //this.state.user.id
     addToProfile = (event) => {
-        console.log('book to add...', {...this.props.item})
-        this.props.dispatch({ type: 'ADD_BOOK', payload: {...this.props.item}})
+        console.log('book to add...', { ...this.props.item })
+        this.props.dispatch({ type: 'ADD_BOOK', payload: { ...this.props.item } })
         this.props.history.push('/home');
     }
     goToDetails = () => {
@@ -47,10 +75,11 @@ class BookListItem extends Component {
         return (
             <div>
                 <Grid
+                elevation={3}
                     container direction="column"
                     justify="center"
                     alignItems="center">
-                    <Card
+                    <Card 
                         variant="outlined"
                         className={classes.card} >
                         <CardActionArea>
@@ -64,12 +93,28 @@ class BookListItem extends Component {
                                     gutterBottom variant="h5" component="h5">
                                     {this.props.item.volumeInfo.title}
                                 </Typography>
-                                <hr color="black" />
+                                <Accordion className={classes.acc}>
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls="panel1a-content"
+                                        id="panel1a-header"
+                                    >
+                                        <Typography className={classes.descr}>
+                                            <b>What is this book about?</b>
+                                            </Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        <Typography>
+                                        {this.props.item.volumeInfo.description}
+                                </Typography>
+                                    </AccordionDetails>
+                                </Accordion>
+                                {/* <hr color="black" />
                                 <Typography
                                     variant="body2" component="p">
                                     {this.props.item.volumeInfo.description}
                                 </Typography>
-                                <hr />
+                                <hr /> */}
                                 <Typography
                                     variant="body2"
                                     color="textSecondary"
@@ -77,13 +122,17 @@ class BookListItem extends Component {
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
-                        <button><a
+                        <Button
+                        className={classes.readButton}
+                        ><a
                             href={this.props.item.accessInfo.webReaderLink}
                             rel="noopener noreferrer"
                             target="_blank">
                             Read it!
-                        </a></button>
-                        <button onClick={this.addToProfile}>Add to Profile</button>
+                        </a></Button>
+                        <Button 
+                        className={classes.addButton}
+                        onClick={this.addToProfile}>Add to Profile</Button>
                         {/* <button onClick={this.goToDetails}>See details</button> */}
                     </Card>
                 </Grid>

@@ -9,16 +9,13 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
-// import FlagRoundedIcon from '@material-ui/icons/FlagRounded';
 import IconButton from '@material-ui/core/IconButton';
-import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
-import RemoveCircleRoundedIcon from '@material-ui/icons/RemoveCircleRounded';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import CheckBoxRoundedIcon from '@material-ui/icons/CheckBoxRounded';
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import ListIcon from '@material-ui/icons/List';
-import MenuItem from '@material-ui/core/MenuItem';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-import background from '/Users/joelroske/Documents/Prime/prime-solo-project-master/src/images/phonebackground.jpg';
+import ChatIcon from '@material-ui/icons/Chat';
 const styles = (theme) => ({
   root: {
     display: 'flex',
@@ -54,6 +51,7 @@ const styles = (theme) => ({
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
+    padding: 3,
   },
   tile: {
     // padding: 5,
@@ -100,26 +98,27 @@ class UserPage extends Component {
                     <img src={item.book_image} alt={item.book_title}
                       onClick={() => this.goToDetails(item)}
                     />
-                    <GridListTileBar
-                      title={item.book_title}
-                      subtitle={<span>by: {item.book_authors}</span>}
+                    <GridListTileBar 
                       actionIcon={
-                        <PopupState variant="popover" popupId="demo-popup-menu">
-                          {(popupState) => (
-                            <React.Fragment>
-                              <Button className={classes.icon} {...bindTrigger(popupState)}>
-                                <ListIcon />
-                              </Button>
-                              <Menu {...bindMenu(popupState)}>
-                                <MenuItem onClick={() => this.finishBook(item)}>Finish</MenuItem>
-                                <MenuItem onClick={() => this.deleteBook(item)}>Remove</MenuItem>
-                              </Menu>
-                            </React.Fragment>
-                          )}
-                        </PopupState>
-                        // <IconButton aria-label={`info about ${item.book_title}`} className={classes.icon}>
-                        //   <RemoveCircleRoundedIcon onClick={() => this.deleteBook(item)}/>
-                        // </IconButton>
+                        <>
+                              {item.finish_book === false ?
+                             ( <IconButton className={classes.icon}
+                              onClick={() => this.finishBook(item)}>
+                                <CheckBoxOutlineBlankIcon />
+                              </IconButton>)
+                              :
+                              (<IconButton className={classes.icon}>
+                                  <CheckBoxRoundedIcon />
+                                  </IconButton>
+                                )
+                              }
+                              
+                              <IconButton aria-label={`Delete this book`} className={classes.icon}>
+                              <IndeterminateCheckBoxIcon onClick={() => this.deleteBook(item)}/>
+                              </IconButton>
+                            
+                              
+                              </>
                       }
                     />
                   </GridListTile>

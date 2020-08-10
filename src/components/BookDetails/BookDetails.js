@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 
 const styles = {
@@ -23,6 +24,12 @@ const styles = {
         height: 250,
         width: 'auto',
         marginLeft: 85
+    },
+    readButton: {
+        backgroundColor: 'rgba(255, 255, 255, 0.54)',
+        boxShadow: 'inset 0 0 5px white',
+        border: '1px solid black',
+        float: 'center',
     },
 };
 
@@ -66,7 +73,10 @@ class BookDetails extends Component {
                                     image={item.book_image}
                                     alt={item.book_title} />
                                 <CardContent>
-
+                                    <Typography
+                                        variant="body2" component="p">
+                                        By {item.book_authors}
+                                    </Typography>
                                     <hr color="black" />
                                     <Typography
                                         variant="body2" component="p">
@@ -81,18 +91,28 @@ class BookDetails extends Component {
                                 </CardContent>
                             </CardActionArea>
 
-                            {item.finish_book === false ?
-                                <button><a
-                                    href={item.book_text}
-                                    rel="noopener noreferrer"
-                                    target="_blank">
-                                    Read it!
-                </a></button>
-                                :
-                                <><span>You finished!</span><button onClick={() => {
-                                    this.props.history.push('/quiz');
-                                }}>Take the quiz!</button></>}
-                            {/* <button onClick={this.goToDetails}>See details</button> */}
+
+                            <Button className={classes.readButton}><a
+                                href={item.book_text}
+                                rel="noopener noreferrer"
+                                target="_blank">
+                                Read it!
+                </a></Button>
+
+                            {item.finish_quiz === false ?
+                                <Button
+                                    className={classes.readButton}
+                                    onClick={() => {
+                                        this.props.history.push('/quiz');
+                                    }}>Take the quiz!</Button>
+                                : <></>}
+                            {item.quiz_score != null ?
+                                (<>
+                                    <p>{item.quiz_feedback}</p>
+                                    <p>{item.quiz_score}</p>
+                                </>)
+                                : <></>
+                            }
                         </Card>
                     </Grid>
                 )}

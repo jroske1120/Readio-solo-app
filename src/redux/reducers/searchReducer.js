@@ -1,11 +1,14 @@
 
 
 const searchReducer = (state=[], action) => {
-    if (action.type === "SET_SEARCH"){
-      // console.log('searchResult is:', action.payload)
+  switch (action.type) {
+    case 'SET_SEARCH':
       return action.payload;
-    } 
-    return state;
+    case 'UNSET_SEARCH':
+      return [];
+    default:
+      return state;
+  }
   }
 
   export default searchReducer;

@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from "../LogOutButton/LogOutButton";
+import { withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+  
+};
 
 class AddStudentPage extends Component {
   state = {
@@ -37,8 +43,10 @@ class AddStudentPage extends Component {
   // This is main user profile
   render() {
     return (
-      <div>
-        <h1 id="welcome">Add Student Page!</h1>
+      <>
+        {this.props.reduxState.user.is_teacher === true ?
+        (<div>
+          <h1 id="welcome">Add Student Page!</h1>
         <form onSubmit={this.registerUser}>
           <h1>Add A Student</h1>
           <div>
@@ -77,16 +85,16 @@ class AddStudentPage extends Component {
         }} >
           Back to Teacher Page
           </button>
-        <br></br>
-      </div>
+        <br></br></div>)
+        :
+        <div>404</div>}
+      </>
     );
   }
 }
 
-// Instead of taking everything from state, we just want the user info.
-const mapStateToProps = (state) => ({
-  user: state.user,
+const mapReduxStateToProps = (reduxState) => ({
+  reduxState
 });
 
-// this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(AddStudentPage);
+export default withRouter(connect(mapReduxStateToProps)(withStyles(styles)(AddStudentPage)));

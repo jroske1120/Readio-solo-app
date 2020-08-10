@@ -13,18 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router-dom';
 
 const styles = {
-    card: {
-        width: 350,
-        padding: 10,
-        margin: 40,
-        justifyContent: 'center',
-        backgroundColor: 'silver',
-    },
-    media: {
-        height: 250,
-        width: 'auto',
-        marginLeft: 85
-    },
+    
 };
 
 class QuizPage extends Component {

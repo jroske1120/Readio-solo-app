@@ -66,7 +66,9 @@ class TeacherPage extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <>
+      {this.props.reduxState.user.is_teacher === true ?
+     ( <div>
         <h1 id="welcome"> </h1>
         <h2>Students will appear here</h2>
         <TableContainer className={classes.container} component={Paper}>
@@ -171,7 +173,9 @@ class TeacherPage extends Component {
           </Table>
         </TableContainer>
 
-      </div>
+      </div>)
+      :
+      <div>404</div>} </>
     );
   }
 }

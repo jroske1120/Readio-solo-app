@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', rejectUnauthenticated, (req, res) => {
     if (req.user.is_teacher) {
         console.log('req.user:', req.user.is_teacher);
-        let query = `select user_id as id, array_agg(book_title) as books, "user"."username" as username, count(finish_quiz=true) as finish_quiz_count from "user"
+        let query = `select user_id as id, array_agg(book_title) as books, "user"."username" as username, CAST(AVG(quiz_score) as decimal(6,1)) as avg_quiz from "user"
         full outer join "user_book" on "user"."id" = user_book.user_id
         where is_teacher = false
         group by user_id, "user"."username"

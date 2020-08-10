@@ -85,7 +85,7 @@ class TeacherPage extends Component {
                   </TableCell>
                   <TableCell >{student.username}</TableCell>
                   <TableCell >{student.books.join(', ')}</TableCell>
-                  <TableCell><button
+                  <TableCell>{student.avg_quiz}<button
                     onClick={() =>
                       this.viewQuiz(student)}>
                     Grade

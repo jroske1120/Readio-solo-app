@@ -20,6 +20,9 @@ const styles = {
     // minWidth: 650,
     // marginRight: 150, 
   },
+  unscored: {
+    backgroundColor: 'yellow',
+  }
 };
 class TeacherPage extends Component {
   state = {
@@ -84,7 +87,11 @@ class TeacherPage extends Component {
                     {student.id}
                   </TableCell>
                   <TableCell >{student.username}</TableCell>
-                  <TableCell >{student.books.join(', ')}</TableCell>
+                  {student.books === null ?
+                  <TableCell></TableCell>
+                :
+                <TableCell >{student.books.join(', ')}</TableCell>}
+                  
                   <TableCell>{student.avg_quiz}<button
                     onClick={() =>
                       this.viewQuiz(student)}>
@@ -134,18 +141,25 @@ class TeacherPage extends Component {
                   <TableCell >{questions.question_3}</TableCell>
                   <TableCell >{questions.question_4}</TableCell>
                   <TableCell><textarea
-                    type="textexttArea"
                     name="quiz_feedback"
                     value={questions.quiz_feedback}
                     onChange={this.handleInputChangeFor('quiz_feedback')}
                   /></TableCell>
+                  {questions.quiz_score === null ? (
                   <TableCell ><input
+                  className={classes.unscored}
                     type="number"
                     name="quiz_score"
                     value={questions.quiz_score}
                     onChange={this.handleInputChangeFor('quiz_score')}
-                  />
-                  </TableCell>
+                  /></TableCell>)
+                  :
+                  (<TableCell ><input
+                    type="number"
+                    name="quiz_score"
+                    value={questions.quiz_score}
+                    onChange={this.handleInputChangeFor('quiz_score')}
+                  /></TableCell>)}
                   <TableCell>
                     <button
                     onClick={() => this.submitFeedback(questions)}>

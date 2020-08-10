@@ -13,7 +13,7 @@ const Nav = (props) => (
       <h1 className="nav-title">Readio  {props.reduxState.user.username}</h1>
     </Link>
     <div className="nav-right">
-      <Link  to="/home">
+     
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
@@ -25,11 +25,11 @@ const Nav = (props) => (
             props.history.push('/home');
           }}
         /></IconButton>) : 'Login / Register'}
-      </Link>
-      {/* Show the link to the info page and the logout button if the user is logged in */}
-      {props.reduxState.user.id && (
+    
+      {/* Show the link to the search page and the logout button if the user is logged in */}
+      {props.reduxState.user.id ? (
         <>
-          <Link to="/search">
+          
             <IconButton>
             <SearchRoundedIcon
           alt="Book Search"
@@ -40,11 +40,11 @@ const Nav = (props) => (
           }}
           />
             </IconButton>
-          </Link>
           <LogOutButton/>
 
-        </>
-      )}
+        </>)
+        : <></>
+      }
       {/* Always show this link since the about page is not protected */}
       {/* <Link className="nav-link" to="/about">
         About

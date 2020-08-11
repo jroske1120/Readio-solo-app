@@ -69,7 +69,23 @@ class UserPage extends Component {
   }
 
   deleteBook = (item) => {
-    this.props.dispatch({ type: 'DELETE_BOOK', payload: item })
+    Swal.fire({
+      title: 'Are you sure you want to return this book?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, return!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Returned!',
+          '',
+          'success',
+        )
+        this.props.dispatch({ type: 'DELETE_BOOK', payload: item });
+      }    
+    })
   }
 
   finishBook = (item) => {
@@ -137,12 +153,9 @@ class UserPage extends Component {
                             </IconButton>
                             )
                           }
-
                           <IconButton aria-label={`Delete this book`} className={classes.icon}>
                             <IndeterminateCheckBoxIcon onClick={() => this.deleteBook(item)} />
                           </IconButton>
-
-
                         </>
                       }
                     />

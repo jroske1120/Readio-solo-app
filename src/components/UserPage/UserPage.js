@@ -15,7 +15,7 @@ import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox'
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import CheckBoxRoundedIcon from '@material-ui/icons/CheckBoxRounded';
 import Button from '@material-ui/core/Button';
-import ChatIcon from '@material-ui/icons/Chat';
+import Swal from 'sweetalert2';
 const styles = (theme) => ({
   root: {
     display: 'flex',
@@ -74,6 +74,31 @@ class UserPage extends Component {
 
   finishBook = (item) => {
     this.props.dispatch({ type: 'FINISH_BOOK', payload: item })
+    let timerInterval
+    Swal.fire({
+      title: 'Congratulations!',
+      html: 'You finished the book!',
+      timer: 2000,
+      timerProgressBar: true,
+      onBeforeOpen: () => {
+        timerInterval = setInterval(() => {
+          const content = Swal.getContent()
+          if (content) {
+            const b = content.querySelector('b')
+            if (b) {
+              b.textContent = Swal.getTimerLeft()
+            }
+          }
+        }, 100)
+      },
+      onClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer')
+      }
+    })
   }
 
   // This is main user profile
@@ -84,7 +109,7 @@ class UserPage extends Component {
         <div>
           <h2>
             {/* {this.props.reduxState.user.username}, here are your books */}
-            </h2>
+          </h2>
           <div className={classes.root}>
             <div className={classes.border}>
               <GridList cellHeight={200} className={classes.gridList}>
@@ -98,27 +123,27 @@ class UserPage extends Component {
                     <img src={item.book_image} alt={item.book_title}
                       onClick={() => this.goToDetails(item)}
                     />
-                    <GridListTileBar 
+                    <GridListTileBar
                       actionIcon={
                         <>
-                              {item.finish_book === false ?
-                             ( <IconButton className={classes.icon}
+                          {item.finish_book === false ?
+                            (<IconButton className={classes.icon}
                               onClick={() => this.finishBook(item)}>
-                                <CheckBoxOutlineBlankIcon />
-                              </IconButton>)
-                              :
-                              (<IconButton className={classes.icon}>
-                                  <CheckBoxRoundedIcon />
-                                  </IconButton>
-                                )
-                              }
-                              
-                              <IconButton aria-label={`Delete this book`} className={classes.icon}>
-                              <IndeterminateCheckBoxIcon onClick={() => this.deleteBook(item)}/>
-                              </IconButton>
-                            
-                              
-                              </>
+                              <CheckBoxOutlineBlankIcon />
+                            </IconButton>)
+                            :
+                            (<IconButton className={classes.icon}>
+                              <CheckBoxRoundedIcon />
+                            </IconButton>
+                            )
+                          }
+
+                          <IconButton aria-label={`Delete this book`} className={classes.icon}>
+                            <IndeterminateCheckBoxIcon onClick={() => this.deleteBook(item)} />
+                          </IconButton>
+
+
+                        </>
                       }
                     />
                   </GridListTile>

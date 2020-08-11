@@ -66,7 +66,7 @@ class QuizPage extends Component {
           {/* <h1>Quiz for {this.props.reduxState.details[0].book_title}</h1> */}
           <div>
             <label htmlFor="question_1">
-              1: Question 1
+              1: How are you similar to another character?
               <input
                 type="text"
                 name="question_1"
@@ -88,7 +88,7 @@ class QuizPage extends Component {
           </div>
           <div>
           <label htmlFor="question_3">
-              3: Question 3
+              3: What changes would you make?
               <input
                 type="text"
                 name="question_3"
@@ -99,7 +99,7 @@ class QuizPage extends Component {
           </div>
           <div>
           <label htmlFor="question_4">
-              4: Question 4
+              4: Connect to another text
               <input
                 type="text"
                 name="question_4"

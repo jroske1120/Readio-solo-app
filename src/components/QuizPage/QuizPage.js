@@ -2,14 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { withStyles } from '@material-ui/core/styles';
-import BookListItem from '../BookListItem/BookListItem'
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Swal from 'sweetalert2';

@@ -27,7 +27,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     const queryString = `INSERT INTO "user_book" 
     ("user_id", "book_title", "book_authors", "book_image", "book_description", "book_text")
         VALUES ( $1, $2, $3, $4, $5, $6);`;
-
     pool.query(queryString,
         [req.user.id, book.volumeInfo.title, book.volumeInfo.authors[0], book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.description, book.accessInfo.webReaderLink
         ]).then((result) => {

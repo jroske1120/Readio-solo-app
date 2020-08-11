@@ -26,11 +26,15 @@ const styles = {
         marginLeft: 85
     },
     readButton: {
-        backgroundColor: 'rgba(255, 255, 255, 0.54)',
-        boxShadow: 'inset 0 0 5px white',
-        border: '1px solid black',
-        float: 'center',
+        // backgroundColor: 'rgba(255, 255, 255, 0.54)',
+        // boxShadow: 'inset 0 0 5px white',
+        // border: '1px solid black',
+        // float: 'center',
+        color: 'white',
     },
+    button: {
+        textAlign: 'center',
+      },
 };
 
 class BookDetails extends Component {
@@ -91,16 +95,19 @@ class BookDetails extends Component {
                                 </CardContent>
                             </CardActionArea>
 
-
-                            <Button className={classes.readButton}><a
+                            <div className={classes.button}>
+                            <Button
+                                variant="contained" color="primary"
+                            ><a className={classes.readButton}
                                 href={item.book_text}
                                 rel="noopener noreferrer"
                                 target="_blank">
-                                Read it!
+                                    Read it!
                 </a></Button>
 
                             {item.finish_quiz === false ?
                                 <Button
+                                    variant="contained" color="primary"
                                     className={classes.readButton}
                                     onClick={() => {
                                         this.props.history.push('/quiz');
@@ -113,6 +120,7 @@ class BookDetails extends Component {
                                 </>)
                                 : <></>
                             }
+                            </div>
                         </Card>
                     </Grid>
                 )}

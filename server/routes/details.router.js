@@ -5,15 +5,13 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 const router = express.Router();
 
-console.log('api key', process.env.API_KEY);
-
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('req.user:', req.user.id);
     console.log('req.params.id:', req.params.id);
     const query = `select * from user_book
-    WHERE book_id = ${req.params.id}
-    AND user_id = ${req.user.id};`;
-    pool.query(query)
+    WHERE book_id = $2
+    AND user_id = $1;`;
+    pool.query(query, [req.user.id, req.params.id])
         .then((result) => {
             res.send(result.rows);
         })
@@ -23,7 +21,4 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         });
 });
 
-router.post('/', (req, res) => {
-
-});
 module.exports = router;

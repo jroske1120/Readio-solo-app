@@ -53,8 +53,9 @@ const styles = (theme) => ({
     color: 'rgba(255, 255, 255, 0.54)',
     padding: 3,
   },
-  tile: {
-    // padding: 5,
+  button: {
+    margin: 50,
+    textAlign: 'center',
   },
 });
 
@@ -184,11 +185,16 @@ class UserPage extends Component {
 
           {/* Conditional rendering if user is a teacher
         then button to see class info (link to /teacher) displays */}
+         
           {this.props.reduxState.user.is_teacher ?
-            <button onClick={() => {
+           <div className={classes.button}>
+              <Button 
+            variant="contained" color="primary"
+            onClick={() => {
               this.props.history.push('/teacher');
             }} >
-              See Class Info</button>
+              See Class Info</Button>
+              </div>
             : <></>
           }
         </div>

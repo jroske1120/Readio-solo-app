@@ -9,20 +9,27 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-
+import Button from '@material-ui/core/Button';
+import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+import Swal from 'sweetalert2';
 
 const styles = {
   table: {
-    // maxWidth: 650,
     padding: 40,
   },
   container: {
-    // minWidth: 650,
+    marginBottom: 150,
     // marginRight: 150, 
   },
   unscored: {
     backgroundColor: 'yellow',
-  }
+  },
+  button: {
+    marginBottom: 50,
+    textAlign: 'center',
+  },
 };
 class TeacherPage extends Component {
   state = {
@@ -67,115 +74,134 @@ class TeacherPage extends Component {
     const { classes } = this.props;
     return (
       <>
-      {this.props.reduxState.user.is_teacher === true ?
-     ( <div>
-        <h1 id="welcome"> </h1>
-        <h2>Students will appear here</h2>
-        <TableContainer className={classes.container} component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Student ID</TableCell>
-                <TableCell >Username</TableCell>
-                <TableCell >Books Read</TableCell>
-                <TableCell >Avg. Quiz Score</TableCell>
-                <TableCell >Remove Student</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.props.reduxState.students.map(student => (
-                <TableRow key={student.id}>
-                  <TableCell component="th" scope="row">
-                    {student.id}
-                  </TableCell>
-                  <TableCell >{student.username}</TableCell>
-                  {student.books === null ?
-                  <TableCell></TableCell>
-                :
-                <TableCell >{student.books.join(', ')}</TableCell>}
-                  
-                  <TableCell>{student.avg_quiz}<button
-                    onClick={() =>
-                      this.viewQuiz(student)}>
-                    Grade
-                  </button></TableCell>
-                  <TableCell >
-                    <button
-                      onClick={() =>
-                        this.removeStudent(student)}>
-                      Remove
-                  </button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        {this.props.reduxState.user.is_teacher === true ?
+          (<div>
+            <h1 id="welcome"> </h1>
+            <h2>Students will appear here</h2>
+            <TableContainer className={classes.container} component={Paper}>
+              <Table className={classes.table} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Student ID</TableCell>
+                    <TableCell >Username</TableCell>
+                    <TableCell >Books Read</TableCell>
+                    <TableCell >Avg. Quiz Score</TableCell>
+                    <TableCell >Remove Student</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {this.props.reduxState.students.map(student => (
+                    <TableRow key={student.id}>
+                      <TableCell component="th" scope="row">
+                        {student.id}
+                      </TableCell>
+                      <TableCell >{student.username}</TableCell>
+                      {student.books === null ?
+                        <TableCell></TableCell>
+                        :
+                        <TableCell >{student.books.join(', ')}</TableCell>}
 
-        <button onClick={() => {
-          this.props.history.push('/addstudent');
-        }} >
+                      <TableCell>{student.avg_quiz}<Button
+                        variant="contained" color="primary"
+                        onClick={() =>
+                          this.viewQuiz(student)}>
+                        Grade
+                  </Button></TableCell>
+                      <TableCell >
+                        <Button
+                          variant="contained" color="secondary"
+                          onClick={() =>
+                            this.removeStudent(student)}>
+                          Remove
+                  </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <div className={classes.button}>
+              <Button
+                variant="contained" color="primary"
+                onClick={() => {
+                  this.props.history.push('/addstudent');
+                }}>
+                <PersonAddRoundedIcon />
           Add a student!
-          </button>
-        {/* map out books that have been added to server based on id */}
-        <TableContainer className={classes.container} component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell >Book Title</TableCell>
-                <TableCell >Question 1</TableCell>
-                <TableCell >Question 2</TableCell>
-                <TableCell >Question 3</TableCell>
-                <TableCell >Question 4</TableCell>
-                <TableCell >Quiz Feedback</TableCell>
-                <TableCell >Quiz Score</TableCell>
-                <TableCell >Submit Score</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.props.reduxState.questions.map((questions) => (
-                <TableRow key={questions.book_id}>
-                  <TableCell component="th" scope="row">
-                    {questions.book_id}
-                  </TableCell>
-                  <TableCell >{questions.question_1}</TableCell>
-                  <TableCell >{questions.question_2}</TableCell>
-                  <TableCell >{questions.question_3}</TableCell>
-                  <TableCell >{questions.question_4}</TableCell>
-                  <TableCell><textarea
-                    name="quiz_feedback"
-                    value={questions.quiz_feedback}
-                    onChange={this.handleInputChangeFor('quiz_feedback')}
-                  /></TableCell>
-                  {questions.quiz_score === null ? (
-                  <TableCell ><input
-                  className={classes.unscored}
-                    type="number"
-                    name="quiz_score"
-                    value={questions.quiz_score}
-                    onChange={this.handleInputChangeFor('quiz_score')}
-                  /></TableCell>)
-                  :
-                  (<TableCell ><input
-                    type="number"
-                    name="quiz_score"
-                    value={questions.quiz_score}
-                    onChange={this.handleInputChangeFor('quiz_score')}
-                  /></TableCell>)}
-                  <TableCell>
-                    <button
-                    onClick={() => this.submitFeedback(questions)}>
-                    Submit</button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+          </Button>
+            </div>
+            {/* map out books that have been added to server based on id */}
+            <TableContainer className={classes.container} component={Paper}>
+              <Table className={classes.table} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell >Book Title</TableCell>
+                    <TableCell >Question 1</TableCell>
+                    <TableCell >Question 2</TableCell>
+                    <TableCell >Question 3</TableCell>
+                    <TableCell >Question 4</TableCell>
+                    <TableCell >Quiz Feedback</TableCell>
+                    <TableCell >Quiz Score</TableCell>
+                    <TableCell >Submit Score</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {this.props.reduxState.questions.map((questions) => (
+                    <TableRow key={questions.book_id}>
+                      <TableCell component="th" scope="row">
+                        {questions.book_title}
+                      </TableCell>
+                      <TableCell >{questions.question_1}</TableCell>
+                      <TableCell >{questions.question_2}</TableCell>
+                      <TableCell >{questions.question_3}</TableCell>
+                      <TableCell >{questions.question_4}</TableCell>
+                      <TableCell><TextField
+                                  id="filled-multiline-static"
+                                  variant="filled"
+                        label="Teacher Feedback"
+                        multiline
+                        rows={2}
+                        name="quiz_feedback"
+                        value={questions.quiz_feedback}
+                        onChange={this.handleInputChangeFor('quiz_feedback')}
+                      /></TableCell>
+                      {questions.quiz_score === null ? (
+                        <TableCell ><TextField
+                          label="Score"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          className={classes.unscored}
+                          type="number"
+                          name="quiz_score"
+                          value={questions.quiz_score}
+                          onChange={this.handleInputChangeFor('quiz_score')}
+                        /></TableCell>)
+                        :
+                        (<TableCell ><TextField
+                          label="Score"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          type="number"
+                          name="quiz_score"
+                          value={questions.quiz_score}
+                          onChange={this.handleInputChangeFor('quiz_score')}
+                        /></TableCell>)}
+                      <TableCell>
+                        <button
+                          onClick={() => this.submitFeedback(questions)}>
+                          Submit</button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
 
-      </div>)
-      :
-      <div>404</div>} </>
+          </div>)
+          :
+          <div>404</div>} </>
     );
   }
 }

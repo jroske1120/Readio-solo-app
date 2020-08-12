@@ -16,13 +16,16 @@ import TextField from '@material-ui/core/TextField';
 import Swal from 'sweetalert2';
 
 const styles = {
+  contain: {
+    margin: 40,
+  },
   table: {
-    padding: 40,
+    padding: 10,
   },
   container: {
     marginBottom: 150,
-    // marginRight: 150, 
-  },
+    boxShadow: '-3px 3px 10px black',
+    },
   unscored: {
     backgroundColor: 'yellow',
   },
@@ -75,17 +78,18 @@ class TeacherPage extends Component {
     return (
       <>
         {this.props.reduxState.user.is_teacher === true ?
-          (<div>
+          (<div className={classes.contain}>
             <h1 id="welcome"> </h1>
-            <h2>Students will appear here</h2>
+            <h2>See how your class is doing</h2>
             <TableContainer className={classes.container} component={Paper}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Student ID</TableCell>
+                    <TableCell>ID</TableCell>
                     <TableCell >Username</TableCell>
                     <TableCell >Books Read</TableCell>
-                    <TableCell >Avg. Quiz Score</TableCell>
+                    <TableCell >Avg. Quiz</TableCell>
+                    <TableCell >Grade</TableCell>
                     <TableCell >Remove Student</TableCell>
                   </TableRow>
                 </TableHead>
@@ -101,7 +105,9 @@ class TeacherPage extends Component {
                         :
                         <TableCell >{student.books.join(', ')}</TableCell>}
 
-                      <TableCell>{student.avg}<Button
+                      <TableCell>{student.avg}
+                      </TableCell>
+                      <TableCell><Button
                         variant="contained" color="primary"
                         onClick={() =>
                           this.viewQuiz(student)}>
@@ -189,9 +195,9 @@ class TeacherPage extends Component {
                           onChange={this.handleInputChangeFor('quiz_score')}
                         /></TableCell>)}
                       <TableCell>
-                        <button
+                        <Button variant="contained" color="secondary"
                           onClick={() => this.submitFeedback(questions)}>
-                          Submit</button>
+                          Submit</Button>
                       </TableCell>
                     </TableRow>
                   ))}

@@ -21,4 +21,21 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         });
 });
 
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('put request for id', req.user.id);
+    console.log('put request for rating', req.body.student_rating);
+    console.log('put request for book', req.body.item.book_id);
+    let query =
+        `UPDATE user_book SET student_rating = $1 
+        WHERE user_id = $2 AND
+        book_id = $3;`;
+    pool.query(query, [req.body.student_rating, req.user.id, req.body.item.book_id])
+        .then((result) => {
+            res.send(result.rows);
+        }).catch((error) => {
+            console.log('Error PUT /profile', error);
+            res.sendStatus(500);
+        })
+});
+
 module.exports = router;

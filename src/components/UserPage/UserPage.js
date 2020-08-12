@@ -16,55 +16,90 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import CheckBoxRoundedIcon from '@material-ui/icons/CheckBoxRounded';
 import Button from '@material-ui/core/Button';
 import Swal from 'sweetalert2';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Toolbar from '@material-ui/core/Toolbar';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Rating from 'material-ui-rating'
 
 const styles = (theme) => ({
-  flex: {
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(5, 0, 3),
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4),
+  },
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  card: {
+    height: '100%',
     display: 'flex',
-    margin: 50,
-    justifyContent: 'space-evenly',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
   },
-  root: {
-    // display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    paddingTop: 0,
-    padding: 10,
+  cardMedia: {
+    paddingTop: '56.25%', // 16:9
   },
-  border: {
-    display: 'flex',
-    position: 'relative',
-    padding: '2px',
-    border: '1px solid silver',
-    borderRadius: '20px',
-    boxShadow: '-3px 3px 10px black',
-    width: '40%',
-    maxWidth: 400,
-    minWidth: 350,
+  cardContent: {
+    flexGrow: 1,
   },
-  gridList: {
-    // width: 400,
-    height: 400,
-    margin: 50,
-    border: 'double 40px transparent',
-    borderRadius: '20px',
-    boxShadow: 'inset 0 0 9px white',
-    backgroundColor: 'black',
-    backgroundOrigin: 'border-box',
-    backgroundClip: 'content-box, border-box',
-    backgroundImage: `linear-gradient(#363636, #363636), radial-gradient(circle at top right, #6d6d6d,black)`,
-  },
+  // flex: {
+  //   display: 'flex',
+  //   margin: 50,
+  //   justifyContent: 'space-evenly',
+  //   flexWrap: 'wrap',
+  // },
+  // root: {
+  //   // display: 'flex',
+  //   flexWrap: 'wrap',
+  //   justifyContent: 'space-around',
+  //   paddingTop: 0,
+  //   padding: 10,
+  // },
+  // border: {
+  //   display: 'flex',
+  //   position: 'relative',
+  //   padding: '2px',
+  //   border: '1px solid silver',
+  //   borderRadius: '20px',
+  //   boxShadow: '-3px 3px 10px black',
+  //   width: '40%',
+  //   maxWidth: 400,
+  //   minWidth: 350,
+  // },
+  // gridList: {
+  //   // width: 400,
+  //   height: 400,
+  //   margin: 50,
+  //   border: 'double 40px transparent',
+  //   borderRadius: '20px',
+  //   boxShadow: 'inset 0 0 9px white',
+  //   backgroundColor: 'black',
+  //   backgroundOrigin: 'border-box',
+  //   backgroundClip: 'content-box, border-box',
+  //   backgroundImage: `linear-gradient(#363636, #363636), radial-gradient(circle at top right, #6d6d6d,black)`,
+  // },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
     padding: 3,
   },
-  button: {
-    margin: 50,
-    textAlign: 'center',
-  },
+  // button: {
+  //   margin: 50,
+  //   textAlign: 'center',
+  // },
 });
 
 class UserPage extends Component {
+
+  state= {
+    student_rating: 0,
+  }
 
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_PROFILE_BOOKS' });
@@ -94,6 +129,15 @@ class UserPage extends Component {
         this.props.dispatch({ type: 'DELETE_BOOK', payload: item });
       }    
     })
+  }
+
+  rateBook = (student_rating, item) => {
+    console.log('rating is...', student_rating)
+    console.log('item is...',item)
+    this.props.dispatch({ type: 'RATE_BOOK', payload: {item, student_rating} })
+    // this.setState({
+    //   student_rating
+    // });
   }
 
   finishBook = (item) => {
@@ -128,67 +172,98 @@ class UserPage extends Component {
   // This is main user profile
   render() {
     const { classes } = this.props;
+    const store = this.props.reduxState;
+    
     return (
-        <div className={classes.flex}>
-          <div className={classes.root}>
-            <div className={classes.border}>
-              <GridList 
-              cols={2}
-              cellHeight={200} 
-              className={classes.gridList}>
+      <main>
+      <div className={classes.heroContent}>
+          <Container 
+          maxWidth="md"
+          >
+            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+              {store.user.id ?
+              <span>{store.user.username}, here are your books!</span>
+            : <span>Log in to see books!</span>}
               
-                {this.props.reduxState.profileBooks.map(item => (
-                  <GridListTile className={classes.tile}
-                    key={item.book_id}>
-                    <img src={item.book_image} alt={item.book_title}
-                      onClick={() => this.goToDetails(item)}
-                    />
-                    <GridListTileBar
-                      actionIcon={
-                        <>
-                          {item.finish_book === false ?
-                            (<IconButton className={classes.icon}
-                              onClick={() => this.finishBook(item)}>
-                              <CheckBoxOutlineBlankIcon />
-                            </IconButton>)
-                            :
-                            (<IconButton className={classes.icon}>
-                              <CheckBoxRoundedIcon />
-                            </IconButton>
-                            )
-                          }
-                          <IconButton aria-label={`Delete this book`} className={classes.icon}>
-                            <IndeterminateCheckBoxIcon onClick={() => this.deleteBook(item)} />
-                          </IconButton>
-                        </>
-                      }
-                    />
-                  </GridListTile>
-                ))}
-              </GridList>
-              </div>
+            </Typography>
+            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+              This is your profile page. You can see the books on your shelf, remove them 
+              if you like. You can also click to see the book's details. Enjoy!
+              
+            </Typography>
+            <div className={classes.heroButtons}>
+              <Grid container spacing={2} justify="center">
               {this.props.reduxState.user.is_teacher ?
-           <div className={classes.button}>
-              <Button 
-            variant="contained" color="primary"
-            onClick={() => {
+              <Grid item>
+              <Button variant="contained" color="primary"
+              onClick={() => {
               this.props.history.push('/teacher');
             }} >
-              See Class Info</Button>
-              </div>
+              See Class Info
+              </Button>
+            </Grid>
             : <></>
-          }
-          {/* {this.props.reduxState.user.is_teacher && 
-          this.props.reduxState.profileBooks != null ?
-          
-        :<></>
-        } */}
-          </div> 
+          } 
+                <Grid item>
+                  <Button variant="outlined" color="primary"
+                  onClick={() => {
+                    this.props.history.push('/search')}}>
+                    Search for Books
+                  </Button>
+                </Grid>
+              </Grid>
+            </div>
+          </Container>
+        </div>
+
+           <Container className={classes.cardGrid} maxWidth="md">
+           <Grid container spacing={4}>
+             {store.profileBooks.map((item) => (
+               <Grid item key={item.book_id} xs={12} sm={6} md={4}>
+                 <Card className={classes.card}>
+                   <CardMedia
+                     className={classes.cardMedia}
+                     image={item.book_image}
+                     title={item.book_title}
+                   />
+                   <CardContent className={classes.cardContent}>
+                     <Typography gutterBottom variant="h5" component="h2">
+                     {item.book_title}
+                     </Typography>
+                     
+                     <Rating 
+                     name="student_rating"
+                     value={item.student_rating}
+                     onChange={(student_rating) => this.rateBook(student_rating, item)}
+                     precision={1} 
+                     />
+                       
+                   </CardContent>
+                   <CardActions>
+
+                     <Button size="small" color="primary"
+                     onClick={() => this.goToDetails(item)}>
+                       View Details
+                     </Button>
+                     <Button 
+                     onClick={() => this.deleteBook(item)} 
+                     size="small" color="primary" >
+                     Remove book
+                          </Button>
+                    
+                   </CardActions>
+                 </Card>
+               </Grid>
+             ))}
+           </Grid>
+         </Container>
+     <div>
          {this.props.reduxState.details != null ?
           <BookDetails/>
         :
         <></>}
         </div>
+        </main>
     );
   }
 }

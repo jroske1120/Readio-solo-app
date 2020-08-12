@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { withStyles } from '@material-ui/core/styles';
-import BookListItem from '../BookListItem/BookListItem'
+import BookDetails from '../BookDetails/BookDetails'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
@@ -16,21 +16,28 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import CheckBoxRoundedIcon from '@material-ui/icons/CheckBoxRounded';
 import Button from '@material-ui/core/Button';
 import Swal from 'sweetalert2';
+
 const styles = (theme) => ({
-  root: {
+  flex: {
     display: 'flex',
+    margin: 50,
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+  },
+  root: {
+    // display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    // overflow: 'hidden',
     paddingTop: 0,
     padding: 10,
   },
   border: {
+    display: 'flex',
     position: 'relative',
     padding: '2px',
     border: '1px solid silver',
     borderRadius: '20px',
-    boxShadow: '10px 30px 20px black',
+    boxShadow: '-3px 3px 10px black',
     width: '40%',
     maxWidth: 400,
     minWidth: 350,
@@ -39,10 +46,8 @@ const styles = (theme) => ({
     // width: 400,
     height: 400,
     margin: 50,
-    // paddingBottom: 10,
     border: 'double 40px transparent',
     borderRadius: '20px',
-    // outline: '1px solid white',
     boxShadow: 'inset 0 0 9px white',
     backgroundColor: 'black',
     backgroundOrigin: 'border-box',
@@ -66,8 +71,10 @@ class UserPage extends Component {
   }
 
   goToDetails = (item) => {
-    this.props.history.push(`/details/${item.book_id}`);
-  }
+    this.props.dispatch({
+      type: "FETCH_DETAILS",
+      payload: item.book_id
+  })  }
 
   deleteBook = (item) => {
     Swal.fire({
@@ -122,18 +129,14 @@ class UserPage extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <>
-        <div>
-          <h2>
-            {/* {this.props.reduxState.user.username}, here are your books */}
-          </h2>
+        <div className={classes.flex}>
           <div className={classes.root}>
             <div className={classes.border}>
-              <GridList cellHeight={200} className={classes.gridList}>
-                <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-                  {/* <ListSubheader component="div">Books</ListSubheader> */}
-                </GridListTile>
-
+              <GridList 
+              cols={2}
+              cellHeight={200} 
+              className={classes.gridList}>
+              
                 {this.props.reduxState.profileBooks.map(item => (
                   <GridListTile className={classes.tile}
                     key={item.book_id}>
@@ -162,31 +165,9 @@ class UserPage extends Component {
                     />
                   </GridListTile>
                 ))}
-              </GridList></div>
-          </div>
-
-          {/* 
-                  <Typography
-                    gutterBottom variant="h5" component="h5">
-                    {item.book_title}
-                    {item.finish_book === false ?
-                  <button
-                  onClick={() => this.finishBook(item)}
-                  >Finished? Click to Finish!</button>
-                  :
-                  <h5>Finished!</h5>  
-                  }
-                  </Typography>
-                   <Typography
-                    variant="body2" component="p">
-                    {item.book_description}
-              
-        )} */}
-
-          {/* Conditional rendering if user is a teacher
-        then button to see class info (link to /teacher) displays */}
-         
-          {this.props.reduxState.user.is_teacher ?
+              </GridList>
+              </div>
+              {this.props.reduxState.user.is_teacher ?
            <div className={classes.button}>
               <Button 
             variant="contained" color="primary"
@@ -197,14 +178,20 @@ class UserPage extends Component {
               </div>
             : <></>
           }
+          {/* {this.props.reduxState.user.is_teacher && 
+          this.props.reduxState.profileBooks != null ?
+          
+        :<></>
+        } */}
+          </div> 
+         {this.props.reduxState.details != null ?
+          <BookDetails/>
+        :
+        <></>}
         </div>
-      </>
     );
   }
 }
-
-// Instead of taking everything from state, we just want the user info.
-
 // this allows us to use <App /> in index.js
 const mapReduxStateToProps = (reduxState) => ({
   reduxState

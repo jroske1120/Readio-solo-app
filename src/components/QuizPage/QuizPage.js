@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Swal from 'sweetalert2';
+import Button from '@material-ui/core/Button';
 
 const styles = {
   input: {
@@ -71,7 +72,7 @@ if (this.props.reduxState.details[0] != null){
           }
 
         </h2>
-        <form onSubmit={this.submitQuiz}>
+        <form>
           {/* <h1>Quiz for {this.props.reduxState.details[0].book_title}</h1> */}
           <div>
             1. How are you similar to or different from one of the characters?<br></br>
@@ -118,12 +119,11 @@ if (this.props.reduxState.details[0] != null){
             />
           </div>
           <div>
-            <input
-              type="submit"
-              name="submit"
-              value="Submit"
-            />
+          <Button 
+          variant="contained" color="primary"
+          onClick={this.submitQuiz}>Submit</Button>
           </div>
+          
         </form>
         {/* <form>
                     {this.props.reduxState.questions.map((item, index) => (

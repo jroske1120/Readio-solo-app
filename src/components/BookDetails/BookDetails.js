@@ -16,9 +16,11 @@ const styles = {
     card: {
         width: 350,
         padding: 10,
-        margin: 40,
-        justifyContent: 'center',
+        boxShadow: '-3px 3px 10px black',
+        borderRadius: 5,
         backgroundColor: 'silver',
+        flexWrap: 'wrap',
+    justifyContent: 'space-around',
     },
     media: {
         height: 250,
@@ -26,10 +28,6 @@ const styles = {
         marginLeft: 85
     },
     readButton: {
-        // backgroundColor: 'rgba(255, 255, 255, 0.54)',
-        // boxShadow: 'inset 0 0 5px white',
-        // border: '1px solid black',
-        // float: 'center',
         color: 'white',
     },
     button: {

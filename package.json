@@ -38,10 +38,11 @@
     "server": "nodemon --watch server server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "testServer": "jest server/test/*.test.js --forceExit",    "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "supertest": "^4.0.2"
   },
   "browserslist": [
     ">0.2%",

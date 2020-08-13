@@ -17,11 +17,13 @@ import Button from '@material-ui/core/Button';
 
 const styles = (theme) => ({
     card: {
-        width: 350,
+        width: '60%',
         padding: 10,
         margin: 40,
         justifyContent: 'center',
-        backgroundColor: 'silver',
+        backgroundColor: 'rgb(255, 255, 255)',
+        boxShadow: '-3px 3px 10px black',
+        borderRadius: 5,
     },
     media: {
         height: 250,
@@ -33,25 +35,24 @@ const styles = (theme) => ({
         fontWeight: theme.typography.fontWeightRegular,
         width: '100%',
         borderRadius: '2px',
-      },
-      readButton: {
-        backgroundColor: 'rgba(255, 255, 255, 0.54)',
-        boxShadow: 'inset 0 0 5px white',
+    },
+    readButton: {
+        color: 'white',
         border: '1px solid black',
         float: 'left',
         marginLeft: '5%',
-
-      },
-      addButton: {
-        backgroundColor: 'rgba(255, 255, 255, 0.54)',
-        boxShadow: 'inset 0 0 5px white',
+    },
+    addButton: {
         border: '1px solid black',
         float: 'right',
         marginRight: '5%',
-      },
-      acc: {
+    },
+    acc: {
         borderRadius: '5px',
-      },
+    },
+    urlButton: {
+        color: 'white',
+    },
 });
 
 class BookListItem extends Component {
@@ -75,11 +76,11 @@ class BookListItem extends Component {
         return (
             <div>
                 <Grid
-                elevation={3}
+                    elevation={3}
                     container direction="column"
                     justify="center"
                     alignItems="center">
-                    <Card 
+                    <Card
                         variant="outlined"
                         className={classes.card} >
                         <CardActionArea>
@@ -101,12 +102,12 @@ class BookListItem extends Component {
                                     >
                                         <Typography className={classes.descr}>
                                             <b>What is this book about?</b>
-                                            </Typography>
+                                        </Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <Typography>
-                                        {this.props.item.volumeInfo.description}
-                                </Typography>
+                                            {this.props.item.volumeInfo.description}
+                                        </Typography>
                                     </AccordionDetails>
                                 </Accordion>
                                 {/* <hr color="black" />
@@ -123,16 +124,18 @@ class BookListItem extends Component {
                             </CardContent>
                         </CardActionArea>
                         <Button
-                        className={classes.readButton}
-                        ><a
+                            className={classes.readButton}
+                            variant="contained" color="primary"
+                        ><a className={classes.urlButton}
                             href={this.props.item.accessInfo.webReaderLink}
                             rel="noopener noreferrer"
                             target="_blank">
-                            Read it!
+                                Read it!
                         </a></Button>
-                        <Button 
-                        className={classes.addButton}
-                        onClick={this.addToProfile}>Add to Profile</Button>
+                        <Button
+                            variant="contained" color="primary"
+                            className={classes.addButton}
+                            onClick={this.addToProfile}>Add to Profile</Button>
                         {/* <button onClick={this.goToDetails}>See details</button> */}
                     </Card>
                 </Grid>

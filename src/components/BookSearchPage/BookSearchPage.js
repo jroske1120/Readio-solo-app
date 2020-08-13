@@ -2,15 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import BookListItem from '../BookListItem/BookListItem'
 import Skeleton from '@material-ui/lab/Skeleton';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const styles = {
   card: {
@@ -28,6 +23,12 @@ const styles = {
   root: {
     height: 250,
     width: '30%',
+  },
+  textField: {
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+    display: 'flex',
+    alignItems: 'center',
   },
 };
 
@@ -57,13 +58,17 @@ class BookSearchPage extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <form 
+        <form className={classes.textField}
           onSubmit={this.handleSubmit}
         >
-          <input 
-          type="text"
-          onChange={this.handleChange} placeholder="Search"></input>
-          <button type="submit">Search</button>
+          <TextField className={classes.textField}
+            type="text"
+            onChange={this.handleChange} placeholder="Search"></TextField>
+          <Button className={classes.textField}
+            variant="contained" color="primary"
+            type="submit">
+            Search
+             </Button>
         </form>
         {/* {this.props.reduxState.searchRed} */}
         {this.props.reduxState.search.map((item, index) =>

@@ -2,137 +2,146 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { withStyles } from '@material-ui/core/styles';
-import BookListItem from '../BookListItem/BookListItem'
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
+import Swal from 'sweetalert2';
+import Button from '@material-ui/core/Button';
 
 const styles = {
-    
+  input: {
+    width: '80%',
+    margin: 10,
+  }
 };
 
 class QuizPage extends Component {
-    state = {
-        question_1: ' ',
-        question_2: ' ',
-        question_3: ' ',
-        question_4: ' ',
-        finish_quiz: true
-    };
+  state = {
+    question_1: ' ',
+    question_2: ' ',
+    question_3: ' ',
+    question_4: ' ',
+    finish_quiz: true
+  };
 
-    submitQuiz = (event) => {
-        event.preventDefault();
-        console.log(this.state)
-        this.props.dispatch({
-            type: 'SUBMIT_QUIZ',
-            payload: {
-                question_1: this.state.question_1,
-                question_2: this.state.question_2,
-                question_3: this.state.question_3,
-                question_4: this.state.question_3,
-                finish_quiz: this.state.finish_quiz,
-                book_id: this.props.reduxState.details[0].book_id,
-            },
-            
-        });
-        this.props.history.push('/');
-    } // end registerUser
+  submitQuiz = (event) => {
+if (this.props.reduxState.details[0] != null){
 
-    handleInputChangeFor = propertyName => (event) => {
-        this.setState({
-            [propertyName]: event.target.value,
-        });
-    }
+    event.preventDefault();
+    console.log(this.state)
+    this.props.dispatch({
+      type: 'SUBMIT_QUIZ',
+      payload: {
+        question_1: this.state.question_1,
+        question_2: this.state.question_2,
+        question_3: this.state.question_3,
+        question_4: this.state.question_3,
+        finish_quiz: this.state.finish_quiz,
+        book_id: this.props.reduxState.details[0].book_id,
+      },
+    });
+    this.props.history.push('/');
+  } else {
+    Swal.fire(
+      'Oh no!',
+      'You have to go back and choose a book!',
+      'error'
+    )
+  }
+  } // end submit
 
-    componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_QUIZ' });
-    }
+  handleInputChangeFor = propertyName => (event) => {
+    this.setState({
+      [propertyName]: event.target.value,
+    });
+  }
 
-    // This is main user profile
-    render() {
-        const question = this.props.reduxState.questions;
-        return (
-            <div>
-                <h1 id="welcome">Quiz Page!</h1>
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_QUIZ' });
+  }
 
-                {/* map out books that have been added to server based on id */}
-                <h2>Quiz Questions will appear here</h2>
-                <form onSubmit={this.submitQuiz}>
+  // This is main user profile
+  render() {
+    const { classes } = this.props;
+    return (
+      <div>
+        {/* map out books that have been added to server based on id */}
+        <h2>Quiz Questions
+        {this.props.reduxState.details[0] != null ?
+            <span> for {this.props.reduxState.details[0].book_title}</span>
+            : <></>
+          }
+
+        </h2>
+        <form>
           {/* <h1>Quiz for {this.props.reduxState.details[0].book_title}</h1> */}
           <div>
-            <label htmlFor="question_1">
-              1: Question 1
-              <input
-                type="text"
-                name="question_1"
-                value={this.state.question_1}
-                onChange={this.handleInputChangeFor('question_1')}
-              />
-            </label>
-          </div>
-          <div>
-          <label htmlFor="question_2">
-              2: Question 2
-              <input
-                type="text"
-                name="question_2"
-                value={this.state.question_2}
-                onChange={this.handleInputChangeFor('question_2')}
-              />
-            </label>
-          </div>
-          <div>
-          <label htmlFor="question_3">
-              3: Question 3
-              <input
-                type="text"
-                name="question_3"
-                value={this.state.question_3}
-                onChange={this.handleInputChangeFor('question_3')}
-              />
-            </label>
-          </div>
-          <div>
-          <label htmlFor="question_4">
-              4: Question 4
-              <input
-                type="text"
-                name="question_4"
-                value={this.state.question_4}
-                onChange={this.handleInputChangeFor('question_4')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              type="submit"
-              name="submit"
-              value="Submit"
+            1. How are you similar to or different from one of the characters?<br></br>
+            <TextField
+              className={classes.input}
+              multiline
+              rows={3}
+              variant="outlined"
+              value={this.state.question_1}
+              onChange={this.handleInputChangeFor('question_1')}
             />
           </div>
+          <div>
+            2. Discuss the tone and of this text, citing specific examples.<br></br>
+            <TextField
+              className={classes.input}
+              multiline
+              rows={3}
+              variant="outlined"
+              value={this.state.question_2}
+              onChange={this.handleInputChangeFor('question_2')}
+            />
+          </div>
+          <div>
+            3. What changes would you make if you were the author? Why would you make these changes?
+              <br></br><TextField
+              className={classes.input}
+              multiline
+              rows={3}
+              variant="outlined"
+              value={this.state.question_3}
+              onChange={this.handleInputChangeFor('question_3')}
+            />
+          </div>
+          <div>
+            4. Connect this text to another text you have read. Be specific!
+             <br></br> <TextField
+              className={classes.input}
+              multiline
+              rows={3}
+              variant="outlined"
+              value={this.state.question_4}
+              onChange={this.handleInputChangeFor('question_4')}
+            />
+          </div>
+          <div>
+          <Button 
+          variant="contained" color="primary"
+          onClick={this.submitQuiz}>Submit</Button>
+          </div>
+          
         </form>
-                {/* <form>
+        {/* <form>
                     {this.props.reduxState.questions.map((item, index) => (
                         <p key={index}> <label htmlFor='question_1'>{item.question_1}</label>
                             <input type="text" name="question_1" />
                         </p>))}
                 </form> */}
-                
-            </div>
-        );
-    }
+
+      </div>
+    );
+  }
 }
 
 // Instead of taking everything from state, we just want the user info.
 
 // this allows us to use <App /> in index.js
 const mapReduxStateToProps = (reduxState) => ({
-    reduxState
+  reduxState
 });
 
 export default withRouter(connect(mapReduxStateToProps)(withStyles(styles)(QuizPage)));

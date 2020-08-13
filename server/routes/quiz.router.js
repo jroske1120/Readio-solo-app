@@ -23,8 +23,8 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('req.user:', req.user.id);
     console.log('req.params.id:', req.params.id);
     const query = `SELECT * from user_book
-    WHERE finish_quiz=true AND  user_id =${req.params.id};`;
-    pool.query(query)
+    WHERE finish_quiz=true AND  user_id =$1;`;
+    pool.query(query, [req.params.id])
         .then((result) => {
             res.send(result.rows);
         })
@@ -45,13 +45,13 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     question_1 = $1, question_2=$2, 
     question_3=$3, question_4=$4, 
     finish_quiz=$5
-    WHERE book_id = ${answer.book_id} 
-    AND user_id = ${req.user.id};`;
+    WHERE book_id = $6 
+    AND user_id = $7;`;
 
     pool.query(queryString,
-        [answer.question_1, answer.question_2, 
-        answer.question_3, answer.question_4, 
-        answer.finish_quiz
+        [answer.question_1, answer.question_2,
+        answer.question_3, answer.question_4,
+        answer.finish_quiz, answer.book_id, req.user.id
         ]).then((result) => {
             // success
             console.log("PUT successful")

@@ -10,10 +10,14 @@ const router = express.Router();
 router.get('/', rejectUnauthenticated, (req, res) => {
     if (req.user.is_teacher) {
         console.log('req.user:', req.user.is_teacher);
-        let query = `select user_id as id, array_agg(book_title) filter (where book_title is not null) as books, "user"."username" as username, CAST(AVG(quiz_score) as decimal(6,1))  from "user"
-        full outer join "user_book" on "user"."id" = user_book.user_id
-        where is_teacher = false
-        group by user_id, "user"."username"
+        let query = `SELECT user_id AS id, 
+        array_agg(book_title) FILTER (WHERE book_title IS NOT NULL) AS books, 
+        "user"."username" AS username, 
+        CAST(AVG(quiz_score) AS decimal(6,1))  
+        FROM "user"
+        FULL OUTER JOIN "user_book" ON "user"."id" = user_book.user_id
+        WHERE is_teacher = false
+        GROUP BY user_id, "user"."username"
         ;`;
         pool.query(query)
             .then((results) => {
@@ -34,9 +38,9 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     console.log('Delete request for user.id', req.user.id);
     let query =
         `DELETE FROM "user"
-    WHERE id = ${req.params.id} 
+    WHERE id = $1 
     ;`;
-    pool.query(query)
+    pool.query(query, [req.params.id])
         .then((result) => {
             res.send(result.rows);
         }).catch((error) => {
@@ -77,11 +81,11 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     const feedback = req.body;
     const queryString = `UPDATE "user_book" SET
     quiz_feedback = $1, quiz_score=$2 
-    WHERE book_id = ${feedback.book_id} 
-    AND user_id = ${feedback.user_id};`;
+    WHERE book_id = $3
+    AND user_id = $4;`;
 
     pool.query(queryString,
-        [feedback.quiz_feedback, feedback.quiz_score
+        [feedback.quiz_feedback, feedback.quiz_score, feedback.book_id, feedback.user_id
         ]).then((result) => {
             // success
             console.log("PUT successful")

@@ -5,15 +5,11 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 const router = express.Router();
 
-console.log('api key', process.env.API_KEY);
-
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-    console.log('req.user:', req.user.id);
-    console.log('req.params.id:', req.params.id);
     const query = `select * from user_book
-    WHERE book_id = ${req.params.id}
-    AND user_id = ${req.user.id};`;
-    pool.query(query)
+    WHERE book_id = $2
+    AND user_id = $1;`;
+    pool.query(query, [req.user.id, req.params.id])
         .then((result) => {
             res.send(result.rows);
         })
@@ -23,7 +19,18 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         });
 });
 
-router.post('/', (req, res) => {
-
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+    let query =
+        `UPDATE user_book SET student_rating = $1 
+        WHERE user_id = $2 AND
+        book_id = $3;`;
+    pool.query(query, [req.body.student_rating, req.user.id, req.body.item.book_id])
+        .then((result) => {
+            res.send(result.rows);
+        }).catch((error) => {
+            console.log('Error PUT /profile', error);
+            res.sendStatus(500);
+        })
 });
+
 module.exports = router;

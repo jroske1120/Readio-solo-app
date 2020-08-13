@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { withStyles } from '@material-ui/core/styles';
-import BookListItem from '../BookListItem/BookListItem'
+import BookDetails from '../BookDetails/BookDetails'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
@@ -15,152 +15,261 @@ import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox'
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import CheckBoxRoundedIcon from '@material-ui/icons/CheckBoxRounded';
 import Button from '@material-ui/core/Button';
-import ChatIcon from '@material-ui/icons/Chat';
+import Swal from 'sweetalert2';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Toolbar from '@material-ui/core/Toolbar';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Rating from 'material-ui-rating'
+
 const styles = (theme) => ({
-  root: {
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(5, 0, 3),
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4),
+  },
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  card: {
+    height: '100%',
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    // overflow: 'hidden',
-    paddingTop: 0,
-    padding: 10,
+    flexDirection: 'column',
   },
-  border: {
-    position: 'relative',
-    padding: '2px',
-    border: '1px solid silver',
-    borderRadius: '20px',
-    boxShadow: '10px 30px 20px black',
-    width: '40%',
-    maxWidth: 400,
-    minWidth: 350,
+  cardMedia: {
+    paddingTop: '56.25%', // 16:9
   },
-  gridList: {
-    // width: 400,
-    height: 400,
-    margin: 50,
-    // paddingBottom: 10,
-    border: 'double 40px transparent',
-    borderRadius: '20px',
-    // outline: '1px solid white',
-    boxShadow: 'inset 0 0 9px white',
-    backgroundColor: 'black',
-    backgroundOrigin: 'border-box',
-    backgroundClip: 'content-box, border-box',
-    backgroundImage: `linear-gradient(#363636, #363636), radial-gradient(circle at top right, #6d6d6d,black)`,
+  cardContent: {
+    flexGrow: 1,
   },
+  // flex: {
+  //   display: 'flex',
+  //   margin: 50,
+  //   justifyContent: 'space-evenly',
+  //   flexWrap: 'wrap',
+  // },
+  // root: {
+  //   // display: 'flex',
+  //   flexWrap: 'wrap',
+  //   justifyContent: 'space-around',
+  //   paddingTop: 0,
+  //   padding: 10,
+  // },
+  // border: {
+  //   display: 'flex',
+  //   position: 'relative',
+  //   padding: '2px',
+  //   border: '1px solid silver',
+  //   borderRadius: '20px',
+  //   boxShadow: '-3px 3px 10px black',
+  //   width: '40%',
+  //   maxWidth: 400,
+  //   minWidth: 350,
+  // },
+  // gridList: {
+  //   // width: 400,
+  //   height: 400,
+  //   margin: 50,
+  //   border: 'double 40px transparent',
+  //   borderRadius: '20px',
+  //   boxShadow: 'inset 0 0 9px white',
+  //   backgroundColor: 'black',
+  //   backgroundOrigin: 'border-box',
+  //   backgroundClip: 'content-box, border-box',
+  //   backgroundImage: `linear-gradient(#363636, #363636), radial-gradient(circle at top right, #6d6d6d,black)`,
+  // },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
     padding: 3,
   },
-  tile: {
-    // padding: 5,
-  },
+  // button: {
+  //   margin: 50,
+  //   textAlign: 'center',
+  // },
 });
 
 class UserPage extends Component {
+
+  state= {
+    student_rating: 0,
+  }
 
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_PROFILE_BOOKS' });
   }
 
   goToDetails = (item) => {
-    this.props.history.push(`/details/${item.book_id}`);
-  }
+    this.props.dispatch({
+      type: "FETCH_DETAILS",
+      payload: item.book_id
+  })  }
 
   deleteBook = (item) => {
-    this.props.dispatch({ type: 'DELETE_BOOK', payload: item })
+    Swal.fire({
+      title: 'Are you sure you want to return this book?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, return!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Returned!',
+          '',
+          'success',
+        )
+        this.props.dispatch({ type: 'DELETE_BOOK', payload: item });
+      }    
+    })
+  }
+
+  rateBook = (student_rating, item) => {
+    console.log('rating is...', student_rating)
+    console.log('item is...',item)
+    this.props.dispatch({ type: 'RATE_BOOK', payload: {item, student_rating} })
+    // this.setState({
+    //   student_rating
+    // });
   }
 
   finishBook = (item) => {
     this.props.dispatch({ type: 'FINISH_BOOK', payload: item })
+    let timerInterval
+    Swal.fire({
+      title: 'Congratulations!',
+      html: 'You finished the book!',
+      timer: 2000,
+      timerProgressBar: true,
+      onBeforeOpen: () => {
+        timerInterval = setInterval(() => {
+          const content = Swal.getContent()
+          if (content) {
+            const b = content.querySelector('b')
+            if (b) {
+              b.textContent = Swal.getTimerLeft()
+            }
+          }
+        }, 100)
+      },
+      onClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer')
+      }
+    })
   }
 
   // This is main user profile
   render() {
     const { classes } = this.props;
+    const store = this.props.reduxState;
+    
     return (
-      <>
-        <div>
-          <h2>
-            {/* {this.props.reduxState.user.username}, here are your books */}
-            </h2>
-          <div className={classes.root}>
-            <div className={classes.border}>
-              <GridList cellHeight={200} className={classes.gridList}>
-                <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-                  {/* <ListSubheader component="div">Books</ListSubheader> */}
-                </GridListTile>
-
-                {this.props.reduxState.profileBooks.map(item => (
-                  <GridListTile className={classes.tile}
-                    key={item.book_id}>
-                    <img src={item.book_image} alt={item.book_title}
-                      onClick={() => this.goToDetails(item)}
-                    />
-                    <GridListTileBar 
-                      actionIcon={
-                        <>
-                              {item.finish_book === false ?
-                             ( <IconButton className={classes.icon}
-                              onClick={() => this.finishBook(item)}>
-                                <CheckBoxOutlineBlankIcon />
-                              </IconButton>)
-                              :
-                              (<IconButton className={classes.icon}>
-                                  <CheckBoxRoundedIcon />
-                                  </IconButton>
-                                )
-                              }
-                              
-                              <IconButton aria-label={`Delete this book`} className={classes.icon}>
-                              <IndeterminateCheckBoxIcon onClick={() => this.deleteBook(item)}/>
-                              </IconButton>
-                            
-                              
-                              </>
-                      }
-                    />
-                  </GridListTile>
-                ))}
-              </GridList></div>
-          </div>
-
-          {/* 
-                  <Typography
-                    gutterBottom variant="h5" component="h5">
-                    {item.book_title}
-                    {item.finish_book === false ?
-                  <button
-                  onClick={() => this.finishBook(item)}
-                  >Finished? Click to Finish!</button>
-                  :
-                  <h5>Finished!</h5>  
-                  }
-                  </Typography>
-                   <Typography
-                    variant="body2" component="p">
-                    {item.book_description}
+      <main>
+      <div className={classes.heroContent}>
+          <Container 
+          maxWidth="md"
+          >
+            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+              {store.user.id ?
+              <span>{store.user.username}, here are your books!</span>
+            : <span>Log in to see books!</span>}
               
-        )} */}
-
-          {/* Conditional rendering if user is a teacher
-        then button to see class info (link to /teacher) displays */}
-          {this.props.reduxState.user.is_teacher ?
-            <button onClick={() => {
+            </Typography>
+            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+              This is your profile page. You can see the books on your shelf, remove them 
+              if you like. You can also click to see the book's details. Enjoy!
+              
+            </Typography>
+            <div className={classes.heroButtons}>
+              <Grid container spacing={2} justify="center">
+              {this.props.reduxState.user.is_teacher ?
+              <Grid item>
+              <Button variant="contained" color="primary"
+              onClick={() => {
               this.props.history.push('/teacher');
             }} >
-              See Class Info</button>
+              See Class Info
+              </Button>
+            </Grid>
             : <></>
-          }
+          } 
+                <Grid item>
+                  <Button variant="outlined" color="primary"
+                  onClick={() => {
+                    this.props.history.push('/search')}}>
+                    Search for Books
+                  </Button>
+                </Grid>
+              </Grid>
+            </div>
+          </Container>
         </div>
-      </>
+
+           <Container className={classes.cardGrid} maxWidth="md">
+           <Grid container spacing={4}>
+             {store.profileBooks.map((item) => (
+               <Grid item key={item.book_id} xs={12} sm={6} md={4}>
+                 <Card className={classes.card}>
+                   <CardMedia
+                     className={classes.cardMedia}
+                     image={item.book_image}
+                     title={item.book_title}
+                   />
+                   <CardContent className={classes.cardContent}>
+                     <Typography gutterBottom variant="h5" component="h2">
+                     {item.book_title}
+                     </Typography>
+                     
+                     <Rating 
+                     name="student_rating"
+                     value={item.student_rating}
+                     onChange={(student_rating) => this.rateBook(student_rating, item)}
+                     precision={1} 
+                     />
+                       
+                   </CardContent>
+                   <CardActions>
+                   <Button size="small" color="primary"
+                     onClick={() => this.finishBook(item)}>
+                       Finish
+                     </Button>
+                     <Button size="small" color="primary"
+                     onClick={() => this.goToDetails(item)}>
+                       View Details
+                     </Button>
+                     <Button 
+                     onClick={() => this.deleteBook(item)} 
+                     size="small" color="primary" >
+                     Remove book
+                          </Button>
+                    
+                   </CardActions>
+                 </Card>
+               </Grid>
+             ))}
+           </Grid>
+         </Container>
+     <div>
+         {this.props.reduxState.details != null ?
+          <BookDetails/>
+        :
+        <></>}
+        </div>
+        </main>
     );
   }
 }
-
-// Instead of taking everything from state, we just want the user info.
-
 // this allows us to use <App /> in index.js
 const mapReduxStateToProps = (reduxState) => ({
   reduxState

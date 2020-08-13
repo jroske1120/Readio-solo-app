@@ -240,7 +240,10 @@ class UserPage extends Component {
                        
                    </CardContent>
                    <CardActions>
-
+                   <Button size="small" color="primary"
+                     onClick={() => this.finishBook(item)}>
+                       Finish
+                     </Button>
                      <Button size="small" color="primary"
                      onClick={() => this.goToDetails(item)}>
                        View Details

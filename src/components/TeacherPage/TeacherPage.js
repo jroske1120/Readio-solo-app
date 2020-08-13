@@ -137,8 +137,11 @@ class TeacherPage extends Component {
           </Button>
             </div>
             {/* map out books that have been added to server based on id */}
+           
+            
             <TableContainer className={classes.container} component={Paper}>
               <Table className={classes.table} aria-label="simple table">
+              {this.props.reduxState.questions.length > 0 ?
                 <TableHead>
                   <TableRow>
                     <TableCell >Book Title</TableCell>
@@ -151,6 +154,7 @@ class TeacherPage extends Component {
                     <TableCell >Submit Score</TableCell>
                   </TableRow>
                 </TableHead>
+                :<></>}
                 <TableBody>
                   {this.props.reduxState.questions.map((questions) => (
                     <TableRow key={questions.book_id}>
@@ -195,7 +199,7 @@ class TeacherPage extends Component {
                           onChange={this.handleInputChangeFor('quiz_score')}
                         /></TableCell>)}
                       <TableCell>
-                        <Button variant="contained" color="secondary"
+                        <Button variant="contained" color="primary"
                           onClick={() => this.submitFeedback(questions)}>
                           Submit</Button>
                       </TableCell>

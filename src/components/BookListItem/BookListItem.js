@@ -17,7 +17,7 @@ import Button from '@material-ui/core/Button';
 
 const styles = (theme) => ({
     card: {
-        width: '70%',
+        width: '60%',
         padding: 10,
         margin: 40,
         justifyContent: 'center',

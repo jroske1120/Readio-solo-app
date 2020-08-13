@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 const styles = {
   
@@ -80,11 +81,13 @@ class AddStudentPage extends Component {
             />
           </div>
         </form>
-        <button onClick={() => {
+        
+        <Button variant="contained" color="primary"
+        onClick={() => {
           this.props.history.push('/teacher');
         }} >
           Back to Teacher Page
-          </button>
+          </Button>
         <br></br></div>)
         :
         <div>404</div>}

@@ -14,13 +14,13 @@ import Button from '@material-ui/core/Button';
 
 const styles = {
     card: {
-        width: 350,
+        width: '60%',
         padding: 10,
         boxShadow: '-3px 3px 10px black',
         borderRadius: 5,
         backgroundColor: 'silver',
         flexWrap: 'wrap',
-    justifyContent: 'space-around',
+        justifyContent: 'space-around',
     },
     media: {
         height: 250,
@@ -32,7 +32,7 @@ const styles = {
     },
     button: {
         textAlign: 'center',
-      },
+    },
 };
 
 class BookDetails extends Component {
@@ -64,60 +64,59 @@ class BookDetails extends Component {
                         <Card
                             variant="outlined"
                             className={classes.card} >
-                            <CardActionArea>
+
+                            <CardMedia
+                                className={classes.media}
+                                component="img"
+                                image={item.book_image}
+                                alt={item.book_title} />
+                            <CardContent>
                                 <Typography
                                     gutterBottom variant="h5" component="h5">
                                     {item.book_title}
                                 </Typography>
-                                <CardMedia
-                                    className={classes.media}
-                                    component="img"
-                                    image={item.book_image}
-                                    alt={item.book_title} />
-                                <CardContent>
-                                    <Typography
-                                        variant="body2" component="p">
-                                        By {item.book_authors}
-                                    </Typography>
-                                    <hr color="black" />
-                                    <Typography
-                                        variant="body2" component="p">
-                                        {item.book_description}
-                                    </Typography>
-                                    <hr />
-                                    <Typography
-                                        variant="body2"
-                                        color="textSecondary"
-                                        component="p">
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
+                                <Typography
+                                    variant="body2" component="p">
+                                    By {item.book_authors}
+                                </Typography>
+                                {/* <hr color="black" /> */}
+                                <Typography
+                                    variant="body2" component="p">
+                                    {item.book_description}
+                                </Typography>
+                                {/* <hr /> */}
+                                {/* <Typography
+                                    variant="body2"
+                                    color="textSecondary"
+                                    component="p">
+                                </Typography> */}
+                            </CardContent>
 
                             <div className={classes.button}>
-                            <Button
-                                variant="contained" color="primary"
-                            ><a className={classes.readButton}
-                                href={item.book_text}
-                                rel="noopener noreferrer"
-                                target="_blank">
-                                    Read it!
-                </a></Button>
-
-                            {item.finish_quiz === false ?
                                 <Button
                                     variant="contained" color="primary"
-                                    className={classes.readButton}
-                                    onClick={() => {
-                                        this.props.history.push('/quiz');
-                                    }}>Take the quiz!</Button>
-                                : <></>}
-                            {item.quiz_score != null ?
-                                (<>
-                                    <p>{item.quiz_feedback}</p>
-                                    <p>{item.quiz_score}</p>
-                                </>)
-                                : <></>
-                            }
+                                ><a className={classes.readButton}
+                                    href={item.book_text}
+                                    rel="noopener noreferrer"
+                                    target="_blank">
+                                        Read it!
+                </a></Button>
+
+                                {item.finish_quiz === false ?
+                                    <Button
+                                        variant="contained" color="primary"
+                                        className={classes.readButton}
+                                        onClick={() => {
+                                            this.props.history.push('/quiz');
+                                        }}>Take the quiz!</Button>
+                                    : <></>}
+                                {item.quiz_score != null ?
+                                    (<>
+                                        <p>{item.quiz_feedback}</p>
+                                        <p>{item.quiz_score}</p>
+                                    </>)
+                                    : <></>
+                                }
                             </div>
                         </Card>
                     </Grid>

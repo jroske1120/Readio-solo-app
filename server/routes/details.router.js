@@ -6,8 +6,6 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const router = express.Router();
 
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-    console.log('req.user:', req.user.id);
-    console.log('req.params.id:', req.params.id);
     const query = `select * from user_book
     WHERE book_id = $2
     AND user_id = $1;`;
@@ -22,9 +20,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 router.put('/:id', rejectUnauthenticated, (req, res) => {
-    console.log('put request for id', req.user.id);
-    console.log('put request for rating', req.body.student_rating);
-    console.log('put request for book', req.body.item.book_id);
     let query =
         `UPDATE user_book SET student_rating = $1 
         WHERE user_id = $2 AND

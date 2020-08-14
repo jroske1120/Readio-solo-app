@@ -12,10 +12,15 @@
 
 .nav {
   overflow: hidden;
-  background-image: linear-gradient(to right,#0030ce, #0044ff);
+  background-image:
+    linear-gradient(
+      to right, 
+      rgb(0, 12, 174),blue, red, #f0b906
+    );
   /* text-align: center; */
   padding: 10px;
-  margin: 1px;
+  margin: 0px;
+  box-shadow: -3px 3px 10px black;
 }
 
 .nav-link {

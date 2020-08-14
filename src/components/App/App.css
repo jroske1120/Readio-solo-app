@@ -1,58 +1,65 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0px;
-    background-image: linear-gradient(to right,rgb(223, 223, 223), white);
 
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0px;
+  background-image: url('../images/bookshelf.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .alert {
-    background-color: #ff4545;
-    margin: 50px;
+  background-color: #ff4545;
+  margin: 50px;
 }
 
 h2 {
-    text-align: center;
+  text-align: center;
 }
 
 form {
-    background-color: rgb(255, 255, 255);
-    box-shadow: -3px 3px 10px black;
-    width: 70%;
-    /* max-width: 500px; */
-    /* height: 250px; */
-    min-height: 200px;     
-    margin: 20px auto;
-    padding: 15px;
-    border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: -3px 3px 10px black;
+  width: 70%;
+  max-width: 600px;
+  min-height: 200px;
+  margin: 100px auto;
+  padding: 15px;
+  border-radius: 5px;
 }
 
 input {
-    margin: 5px;
-    margin-bottom: 10px;
+  margin: 5px;
+  margin-bottom: 10px;
 }
 
-.log-in, .log-out, .register {
+.log-in,
+.log-out,
+.register {
   background-color: #0012b0;
   border-radius: 4px;
   color: #f8f8f8;
   min-height: 50px;
   min-width: 100px;
-  outline:0;
+  outline: 0;
   cursor: pointer;
 }
 
-.log-in:hover, .log-out:hover, .register:hover {
+.log-in:hover,
+.log-out:hover,
+.register:hover {
   background-color: #008183;
 }
 
 /* This line makes the "Register" and "Login" buttons look like links */
 .link-button {
-    background:none;
-    color:inherit;
-    border:none;
-    padding:0;
-    font: inherit;
-    outline:0;
-    border-bottom:1px solid #444; 
-    cursor: pointer;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  outline: 0;
+  border-bottom: 1px solid #444;
+  cursor: pointer;
 }

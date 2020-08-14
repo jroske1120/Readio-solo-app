@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Swal from 'sweetalert2';
 import Button from '@material-ui/core/Button';
+import Fade from 'react-reveal/Fade';
 
 const styles = {
   input: {
@@ -80,6 +81,7 @@ if (this.props.reduxState.details[0] != null){
           }
 
         </h2>
+        <Fade left>
         <form>
           {/* <h1>Quiz for {this.props.reduxState.details[0].book_title}</h1> */}
           <div>
@@ -133,6 +135,7 @@ if (this.props.reduxState.details[0] != null){
           </div>
           
         </form>
+        </Fade>
         {/* <form>
                     {this.props.reduxState.questions.map((item, index) => (
                         <p key={index}> <label htmlFor='question_1'>{item.question_1}</label>

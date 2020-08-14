@@ -14,6 +14,7 @@ import PersonAddRoundedIcon from "@material-ui/icons/PersonAddRounded";
 import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
 import Swal from "sweetalert2";
+import FadeIn from 'react-fade-in';
 
 const styles = {
   contain: {
@@ -35,6 +36,9 @@ const styles = {
   },
   feedback: {
     width: 250,
+  },
+  tableHead: {
+    fontWeight: 700,
   },
 };
 class TeacherPage extends Component {
@@ -100,20 +104,21 @@ class TeacherPage extends Component {
     const { classes } = this.props;
     return (
       <>
+      <FadeIn>
         {this.props.reduxState.user.is_teacher === true ? (
           <div className={classes.contain}>
             <h1 id="welcome"> </h1>
             <h2>See how your class is doing</h2>
             <TableContainer className={classes.container} component={Paper}>
               <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>ID</TableCell>
-                    <TableCell>Username</TableCell>
-                    <TableCell>Books Read</TableCell>
-                    <TableCell>Avg. Quiz</TableCell>
-                    <TableCell>Grade</TableCell>
-                    <TableCell>Remove Student</TableCell>
+                <TableHead >
+                  <TableRow >
+                    <TableCell className={classes.tableHead}>ID</TableCell>
+                    <TableCell className={classes.tableHead}>Username</TableCell>
+                    <TableCell className={classes.tableHead}>Books Read</TableCell>
+                    <TableCell className={classes.tableHead}>Avg. Quiz</TableCell>
+                    <TableCell className={classes.tableHead}>Grade</TableCell>
+                    <TableCell className={classes.tableHead}>Remove Student</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -166,20 +171,20 @@ class TeacherPage extends Component {
               </Button>
             </div>
             {/* map out books that have been added to server based on id */}
-
+<FadeIn>
             <TableContainer className={classes.container} component={Paper}>
               <Table className={classes.table} aria-label="simple table">
                 {this.props.reduxState.questions.length > 0 ? (
                   <TableHead>
                     <TableRow onClick={this.fillerAnswers}>
-                      <TableCell>Book Title</TableCell>
-                      <TableCell>Question 1</TableCell>
-                      <TableCell>Question 2</TableCell>
-                      <TableCell>Question 3</TableCell>
-                      <TableCell>Question 4</TableCell>
-                      <TableCell>Quiz Feedback</TableCell>
-                      <TableCell>Quiz Score</TableCell>
-                      <TableCell>Submit Score</TableCell>
+                      <TableCell className={classes.tableHead}>Book Title</TableCell>
+                      <TableCell className={classes.tableHead}>Question 1</TableCell>
+                      <TableCell className={classes.tableHead}>Question 2</TableCell>
+                      <TableCell className={classes.tableHead}>Question 3</TableCell>
+                      <TableCell className={classes.tableHead}>Question 4</TableCell>
+                      <TableCell className={classes.tableHead}>Quiz Feedback</TableCell>
+                      <TableCell className={classes.tableHead}>Quiz Score</TableCell>
+                      <TableCell className={classes.tableHead}>Submit Score</TableCell>
                     </TableRow>
                   </TableHead>
                 ) : (
@@ -249,10 +254,12 @@ class TeacherPage extends Component {
                 </TableBody>
               </Table>
             </TableContainer>
+            </FadeIn>
           </div>
         ) : (
           <div>404</div>
         )}{" "}
+        </FadeIn>
       </>
     );
   }

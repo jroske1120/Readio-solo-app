@@ -15,6 +15,7 @@ import Rating from "material-ui-rating";
 import Box from "@material-ui/core/Box";
 import Popover from "@material-ui/core/Popover";
 import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
+import Fade from 'react-reveal/Fade';
 
 const styles = (theme) => ({
   heroContent: {
@@ -237,7 +238,7 @@ class UserPage extends Component {
             </div>
           </Container>
         </div>
-
+        <Fade up>
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
             {store.profileBooks.map((item) => (
@@ -375,7 +376,9 @@ class UserPage extends Component {
         :
         <></>} */}
         </div>
+        </Fade>
       </main>
+      
     );
   }
 }

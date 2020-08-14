@@ -14,6 +14,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
+import Fade from 'react-reveal/Fade';
 
 const styles = (theme) => ({
     card: {
@@ -80,6 +81,7 @@ class BookListItem extends Component {
         const { classes } = this.props;
         return (
             <div>
+                <Fade up>
                 <Grid
                     elevation={3}
                     container direction="column"
@@ -147,6 +149,7 @@ class BookListItem extends Component {
                         {/* <button onClick={this.goToDetails}>See details</button> */}
                     </Card>
                 </Grid>
+                </Fade>
             </div>
         );
     }

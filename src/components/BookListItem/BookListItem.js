@@ -28,7 +28,8 @@ const styles = (theme) => ({
     media: {
         height: 250,
         width: 'auto',
-        marginLeft: 85
+        display: 'inline-block',
+        textAlign: 'center',
     },
     descr: {
         fontSize: theme.typography.pxToRem(15),
@@ -52,6 +53,10 @@ const styles = (theme) => ({
     },
     urlButton: {
         color: 'white',
+    },
+    centerCard: {
+        textAlign: 'center',
+
     },
 });
 
@@ -84,16 +89,19 @@ class BookListItem extends Component {
                         variant="outlined"
                         className={classes.card} >
                         <CardActionArea>
+                            <div className={classes.centerCard}>
                             <CardMedia
                                 className={classes.media}
                                 component="img"
                                 image={this.props.item.volumeInfo.imageLinks.thumbnail}
                                 alt={this.props.item.volumeInfo.title} />
+                                </div>
                             <CardContent>
                                 <Typography
                                     gutterBottom variant="h5" component="h5">
                                     {this.props.item.volumeInfo.title}
                                 </Typography>
+                                
                                 <Accordion className={classes.acc}>
                                     <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}

@@ -44,12 +44,29 @@ const styles = (theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    boxShadow: '-3px 3px 10px black',
+    justifyContent: 'center'
+
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
+    backgroundSize: 'auto',
+    margin: 5,
+    textAlign: 'center'
+
   },
   cardContent: {
     flexGrow: 1,
+    textAlign: 'center'
+  },
+  centerBtns: {
+    justifyContent: 'center'
+  },
+  popup: {
+    width: 500,
+    height: 'auto',
+    textAlign: 'center',
+
   },
   // flex: {
   //   display: 'flex',
@@ -235,7 +252,7 @@ class UserPage extends Component {
                      {item.book_title}
                      </Typography>
                      
-                     <Rating 
+                     <Rating  
                      name="student_rating"
                      value={item.student_rating}
                      onChange={(student_rating) => this.rateBook(student_rating, item)}
@@ -243,7 +260,8 @@ class UserPage extends Component {
                      />
                        
                    </CardContent>
-                   <CardActions>
+                   <div className={classes.centerBtns}>
+                   <CardActions className={classes.centerBtns}>
                    <Button 
                    variant="outlined"
                    size="small" color="primary"
@@ -254,8 +272,8 @@ class UserPage extends Component {
                      onClick={() => this.goToDetails(item)}>
                        View Details
                      </Button> */}
-                     
-                          <PopupState variant="popover" popupId="demo-popup-popover">
+                      
+                                            <PopupState variant="popover" >
       {(popupState) => (
         <div>
           <Button 
@@ -265,7 +283,7 @@ class UserPage extends Component {
            {...bindTrigger(popupState)}>
             Details
           </Button>
-          <Popover
+          <Popover 
             {...bindPopover(popupState)}
             anchorOrigin={{
               vertical: 'bottom',
@@ -276,11 +294,12 @@ class UserPage extends Component {
               horizontal: 'center',
             }}
           >
-            <Box p={2}>
+            <Box p={2} className={classes.popup}>
               <>
               <h3>{item.book_title}</h3>
               <p>{item.book_authors}</p>
-              <img src={item.book_image}/>
+              <img 
+            src={item.book_image}/>
               <p>{item.book_description}</p>
               <Button
                                     variant="contained" color="primary"
@@ -315,6 +334,7 @@ class UserPage extends Component {
         </div>
       )}
     </PopupState>
+
     <Button 
                      onClick={() => this.deleteBook(item)} 
                      size="small" 
@@ -323,6 +343,7 @@ class UserPage extends Component {
                      Remove
                           </Button>
                    </CardActions>
+                   </div>
                  </Card>
                </Grid>
              ))}

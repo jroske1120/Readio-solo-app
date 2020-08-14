@@ -56,7 +56,6 @@ class BookDetails extends Component {
             <div>
 
                 {this.props.reduxState.details.map(item =>
-
                     <Grid key={item.book_id}
                         container direction="column"
                         justify="center"
@@ -64,7 +63,6 @@ class BookDetails extends Component {
                         <Card
                             variant="outlined"
                             className={classes.card} >
-
                             <CardMedia
                                 className={classes.media}
                                 component="img"
@@ -79,19 +77,11 @@ class BookDetails extends Component {
                                     variant="body2" component="p">
                                     By {item.book_authors}
                                 </Typography>
-                                {/* <hr color="black" /> */}
                                 <Typography
                                     variant="body2" component="p">
                                     {item.book_description}
                                 </Typography>
-                                {/* <hr /> */}
-                                {/* <Typography
-                                    variant="body2"
-                                    color="textSecondary"
-                                    component="p">
-                                </Typography> */}
                             </CardContent>
-
                             <div className={classes.button}>
                                 <Button
                                     variant="contained" color="primary"
@@ -101,7 +91,6 @@ class BookDetails extends Component {
                                     target="_blank">
                                         Read it!
                 </a></Button>
-
                                 {item.finish_quiz === false ?
                                     <Button
                                         variant="contained" color="primary"

@@ -67,8 +67,25 @@ class TeacherPage extends Component {
   }
 
   removeStudent = (student) => {
-    this.props.dispatch({ type: 'REMOVE_STUDENT', payload: student })
+    Swal.fire({
+      title: 'Are you sure you want to remove this student?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, remove.'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          `${student.username} was removed!`,
+          '',
+          'success',
+        )
+        this.props.dispatch({ type: 'REMOVE_STUDENT', payload: student })
+      }    
+    })
   }
+
   viewQuiz = (student) => {
     this.props.dispatch({ type: 'FETCH_QUIZZES', payload: student })
   }

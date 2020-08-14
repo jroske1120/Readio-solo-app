@@ -25,7 +25,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Rating from 'material-ui-rating'
-
+import Box from '@material-ui/core/Box';
+import Popover from '@material-ui/core/Popover';
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 const styles = (theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
@@ -109,7 +111,9 @@ class UserPage extends Component {
     this.props.dispatch({
       type: "FETCH_DETAILS",
       payload: item.book_id
-  })  }
+  }) 
+  this.props.history.push('/quiz')
+ }
 
   deleteBook = (item) => {
     Swal.fire({
@@ -187,7 +191,7 @@ class UserPage extends Component {
               
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              This is your profile page. You can see the books on your shelf, remove them 
+              This is your profile page. You can see the books on your shelf, or remove them 
               if you like. You can also click to see the book's details. Enjoy!
               
             </Typography>
@@ -205,7 +209,7 @@ class UserPage extends Component {
             : <></>
           } 
                 <Grid item>
-                  <Button variant="outlined" color="primary"
+                  <Button variant="contained" color="primary"
                   onClick={() => {
                     this.props.history.push('/search')}}>
                     Search for Books
@@ -240,20 +244,84 @@ class UserPage extends Component {
                        
                    </CardContent>
                    <CardActions>
-                   <Button size="small" color="primary"
+                   <Button 
+                   variant="outlined"
+                   size="small" color="primary"
                      onClick={() => this.finishBook(item)}>
                        Finish
                      </Button>
-                     <Button size="small" color="primary"
+                     {/* <Button size="small" color="primary"
                      onClick={() => this.goToDetails(item)}>
                        View Details
-                     </Button>
-                     <Button 
+                     </Button> */}
+                     
+                          <PopupState variant="popover" popupId="demo-popup-popover">
+      {(popupState) => (
+        <div>
+          <Button 
+          // size="small" 
+          variant="contained"
+          color="primary"
+           {...bindTrigger(popupState)}>
+            Details
+          </Button>
+          <Popover
+            {...bindPopover(popupState)}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Box p={2}>
+              <>
+              <h3>{item.book_title}</h3>
+              <p>{item.book_authors}</p>
+              <img src={item.book_image}/>
+              <p>{item.book_description}</p>
+              <Button
+                                    variant="contained" color="primary"
+                                ><a className={classes.readButton}
+                                    href={item.book_text}
+                                    rel="noopener noreferrer"
+                                    target="_blank">
+                                        Read it!
+                </a></Button>
+                                {item.finish_book === true ?
+                                    <Button
+                                        variant="contained" color="primary"
+                                        className={classes.readButton}
+                                        onClick={() => this.goToDetails(item
+                                        )}>Take the quiz!</Button>
+                                    : <Button
+                                    variant="disabled" color="primary"
+                                    className={classes.readButton}
+                                    
+                                    >Finish First!</Button>}
+                                {item.quiz_score != null ?
+                                    (<>
+                                        <p>Teacher feedback on your quiz: <i>{item.quiz_feedback}</i></p>
+                                        <p>Your score for {item.book_title}: <b>{item.quiz_score}</b></p>
+                                    </>)
+                                    : <></>
+                                }
+
+              </>
+            </Box>
+          </Popover>
+        </div>
+      )}
+    </PopupState>
+    <Button 
                      onClick={() => this.deleteBook(item)} 
-                     size="small" color="primary" >
-                     Remove book
+                     size="small" 
+                     variant="contained"
+                     color="secondary" >
+                     Remove
                           </Button>
-                    
                    </CardActions>
                  </Card>
                </Grid>
@@ -261,10 +329,10 @@ class UserPage extends Component {
            </Grid>
          </Container>
      <div>
-         {this.props.reduxState.details != null ?
+         {/* {this.props.reduxState.details != null ?
           <BookDetails/>
         :
-        <></>}
+        <></>} */}
         </div>
         </main>
     );

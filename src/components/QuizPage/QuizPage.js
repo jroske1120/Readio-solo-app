@@ -56,7 +56,7 @@ if (this.props.reduxState.details[0] != null){
   }
 
   componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_QUIZ' });
+    // this.props.dispatch({ type: 'FETCH_QUIZ' });
   }
 
   // This is main user profile

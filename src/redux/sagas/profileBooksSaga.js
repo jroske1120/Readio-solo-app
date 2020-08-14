@@ -15,7 +15,6 @@ function* fetchProfileBookSaga() {
   }
   function* fetchQuestionSaga(action) {
     try {
-
       const response = yield axios.get('/quiz');
       yield put({ type: 'SET_QUIZ', payload: response.data });
     } catch (error) {
@@ -26,7 +25,6 @@ function* fetchProfileBookSaga() {
   function* fetchDetailSaga(action) {
     console.log('in detailsSaga...', action.payload)
     try {
-        // get request that gets movies from database
         const response = yield axios.get('/details/'+ action.payload)
         yield put({ type: 'SET_DETAILS', payload: response.data })
     } catch (error) {
@@ -37,7 +35,6 @@ function* fetchProfileBookSaga() {
 function* deleteBookSaga(action) {
     console.log('in deleteBookSaga...', action.payload)
     try {
-        // get request that gets movies from database
         const response = yield axios.delete('/profile/'+ action.payload.book_id)
         yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
     } catch (error) {
@@ -46,19 +43,17 @@ function* deleteBookSaga(action) {
 }
 function* finishBookSaga(action) {
     console.log('in finishBookSaga...', action.payload)
-    // try {
-    //     // get request that gets movies from database
-    //     const response = yield axios.put('/profile/'+ action.payload.book_id)
-    //     yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
-    // } catch (error) {
-    //     console.log('issue with finishBookSaga :', error)
-    // }
+    try {
+        const response = yield axios.put('/profile/'+ action.payload.book_id)
+        yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
+    } catch (error) {
+        console.log('issue with finishBookSaga :', error)
+    }
 }
 
 function* rateBookSaga(action) {
   console.log('in rateBookSaga...', action.payload.item.book_id)
   try {
-      // get request that gets movies from database
       const response = yield axios.put(`/details/${action.payload.item.book_id}`, action.payload)
       yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
   } catch (error) {

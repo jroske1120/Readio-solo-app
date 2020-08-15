@@ -1,13 +1,13 @@
-@import url('//db.onlinewebfonts.com/c/56e51b15f9bcb363331159989c474c45?family=TradeGothicforNike365-BdCn');
-
+@import url('https://fonts.googleapis.com/css?family=Bangers');
 .nav-title {
     font-size: 200%;
     /* font-weight: 200; */
     display: inline-block;
     color: rgb(243, 242, 242);
     /* padding-left: 35%; */
-    font-family: 'Futura-CondensedMedium';
+    /* font-family: 'Bangers'; */
     margin: 0;
+font-size: 42;
 }
 
 .nav {

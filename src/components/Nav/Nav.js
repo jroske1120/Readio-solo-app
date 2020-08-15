@@ -10,7 +10,7 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
-      <h1 className="nav-title">Readio  {props.reduxState.user.username}</h1>
+      <h1 className="nav-title">READ.IO  {props.reduxState.user.username}</h1>
     </Link>
     <div className="nav-right">
      

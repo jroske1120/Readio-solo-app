@@ -18,7 +18,7 @@ const styles = {
   media: {
     height: 250,
     width: 'auto',
-    marginLeft: 85
+    marginLeft: 85,
   },
   root: {
     height: 250,
@@ -63,7 +63,7 @@ class BookSearchPage extends Component {
         >
           <TextField className={classes.textField}
             type="text"
-            onChange={this.handleChange} placeholder="Search"></TextField>
+            onChange={this.handleChange} placeholder="Search for a book!"></TextField>
           <Button className={classes.textField}
             variant="contained" color="primary"
             type="submit">

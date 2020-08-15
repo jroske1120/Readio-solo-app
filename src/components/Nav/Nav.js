@@ -10,35 +10,41 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
-      <h1 className="nav-title">READ.IO  {props.reduxState.user.username}</h1>
+      <h1 className="nav-title">READ.IO 
+       {/* {props.reduxState.user.username} */}
+       </h1>
     </Link>
     <div className="nav-right">
      
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
-        {props.reduxState.user.id ? (<IconButton><AccountCircleRoundedIcon
+        {props.reduxState.user.id ? (
+        <IconButton
+        onClick={() => {
+          props.history.push('/home');
+        }}>
+          <AccountCircleRoundedIcon
           alt="Profile"
           title="Profile"
           height="30px"
-          onClick={() => {
-            props.history.push('/home');
-          }}
-        /></IconButton>) : 'Login / Register'}
+        
+        />Profile</IconButton>) : 'Login / Register'}
     
       {/* Show the link to the search page and the logout button if the user is logged in */}
       {props.reduxState.user.id ? (
         <>
           
-            <IconButton>
+            <IconButton
+            onClick={() => {
+              props.history.push('/search');
+            }}>
             <SearchRoundedIcon
           alt="Book Search"
           title="Book Search"
           height="30px"  
-          onClick={() => {
-            props.history.push('/search');
-          }}
-          />
+          
+          />Search
             </IconButton>
           <LogOutButton/>
 

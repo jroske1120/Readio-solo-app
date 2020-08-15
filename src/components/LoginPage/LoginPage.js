@@ -1,6 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = {
+  textField: {
+    justifyContent: "space-evenly",
+    flexWrap: "wrap",
+    display: "flex",
+    alignItems: "center",
+  },
+};
+
 class LoginPage extends Component {
   state = {
     username: "",
@@ -31,6 +43,7 @@ class LoginPage extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
         {this.props.errors.loginMessage && (
@@ -38,12 +51,14 @@ class LoginPage extends Component {
             {this.props.errors.loginMessage}
           </h2>
         )}
-        <form >
-          <h1>Login</h1>
+        <form>
+        <h1 className={classes.textField}>Login</h1>
+        <div className={classes.textField}>
           <div>
             <label htmlFor="username">
               Username:
-              <input
+              <TextField
+                className={classes.textField}
                 type="text"
                 name="username"
                 value={this.state.username}
@@ -54,7 +69,8 @@ class LoginPage extends Component {
           <div>
             <label htmlFor="password">
               Password:
-              <input
+              <TextField
+                className={classes.textField}
                 type="password"
                 name="password"
                 value={this.state.password}
@@ -64,10 +80,14 @@ class LoginPage extends Component {
           </div>
           <div>
             <Button
-            onClick={this.login}
+              // className={classes.textField}
+              onClick={this.login}
               variant="contained"
               color="primary"
-            >Login</Button>
+            >
+              Login
+            </Button>
+          </div>
           </div>
         </form>
         <center>
@@ -94,4 +114,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(LoginPage);
+export default connect(mapStateToProps)(withStyles(styles)(LoginPage));

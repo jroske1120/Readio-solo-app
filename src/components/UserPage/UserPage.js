@@ -119,15 +119,15 @@ class UserPage extends Component {
 
   deleteBook = (item) => {
     Swal.fire({
-      title: "Are you sure you want to return this book?",
+      title: "Are you sure you want to remove this book?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, return!",
+      confirmButtonText: "Yes, remove!",
     }).then((result) => {
       if (result.value) {
-        Swal.fire("Returned!", "", "success");
+        Swal.fire("Removed!", "", "success");
         this.props.dispatch({ type: "DELETE_BOOK", payload: item });
       }
     });
@@ -182,7 +182,9 @@ class UserPage extends Component {
     return (
       <main>
         <div className={classes.heroContent}>
-          <Container maxWidth="md">
+          <Container 
+          maxWidth="lg"
+          >
             <Typography
               component="h1"
               variant="h2"
@@ -191,7 +193,7 @@ class UserPage extends Component {
               gutterBottom
             >
               {store.user.id ? (
-                <span>{store.user.username}, here are your books!</span>
+                <span>Hey, {store.user.username}, here are your books!</span>
               ) : (
                 <span>Log in to see books!</span>
               )}
@@ -204,7 +206,7 @@ class UserPage extends Component {
             >
               This is your profile page. You can see the books on your shelf, or
               remove them if you like. You can also click to see the book's
-              details. Enjoy!
+              details, rate it, and take its quiz. Enjoy!
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">

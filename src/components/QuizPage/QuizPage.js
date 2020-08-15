@@ -10,7 +10,7 @@ import Fade from 'react-reveal/Fade';
 
 const styles = {
   input: {
-    width: '80%',
+    width: '90%',
     margin: 10,
   }
 };
@@ -26,8 +26,8 @@ class QuizPage extends Component {
 
   fillerAnswers = () => {
     this.setState({
-      question_1:`I am similar to the main character because I don''t really like to work, and I'll do anything to get out of doing my chores.`,
-      question_2: ` The tone of this text is playful. An example of this is in the main character''s sarcasm.`,
+      question_1:`I am similar to the main character because I don't really like to work, and I'll do anything to get out of doing my chores.`,
+      question_2: ` The tone of this text is playful. An example of this is in the main character's sarcasm.`,
       question_3: `If I were the author, I would be more explicit about the racial injustices surrounding Native Americans. `,
       question_4: `This book reminds me of the book, The Lord of the Flies. In that book, the characters demonstrate the two sides of Tom: carefree and reckless or coming of age with a hidden desire to fit in.`,
     });
@@ -72,8 +72,9 @@ if (this.props.reduxState.details[0] != null){
   render() {
     const { classes } = this.props;
     return (
-      <div>
-        {/* map out books that have been added to server based on id */}
+      <div>        
+        <Fade left>
+        <form>
         <h2 onClick={this.fillerAnswers}>Quiz Questions
         {this.props.reduxState.details[0] != null ?
             <span> for {this.props.reduxState.details[0].book_title}</span>
@@ -81,8 +82,6 @@ if (this.props.reduxState.details[0] != null){
           }
 
         </h2>
-        <Fade left>
-        <form>
           {/* <h1>Quiz for {this.props.reduxState.details[0].book_title}</h1> */}
           <div>
             1. How are you similar to or different from one of the characters?<br></br>

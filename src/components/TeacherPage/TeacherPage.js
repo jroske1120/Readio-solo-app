@@ -136,13 +136,23 @@ class TeacherPage extends Component {
 
                       <TableCell>{student.avg}</TableCell>
                       <TableCell>
-                        <Button
+                        {student.grade === null ?
+                      <Button
+                      variant="contained"
+                      color="disabled"
+                    >
+                      Grade
+                    </Button>  
+                      :
+                      <Button
                           variant="contained"
                           color="primary"
                           onClick={() => this.viewQuiz(student)}
                         >
                           Grade
                         </Button>
+                      }
+                        
                       </TableCell>
                       <TableCell>
                         <Button

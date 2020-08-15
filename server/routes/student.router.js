@@ -13,7 +13,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         let query = `SELECT user_id AS id, 
         array_agg(book_title) FILTER (WHERE book_title IS NOT NULL) AS books, 
         "user"."username" AS username, 
-        CAST(AVG(quiz_score) AS decimal(6,1))  
+        CAST(AVG(quiz_score) AS decimal(6,1)), 
+        array_agg(finish_quiz) FILTER (WHERE finish_quiz = true AND quiz_score IS NULL) as grade 
         FROM "user"
         FULL OUTER JOIN "user_book" ON "user"."id" = user_book.user_id
         WHERE is_teacher = false

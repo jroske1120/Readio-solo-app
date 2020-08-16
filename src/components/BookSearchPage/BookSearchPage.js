@@ -70,7 +70,6 @@ class BookSearchPage extends Component {
             Search
              </Button>
         </form>
-        {/* {this.props.reduxState.searchRed} */}
         {this.props.reduxState.search.map((item, index) =>
           <BookListItem
             key={index} item={item} />)}

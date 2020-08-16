@@ -18,10 +18,11 @@ import Fade from 'react-reveal/Fade';
 
 const styles = (theme) => ({
     card: {
-        width: '60%',
+        width: '50%',
         padding: 10,
         margin: 40,
         justifyContent: 'center',
+        textAlign: 'center',
         backgroundColor: 'rgb(255, 255, 255)',
         boxShadow: '-3px 3px 10px black',
         borderRadius: 5,
@@ -43,6 +44,7 @@ const styles = (theme) => ({
         border: '1px solid black',
         float: 'left',
         marginLeft: '5%',
+        textDecoration: 'none',
     },
     addButton: {
         border: '1px solid black',
@@ -54,6 +56,7 @@ const styles = (theme) => ({
     },
     urlButton: {
         color: 'white',
+        textDecoration: 'none',
     },
     centerCard: {
         textAlign: 'center',

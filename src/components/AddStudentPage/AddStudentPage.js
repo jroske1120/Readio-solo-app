@@ -4,9 +4,15 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import TextField from "@material-ui/core/TextField";
 
 const styles = {
-  
+  textField: {
+    justifyContent: "space-evenly",
+    flexWrap: "wrap",
+    display: "flex",
+    alignItems: "center",
+  },
 };
 
 class AddStudentPage extends Component {
@@ -43,51 +49,62 @@ class AddStudentPage extends Component {
 
   // This is main user profile
   render() {
+    const { classes } = this.props;
     return (
       <>
         {this.props.reduxState.user.is_teacher === true ?
         (<div>
-          <h1 id="welcome">Add Student Page!</h1>
-        <form onSubmit={this.registerUser}>
-          <h1>Add A Student</h1>
+          <form>
+        <h1 
+        onClick={this.fillerAnswers}
+        className={classes.textField}>Add a student</h1>
+        <div className={classes.textField}>
           <div>
             <label htmlFor="username">
               Username:
-              <input
+              <TextField
+                className={classes.textField}
                 type="text"
                 name="username"
                 value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
+                onChange={this.handleInputChangeFor("username")}
               />
             </label>
           </div>
           <div>
             <label htmlFor="password">
               Password:
-              <input
+              <TextField
+                className={classes.textField}
                 type="password"
                 name="password"
                 value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
+                onChange={this.handleInputChangeFor("password")}
               />
             </label>
           </div>
           <div>
-            <input
-              className="register"
-              type="submit"
-              name="submit"
-              value="Add"
-            />
+            <Button
+              // className={classes.textField}
+              onClick={this.registerUser}
+              variant="contained"
+              color="primary"
+            >
+              Add
+            </Button>
+          </div>
           </div>
         </form>
-        
+        <center>
         <Button variant="contained" color="primary"
         onClick={() => {
           this.props.history.push('/teacher');
         }} >
           Back to Teacher Page
           </Button>
+        </center>
+        
+        
         <br></br></div>)
         :
         <div>404</div>}

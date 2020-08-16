@@ -15,23 +15,30 @@ import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
 import Swal from "sweetalert2";
 import FadeIn from 'react-fade-in';
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
 
-const styles = {
+const styles = (theme) => ({
+  heroContent: {
+    marginTop: 20,
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(2, 0, 1),
+  },
   contain: {
-    margin: 40,
+    margin: 20,
   },
   table: {
     padding: 10,
   },
   container: {
-    marginBottom: 150,
+    marginBottom: 10,
     boxShadow: "-3px 3px 10px black",
   },
   unscored: {
     backgroundColor: "yellow",
   },
   button: {
-    marginBottom: 50,
+    marginTop: 10,
     textAlign: "center",
   },
   feedback: {
@@ -40,7 +47,7 @@ const styles = {
   tableHead: {
     fontWeight: 700,
   },
-};
+});
 class TeacherPage extends Component {
   state = {
     quiz_feedback: " ",
@@ -105,10 +112,34 @@ class TeacherPage extends Component {
     return (
       <>
       <FadeIn>
+      <div className={classes.heroContent}>
+          <Container 
+          maxWidth="md"
+          >
+            <Typography
+              variant="h5"
+              align="center"
+              color="textSecondary"
+              paragraph
+            >
+              This is your teacher page. Here is where you can grade students, and adjust your roster by adding or removing students.
+            </Typography>
+            </Container>
+            </div>
+            <div className={classes.button}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  this.props.history.push("/addstudent");
+                }}
+              >
+                <PersonAddRoundedIcon />
+                Add a student!
+              </Button>
+            </div>
         {this.props.reduxState.user.is_teacher === true ? (
           <div className={classes.contain}>
-            <h1 id="welcome"> </h1>
-            <h2>See how your class is doing</h2>
             <TableContainer className={classes.container} component={Paper}>
               <Table className={classes.table} aria-label="simple table">
                 <TableHead >
@@ -139,7 +170,7 @@ class TeacherPage extends Component {
                         {student.grade === null ?
                       <Button
                       variant="contained"
-                      color="disabled"
+                      // color="disabled"
                     >
                       Grade
                     </Button>  
@@ -168,18 +199,7 @@ class TeacherPage extends Component {
                 </TableBody>
               </Table>
             </TableContainer>
-            <div className={classes.button}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  this.props.history.push("/addstudent");
-                }}
-              >
-                <PersonAddRoundedIcon />
-                Add a student!
-              </Button>
-            </div>
+           
             {/* map out books that have been added to server based on id */}
 <FadeIn>
             <TableContainer className={classes.container} component={Paper}>

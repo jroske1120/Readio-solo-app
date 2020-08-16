@@ -54,6 +54,12 @@ const styles = (theme) => ({
     height: "auto",
     textAlign: "center",
   },
+  readButton: {
+    color: 'white',
+    textDecoration: 'none',
+    // border: '1px solid black',
+    // float: 'left',
+},
   // flex: {
   //   display: 'flex',
   //   margin: 50,
@@ -193,7 +199,7 @@ class UserPage extends Component {
               gutterBottom
             >
               {store.user.id ? (
-                <span>Hey, {store.user.username}, here are your books!</span>
+                <span>Hi, {store.user.username}, here are your books!</span>
               ) : (
                 <span>Log in to see books!</span>
               )}
@@ -333,7 +339,7 @@ class UserPage extends Component {
                                       color="primary"
                                       className={classes.readButton}
                                     >
-                                      Finish First!
+                                      Finish to take quiz!
                                     </Button>
                                   )}
                                   {item.quiz_score != null ? (

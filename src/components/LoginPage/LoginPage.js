@@ -19,6 +19,14 @@ class LoginPage extends Component {
     password: "",
   };
 
+  fillerAnswers = () => {
+    this.setState({
+      username: "Mr. Johnson",
+      password: "Mr. Johnson",
+     });
+  }
+
+
   login = (event) => {
     event.preventDefault();
 
@@ -52,7 +60,9 @@ class LoginPage extends Component {
           </h2>
         )}
         <form>
-        <h1 className={classes.textField}>Login</h1>
+        <h1 
+        onClick={this.fillerAnswers}
+        className={classes.textField}>Login</h1>
         <div className={classes.textField}>
           <div>
             <label htmlFor="username">

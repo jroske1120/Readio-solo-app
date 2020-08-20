@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import LogOutButton from "../LogOutButton/LogOutButton";
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';

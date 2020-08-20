@@ -57,7 +57,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     const client = await pool.connect()
     try {
         await client.query('BEGIN')
-        const queryText = 'INSERT INTO "user" (username, password, is_teacher) VALUES ($1, $2, $3) RETURNING id';
+        const queryText = `INSERT INTO "user" (username, password, is_teacher) 
+        VALUES ($1, $2, $3) RETURNING id`;
         const result = await client.query(queryText, [username, password, is_teacher])
         const insertText = `INSERT INTO "user_book" (user_id) VALUES($1);`
         await client.query(insertText, [result.rows[0].id])

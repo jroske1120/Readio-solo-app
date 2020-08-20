@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
-import BookDetails from "../BookDetails/BookDetails";
+// import BookDetails from "../BookDetails/BookDetails";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -312,7 +312,7 @@ class UserPage extends Component {
                                 <>
                                   <h3>{item.book_title}</h3>
                                   <p>{item.book_authors}</p>
-                                  <img src={item.book_image} />
+                                  <img src={item.book_image} alt={item.book_title} />
                                   <p>{item.book_description}</p>
                                   <Button variant="contained" color="primary">
                                     <a

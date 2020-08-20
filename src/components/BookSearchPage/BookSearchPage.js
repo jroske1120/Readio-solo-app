@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import BookListItem from '../BookListItem/BookListItem'
-import Skeleton from '@material-ui/lab/Skeleton';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 

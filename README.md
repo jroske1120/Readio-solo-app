@@ -52,7 +52,7 @@ Before you get started, make sure you have the following software installed on y
 The full stack! React, Redux/Sagas, Javascript, Node and Express, PostgreSQL, Material UI, and Google Books' API.
 
 ## Acknowledgement
-Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality, well as the members of my cohort, Paxos.
+Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality, as well as the members of my cohort, Paxos.
 
 ## Support
 If you have suggestions or issues, please email me at [joel.j.roske@gmail.com](www.google.com)

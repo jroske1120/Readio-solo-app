@@ -1,74 +1,54 @@
-import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import axios from "axios";
+import { put, takeLatest } from "redux-saga/effects";
+
+function* fetchDetailSaga(action) {
+  try {
+    const response = yield axios.get("/details/" + action.payload);
+    yield put({ type: "SET_DETAILS", payload: response.data });
+  } catch (error) {}
+}
 
 function* fetchProfileBookSaga() {
-    try {
-      const config = {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
-      }; 
-      const response = yield axios.get('/profile', config);
-      yield put({ type: 'SET_BOOKS', payload: response.data });
-    } catch (error) {
-      console.log('book get request failed', error);
-    }
-  }
-  function* fetchQuestionSaga(action) {
-    try {
-      const response = yield axios.get('/quiz');
-      yield put({ type: 'SET_QUIZ', payload: response.data });
-    } catch (error) {
-      console.log('quiz get request failed', error);
-    }
-  }
+  try {
+    const config = {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    };
+    const response = yield axios.get("/profile", config);
+    yield put({ type: "SET_BOOKS", payload: response.data });
+  } catch (error) {}
+}
 
-  function* fetchDetailSaga(action) {
-    console.log('in detailsSaga...', action.payload)
-    try {
-        const response = yield axios.get('/details/'+ action.payload)
-        yield put({ type: 'SET_DETAILS', payload: response.data })
-    } catch (error) {
-        console.log('issue with details get saga:', error)
-    }
+function* finishBookSaga(action) {
+  try {
+    const response = yield axios.put("/profile/" + action.payload.book_id);
+    yield put({ type: "FETCH_PROFILE_BOOKS", payload: response.data });
+  } catch (error) {}
 }
 
 function* deleteBookSaga(action) {
-    console.log('in deleteBookSaga...', action.payload)
-    try {
-        const response = yield axios.delete('/profile/'+ action.payload.book_id)
-        yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
-    } catch (error) {
-        console.log('issue with deleteBookSaga :', error)
-    }
-}
-function* finishBookSaga(action) {
-    console.log('in finishBookSaga...', action.payload)
-    try {
-        const response = yield axios.put('/profile/'+ action.payload.book_id)
-        yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
-    } catch (error) {
-        console.log('issue with finishBookSaga :', error)
-    }
+  try {
+    const response = yield axios.delete("/profile/" + action.payload.book_id);
+    yield put({ type: "FETCH_PROFILE_BOOKS", payload: response.data });
+  } catch (error) {}
 }
 
 function* rateBookSaga(action) {
-  console.log('in rateBookSaga...', action.payload.item.book_id)
   try {
-      const response = yield axios.put(`/details/${action.payload.item.book_id}`, action.payload)
-      yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
-  } catch (error) {
-      console.log('issue with finishBookSaga :', error)
-  }
+    const response = yield axios.put(
+      `/details/${action.payload.item.book_id}`,
+      action.payload
+    );
+    yield put({ type: "FETCH_PROFILE_BOOKS", payload: response.data });
+  } catch (error) {}
 }
 
-
 function* profileBooksSaga() {
-    yield takeLatest('FETCH_PROFILE_BOOKS', fetchProfileBookSaga);
-    yield takeLatest('FETCH_DETAILS', fetchDetailSaga);
-    yield takeLatest('DELETE_BOOK', deleteBookSaga);
-    yield takeLatest('FINISH_BOOK', finishBookSaga);
-    yield takeLatest('RATE_BOOK', rateBookSaga);
-    yield takeLatest('FETCH_QUIZ', fetchQuestionSaga);
-  }
+  yield takeLatest("DELETE_BOOK", deleteBookSaga);
+  yield takeLatest("FETCH_DETAILS", fetchDetailSaga);
+  yield takeLatest("FETCH_PROFILE_BOOKS", fetchProfileBookSaga);
+  yield takeLatest("FINISH_BOOK", finishBookSaga);
+  yield takeLatest("RATE_BOOK", rateBookSaga);
+}
 
 export default profileBooksSaga;

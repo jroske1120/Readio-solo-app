@@ -52,38 +52,15 @@ class TeacherPage extends Component {
     quiz_score: " ",
   };
 
-  fillerAnswers = () => {
-    this.setState({
-      quiz_feedback: `I really like what you said in your connection. Keep it up!`,
-      quiz_score: 100,
-    });
-  };
-  submitFeedback = (questions) => {
-    // event.preventDefault();
-    console.log("state is..", this.state);
-    console.log("questions are,", questions);
-    this.props.dispatch({
-      type: "SUBMIT_FEEDBACK",
-      payload: {
-        quiz_feedback: this.state.quiz_feedback,
-        quiz_score: this.state.quiz_score,
-        user_id: this.props.reduxState.questions[0].user_id,
-        book_id: questions.book_id,
-      },
-    });
+  componentDidMount() {
     this.props.dispatch({ type: "FETCH_STUDENTS" });
-  }; // end registerUser
+  }
 
   handleInputChangeFor = (propertyName) => (event) => {
     this.setState({
       [propertyName]: event.target.value,
     });
   };
-
-  componentDidMount() {
-    this.props.dispatch({ type: "FETCH_STUDENTS" });
-    // still need reducer and saga, and router for this
-  }
 
   removeStudent = (student) => {
     Swal.fire({
@@ -101,10 +78,23 @@ class TeacherPage extends Component {
     });
   };
 
+  submitFeedback = (questions) => {
+    this.props.dispatch({
+      type: "SUBMIT_FEEDBACK",
+      payload: {
+        quiz_feedback: this.state.quiz_feedback,
+        quiz_score: this.state.quiz_score,
+        user_id: this.props.reduxState.questions[0].user_id,
+        book_id: questions.book_id,
+      },
+    });
+    this.props.dispatch({ type: "FETCH_STUDENTS" });
+  }; 
+
   viewQuiz = (student) => {
     this.props.dispatch({ type: "FETCH_QUIZZES", payload: student });
   };
-  // This is main user profile
+
   render() {
     const { classes } = this.props;
     return (

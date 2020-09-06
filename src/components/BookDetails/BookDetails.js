@@ -40,7 +40,6 @@ class BookDetails extends Component {
         payload: this.props.match.params.id,
       });
     }
-    console.log("this.props.reduxState...", this.props.reduxState);
   }
 
   finishBook = (item) => {

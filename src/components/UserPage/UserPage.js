@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
-// import BookDetails from "../BookDetails/BookDetails";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -37,7 +36,7 @@ const styles = (theme) => ({
     justifyContent: "center",
   },
   cardMedia: {
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%",
     backgroundSize: "auto",
     margin: 5,
     textAlign: "center",
@@ -57,53 +56,11 @@ const styles = (theme) => ({
   readButton: {
     color: 'white',
     textDecoration: 'none',
-    // border: '1px solid black',
-    // float: 'left',
 },
-  // flex: {
-  //   display: 'flex',
-  //   margin: 50,
-  //   justifyContent: 'space-evenly',
-  //   flexWrap: 'wrap',
-  // },
-  // root: {
-  //   // display: 'flex',
-  //   flexWrap: 'wrap',
-  //   justifyContent: 'space-around',
-  //   paddingTop: 0,
-  //   padding: 10,
-  // },
-  // border: {
-  //   display: 'flex',
-  //   position: 'relative',
-  //   padding: '2px',
-  //   border: '1px solid silver',
-  //   borderRadius: '20px',
-  //   boxShadow: '-3px 3px 10px black',
-  //   width: '40%',
-  //   maxWidth: 400,
-  //   minWidth: 350,
-  // },
-  // gridList: {
-  //   // width: 400,
-  //   height: 400,
-  //   margin: 50,
-  //   border: 'double 40px transparent',
-  //   borderRadius: '20px',
-  //   boxShadow: 'inset 0 0 9px white',
-  //   backgroundColor: 'black',
-  //   backgroundOrigin: 'border-box',
-  //   backgroundClip: 'content-box, border-box',
-  //   backgroundImage: `linear-gradient(#363636, #363636), radial-gradient(circle at top right, #6d6d6d,black)`,
-  // },
   icon: {
     color: "rgba(255, 255, 255, 0.54)",
     padding: 3,
   },
-  // button: {
-  //   margin: 50,
-  //   textAlign: 'center',
-  // },
 });
 
 class UserPage extends Component {
@@ -114,15 +71,7 @@ class UserPage extends Component {
   componentDidMount() {
     this.props.dispatch({ type: "FETCH_PROFILE_BOOKS" });
   }
-
-  goToDetails = (item) => {
-    this.props.dispatch({
-      type: "FETCH_DETAILS",
-      payload: item.book_id,
-    });
-    this.props.history.push("/quiz");
-  };
-
+  
   deleteBook = (item) => {
     Swal.fire({
       title: "Are you sure you want to remove this book?",
@@ -137,18 +86,6 @@ class UserPage extends Component {
         this.props.dispatch({ type: "DELETE_BOOK", payload: item });
       }
     });
-  };
-
-  rateBook = (student_rating, item) => {
-    console.log("rating is...", student_rating);
-    console.log("item is...", item);
-    this.props.dispatch({
-      type: "RATE_BOOK",
-      payload: { item, student_rating },
-    });
-    // this.setState({
-    //   student_rating
-    // });
   };
 
   finishBook = (item) => {
@@ -175,16 +112,28 @@ class UserPage extends Component {
       },
     }).then((result) => {
       if (result.dismiss === Swal.DismissReason.timer) {
-        console.log("I was closed by the timer");
       }
     });
   };
 
-  // This is main user profile
+  goToDetails = (item) => {
+    this.props.dispatch({
+      type: "FETCH_DETAILS",
+      payload: item.book_id,
+    });
+    this.props.history.push("/quiz");
+  };
+
+  rateBook = (student_rating, item) => {
+    this.props.dispatch({
+      type: "RATE_BOOK",
+      payload: { item, student_rating },
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const store = this.props.reduxState;
-
     return (
       <main>
         <div className={classes.heroContent}>
@@ -216,7 +165,7 @@ class UserPage extends Component {
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
-                {this.props.reduxState.user.is_teacher ? (
+                {store.user.is_teacher ? (
                   <Grid item>
                     <Button
                       variant="contained"
@@ -261,7 +210,6 @@ class UserPage extends Component {
                     <Typography gutterBottom variant="h5" component="h2">
                       {item.book_title}
                     </Typography>
-
                     <Rating
                       name="student_rating"
                       value={item.student_rating}
@@ -281,16 +229,10 @@ class UserPage extends Component {
                       >
                         Finish
                       </Button>
-                      {/* <Button size="small" color="primary"
-                     onClick={() => this.goToDetails(item)}>
-                       View Details
-                     </Button> */}
-
                       <PopupState variant="popover">
                         {(popupState) => (
                           <div>
                             <Button
-                              // size="small"
                               variant="contained"
                               color="primary"
                               {...bindTrigger(popupState)}
@@ -362,7 +304,6 @@ class UserPage extends Component {
                           </div>
                         )}
                       </PopupState>
-
                       <Button
                         onClick={() => this.deleteBook(item)}
                         size="small"
@@ -379,10 +320,6 @@ class UserPage extends Component {
           </Grid>
         </Container>
         <div>
-          {/* {this.props.reduxState.details != null ?
-          <BookDetails/>
-        :
-        <></>} */}
         </div>
         </Fade>
       </main>
@@ -390,7 +327,6 @@ class UserPage extends Component {
     );
   }
 }
-// this allows us to use <App /> in index.js
 const mapReduxStateToProps = (reduxState) => ({
   reduxState,
 });

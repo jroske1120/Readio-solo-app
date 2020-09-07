@@ -21,6 +21,7 @@ function* editFeedbackSaga(action) {
    try {
         const response = yield axios.put(`/student/${action.payload.book_id}`, action.payload)
         yield put({ type: 'SET_QUIZ', payload: response.data })
+        yield put({ type: 'FETCH_STUDENTS', payload: response.data })
     } catch (error) {
    }
 }

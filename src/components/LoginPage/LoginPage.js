@@ -46,52 +46,72 @@ class LoginPage extends Component {
     const { classes } = this.props;
     return (
       <div>
-           <center>
-        {this.props.errors.loginMessage && (
-          <h2 className="alert" role="alert">
-            {this.props.errors.loginMessage}
-          </h2>
-        )}
-        <form>
-        <h1 
-        className={classes.textField}>Login</h1>
-        <div className={classes.textField}>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <TextField
-                className={classes.textField}
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor("username")}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <TextField
-                className={classes.textField}
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor("password")}
-              />
-            </label>
-          </div>
-          <div>
-            <Button
-              onClick={this.login}
-              variant="contained"
-              color="primary"
-            >
-              Login
-            </Button>
-          </div>
-          </div>
-        </form>
-     
+        <center>
+          <form className="welcome-form">
+            <h2>Welcome to Readio!</h2>
+            <p>
+            Readio is a full stack web application built for my solo project
+              with Prime Digital Academy. The inspiration for it comes from teaching. 
+              As an educator, I noticed that much of the reading software used
+              in our schools is either too complex for students or too expensive
+              for schools.
+            </p>
+            <p>
+              Readio harnesses the power of Google
+              Books' API to give students access to books that they can read,
+              rate, and take quizzes on. Register as a teacher to see students
+              in your class and grade their quizzes!
+            </p>
+            <p>
+              If you have any questions, or something isn't working, please
+              reach out to me at joel.j.roske@gmail.com.
+            </p>
+            <p>-Joel Roske</p>
+          </form>
+          {this.props.errors.loginMessage && (
+            <h2 className="alert" role="alert">
+              {this.props.errors.loginMessage}
+            </h2>
+          )}
+          <form>
+            <h1 className={classes.textField}>Login</h1>
+            <div className={classes.textField}>
+              <div>
+                <label htmlFor="username">
+                  Username:
+                  <TextField
+                    className={classes.textField}
+                    type="text"
+                    name="username"
+                    value={this.state.username}
+                    onChange={this.handleInputChangeFor("username")}
+                  />
+                </label>
+              </div>
+              <div>
+                <label htmlFor="password">
+                  Password:
+                  <TextField
+                    className={classes.textField}
+                    type="password"
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.handleInputChangeFor("password")}
+                  />
+                </label>
+              </div>
+              <div>
+                <Button
+                  onClick={this.login}
+                  variant="contained"
+                  color="primary"
+                >
+                  Login
+                </Button>
+              </div>
+            </div>
+          </form>
+
           <Button
             variant="contained"
             // color="primary"

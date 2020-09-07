@@ -14,7 +14,7 @@ import Rating from "material-ui-rating";
 import Box from "@material-ui/core/Box";
 import Popover from "@material-ui/core/Popover";
 import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
-import Fade from 'react-reveal/Fade';
+import Fade from "react-reveal/Fade";
 
 const styles = (theme) => ({
   heroContent: {
@@ -54,9 +54,9 @@ const styles = (theme) => ({
     textAlign: "center",
   },
   readButton: {
-    color: 'white',
-    textDecoration: 'none',
-},
+    color: "white",
+    textDecoration: "none",
+  },
   icon: {
     color: "rgba(255, 255, 255, 0.54)",
     padding: 3,
@@ -71,7 +71,7 @@ class UserPage extends Component {
   componentDidMount() {
     this.props.dispatch({ type: "FETCH_PROFILE_BOOKS" });
   }
-  
+
   deleteBook = (item) => {
     Swal.fire({
       title: "Are you sure you want to remove this book?",
@@ -89,7 +89,7 @@ class UserPage extends Component {
   };
 
   rateBook = (student_rating, item) => {
-this.props.dispatch({
+    this.props.dispatch({
       type: "RATE_BOOK",
       payload: { item, student_rating },
     });
@@ -144,9 +144,7 @@ this.props.dispatch({
     return (
       <main>
         <div className={classes.heroContent}>
-          <Container 
-          maxWidth="lg"
-          >
+          <Container maxWidth="lg">
             <Typography
               component="h1"
               variant="h2"
@@ -203,134 +201,135 @@ this.props.dispatch({
           </Container>
         </div>
         <Fade up>
-        <Container className={classes.cardGrid} maxWidth="md">
-          <Grid container spacing={4}>
-            {store.profileBooks.map((item) => (
-              <Grid item key={item.book_id} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={item.book_image}
-                    title={item.book_title}
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {item.book_title}
-                    </Typography>
-                    <Rating
-                      name="student_rating"
-                      value={item.student_rating}
-                      onChange={(student_rating) =>
-                        this.rateBook(student_rating, item)
-                      }
-                      precision={1}
+          <Container className={classes.cardGrid} maxWidth="md">
+            <Grid container spacing={4}>
+              {store.profileBooks.map((item) => (
+                <Grid item key={item.book_id} xs={12} sm={6} md={4}>
+                  <Card className={classes.card}>
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image={item.book_image}
+                      title={item.book_title}
                     />
-                  </CardContent>
-                  <div className={classes.centerBtns}>
-                    <CardActions className={classes.centerBtns}>
-                      <Button
-                        variant="outlined"
-                        size="small"
-                        color="primary"
-                        onClick={() => this.finishBook(item)}
-                      >
-                        Finish
-                      </Button>
-                      <PopupState variant="popover">
-                        {(popupState) => (
-                          <div>
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              {...bindTrigger(popupState)}
-                            >
-                              Details
-                            </Button>
-                            <Popover
-                              {...bindPopover(popupState)}
-                              anchorOrigin={{
-                                vertical: "bottom",
-                                horizontal: "center",
-                              }}
-                              transformOrigin={{
-                                vertical: "top",
-                                horizontal: "center",
-                              }}
-                            >
-                              <Box p={2} className={classes.popup}>
-                                <>
-                                  <h3>{item.book_title}</h3>
-                                  <p>{item.book_authors}</p>
-                                  <img src={item.book_image} alt={item.book_title} />
-                                  <p>{item.book_description}</p>
-                                  <Button variant="contained" color="primary">
-                                    <a
-                                      className={classes.readButton}
-                                      href={item.book_text}
-                                      rel="noopener noreferrer"
-                                      target="_blank"
-                                    >
-                                      Read it!
-                                    </a>
-                                  </Button>
-                                  {item.finish_book === true ? (
-                                    <Button
-                                      variant="contained"
-                                      color="primary"
-                                      className={classes.readButton}
-                                      onClick={() => this.goToDetails(item)}
-                                    >
-                                      Take the quiz!
+                    <CardContent className={classes.cardContent}>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {item.book_title}
+                      </Typography>
+                      <Rating
+                        name="student_rating"
+                        value={item.student_rating}
+                        onChange={(student_rating) =>
+                          this.rateBook(student_rating, item)
+                        }
+                        precision={1}
+                      />
+                    </CardContent>
+                    <div className={classes.centerBtns}>
+                      <CardActions className={classes.centerBtns}>
+                        <Button
+                          variant="outlined"
+                          size="small"
+                          color="primary"
+                          onClick={() => this.finishBook(item)}
+                        >
+                          Finish
+                        </Button>
+                        <PopupState variant="popover">
+                          {(popupState) => (
+                            <div>
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                {...bindTrigger(popupState)}
+                              >
+                                Details
+                              </Button>
+                              <Popover
+                                {...bindPopover(popupState)}
+                                anchorOrigin={{
+                                  vertical: "bottom",
+                                  horizontal: "center",
+                                }}
+                                transformOrigin={{
+                                  vertical: "top",
+                                  horizontal: "center",
+                                }}
+                              >
+                                <Box p={2} className={classes.popup}>
+                                  <>
+                                    <h3>{item.book_title}</h3>
+                                    <p>{item.book_authors}</p>
+                                    <img
+                                      src={item.book_image}
+                                      alt={item.book_title}
+                                    />
+                                    <p>{item.book_description}</p>
+                                    <Button variant="contained" color="primary">
+                                      <a
+                                        className={classes.readButton}
+                                        href={item.book_text}
+                                        rel="noopener noreferrer"
+                                        target="_blank"
+                                      >
+                                        Read it!
+                                      </a>
                                     </Button>
-                                  ) : (
-                                    <Button
-                                      variant="disabled"
-                                      color="primary"
-                                      className={classes.readButton}
-                                    >
-                                      Finish to take quiz!
-                                    </Button>
-                                  )}
-                                  {item.quiz_score != null ? (
-                                    <>
-                                      <p>
-                                        Teacher feedback on your quiz:{" "}
-                                        <i>{item.quiz_feedback}</i>
-                                      </p>
-                                      <p>
-                                        Your score for {item.book_title}:{" "}
-                                        <b>{item.quiz_score}</b>
-                                      </p>
-                                    </>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </>
-                              </Box>
-                            </Popover>
-                          </div>
-                        )}
-                      </PopupState>
-                      <Button
-                        onClick={() => this.deleteBook(item)}
-                        size="small"
-                        variant="contained"
-                        color="secondary"
-                      >
-                        Remove
-                      </Button>
-                    </CardActions>
-                  </div>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-        <div>
-        </div>
+                                    {item.finish_book === true ? (
+                                      <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.readButton}
+                                        onClick={() => this.goToDetails(item)}
+                                      >
+                                        Take the quiz!
+                                      </Button>
+                                    ) : (
+                                      <Button
+                                        variant="disabled"
+                                        color="primary"
+                                        className={classes.readButton}
+                                      >
+                                        Finish to take quiz!
+                                      </Button>
+                                    )}
+                                    {item.quiz_score != null ? (
+                                      <>
+                                        <p>
+                                          Teacher feedback on your quiz:{" "}
+                                          <i>{item.quiz_feedback}</i>
+                                        </p>
+                                        <p>
+                                          Your score for {item.book_title}:{" "}
+                                          <b>{item.quiz_score}</b>
+                                        </p>
+                                      </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </>
+                                </Box>
+                              </Popover>
+                            </div>
+                          )}
+                        </PopupState>
+                        <Button
+                          onClick={() => this.deleteBook(item)}
+                          size="small"
+                          variant="contained"
+                          color="secondary"
+                        >
+                          Remove
+                        </Button>
+                      </CardActions>
+                    </div>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+          <div></div>
         </Fade>
       </main>
-      
     );
   }
 }

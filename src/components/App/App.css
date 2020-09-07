@@ -24,8 +24,20 @@ form {
   width: 70%;
   max-width: 600px;
   min-height: 200px;
-  margin: 100px auto;
+  margin: 50px auto;
   padding: 15px;
+  border-radius: 5px;
+}
+
+.welcome-form {
+  font-family: 'Perpetua';
+  background-color: white;
+  box-shadow: -3px 3px 10px black;
+  width: 90%;
+  max-width: 800px;
+  min-height: 100px;
+  margin: 10px auto;
+  padding: 10px;
   border-radius: 5px;
 }
 

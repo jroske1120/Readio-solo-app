@@ -38,9 +38,6 @@ class App extends Component {
               path="/home"
               component={UserPage}
             />
-            {/* This works the same as the other protected route, except that if the user is logged in,
-            they will see the info page instead. */}
-            
             <ProtectedRoute
               exact path="/search"
               component={BookSearchPage}
@@ -62,7 +59,10 @@ class App extends Component {
               component={BookDetails}
             />  
             {/* If none of the other routes matched, we will show a 404. */}
-            <Route render={() => <h1>404</h1>} />
+            <Route render={() => <h1>
+              Woops! Looks like you tried to get to a page 
+              that doesn't exist for you!
+            </h1>} />
           </Switch>
         </div>
       </Router>

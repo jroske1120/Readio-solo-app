@@ -1,18 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import IconButton from '@material-ui/core/IconButton';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 
 const LogOutButton = props => (
-  // <IconButton>
     <ExitToAppRoundedIcon
       alt="Log Out"
       title="Log Out"
       height="30px"
       className={props.className}
-      onClick={() => props.dispatch({ type: 'LOGOUT' })}
     />
-
  
 );
 

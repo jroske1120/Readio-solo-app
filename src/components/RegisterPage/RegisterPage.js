@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = {
+  textField: {
+    justifyContent: "space-evenly",
+    flexWrap: "wrap",
+    display: "flex",
+    alignItems: "center",
+  },
+};
 
 class RegisterPage extends Component {
   state = {
@@ -32,8 +44,10 @@ class RegisterPage extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
+              <center>
         {this.props.errors.registrationMessage && (
           <h2
             className="alert"
@@ -42,23 +56,32 @@ class RegisterPage extends Component {
             {this.props.errors.registrationMessage}
           </h2>
         )}
-        <form onSubmit={this.registerUser}>
-          <h1>Register User</h1>
-          <div>
+        <form>
+          <h1
+           className={classes.textField}
+           >Register User</h1>
+          <div
+           className={classes.textField}>
+             <div>
             <label htmlFor="username">
               Username:
-              <input
+              <TextField
+               className={classes.textField}
                 type="text"
                 name="username"
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
               />
             </label>
+            </div>
           </div>
+          <br/>
+
           <div>
             <label htmlFor="password">
               Password:
-              <input
+              <TextField
+               className={classes.textField}
                 type="password"
                 name="password"
                 value={this.state.password}
@@ -66,6 +89,7 @@ class RegisterPage extends Component {
               />
             </label>
           </div>
+          <br/>
           <div>
             <label htmlFor="is_teacher">
               Are you a teacher?
@@ -83,23 +107,26 @@ class RegisterPage extends Component {
               /> */}
             </label>
           </div>
+          <br/>
+
           <div>
-            <input
-              className="register"
-              type="submit"
-              name="submit"
-              value="Register"
-            />
+            <Button
+            onClick={this.registerUser}
+            variant="contained"
+            color="primary"
+            >Register
+            </Button>
           </div>
         </form>
-        <center>
-          <button
+  
+          <Button
+                      variant="contained"
             type="button"
             className="link-button"
             onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
           >
             Login
-          </button>
+          </Button>
         </center>
       </div>
     );
@@ -113,5 +140,5 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(RegisterPage);
+export default connect(mapStateToProps)(withStyles(styles)(RegisterPage));
 

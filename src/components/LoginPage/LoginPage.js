@@ -19,14 +19,6 @@ class LoginPage extends Component {
     password: "",
   };
 
-  fillerAnswers = () => {
-    this.setState({
-      username: "Mr. Johnson",
-      password: "Mr. Johnson",
-     });
-  }
-
-
   login = (event) => {
     event.preventDefault();
 
@@ -54,6 +46,7 @@ class LoginPage extends Component {
     const { classes } = this.props;
     return (
       <div>
+           <center>
         {this.props.errors.loginMessage && (
           <h2 className="alert" role="alert">
             {this.props.errors.loginMessage}
@@ -61,7 +54,6 @@ class LoginPage extends Component {
         )}
         <form>
         <h1 
-        onClick={this.fillerAnswers}
         className={classes.textField}>Login</h1>
         <div className={classes.textField}>
           <div>
@@ -90,7 +82,6 @@ class LoginPage extends Component {
           </div>
           <div>
             <Button
-              // className={classes.textField}
               onClick={this.login}
               variant="contained"
               color="primary"
@@ -100,7 +91,7 @@ class LoginPage extends Component {
           </div>
           </div>
         </form>
-        <center>
+     
           <Button
             variant="contained"
             // color="primary"

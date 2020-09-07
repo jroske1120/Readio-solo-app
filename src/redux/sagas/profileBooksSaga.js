@@ -54,6 +54,7 @@ function* profileBooksSaga() {
   yield takeLatest("DELETE_BOOK", deleteBookSaga);
   yield takeLatest("FETCH_DETAILS", fetchDetailSaga);
   yield takeLatest("FETCH_PROFILE_BOOKS", fetchProfileBookSaga);
+  yield takeLatest('FETCH_QUIZ', fetchQuestionSaga);
   yield takeLatest("FINISH_BOOK", finishBookSaga);
   yield takeLatest("RATE_BOOK", rateBookSaga);
 }

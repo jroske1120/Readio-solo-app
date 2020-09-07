@@ -26,6 +26,7 @@ function* editFeedbackSaga(action) {
 }
 
 function* quizSaga() {
+    yield takeLatest('FETCH_QUIZZES', getQuizSaga);
     yield takeLatest('SUBMIT_FEEDBACK', editFeedbackSaga);
     yield takeLatest('SUBMIT_QUIZ', submitQuizSaga);
   }

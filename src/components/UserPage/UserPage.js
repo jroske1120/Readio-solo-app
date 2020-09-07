@@ -36,7 +36,7 @@ const styles = (theme) => ({
     justifyContent: "center",
   },
   cardMedia: {
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%",
     backgroundSize: "auto",
     margin: 5,
     textAlign: "center",
@@ -71,15 +71,7 @@ class UserPage extends Component {
   componentDidMount() {
     this.props.dispatch({ type: "FETCH_PROFILE_BOOKS" });
   }
-
-  goToDetails = (item) => {
-    this.props.dispatch({
-      type: "FETCH_DETAILS",
-      payload: item.book_id,
-    });
-    this.props.history.push("/quiz");
-  };
-
+  
   deleteBook = (item) => {
     Swal.fire({
       title: "Are you sure you want to remove this book?",
@@ -131,11 +123,24 @@ this.props.dispatch({
     });
   };
 
-  // This is main user profile
+  goToDetails = (item) => {
+    this.props.dispatch({
+      type: "FETCH_DETAILS",
+      payload: item.book_id,
+    });
+    this.props.history.push("/quiz");
+  };
+
+  rateBook = (student_rating, item) => {
+    this.props.dispatch({
+      type: "RATE_BOOK",
+      payload: { item, student_rating },
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const store = this.props.reduxState;
-
     return (
       <main>
         <div className={classes.heroContent}>
@@ -167,7 +172,7 @@ this.props.dispatch({
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
-                {this.props.reduxState.user.is_teacher ? (
+                {store.user.is_teacher ? (
                   <Grid item>
                     <Button
                       variant="contained"
@@ -212,7 +217,6 @@ this.props.dispatch({
                     <Typography gutterBottom variant="h5" component="h2">
                       {item.book_title}
                     </Typography>
-
                     <Rating
                       name="student_rating"
                       value={item.student_rating}
@@ -232,16 +236,10 @@ this.props.dispatch({
                       >
                         Finish
                       </Button>
-                      {/* <Button size="small" color="primary"
-                     onClick={() => this.goToDetails(item)}>
-                       View Details
-                     </Button> */}
-
                       <PopupState variant="popover">
                         {(popupState) => (
                           <div>
                             <Button
-                              // size="small"
                               variant="contained"
                               color="primary"
                               {...bindTrigger(popupState)}
@@ -313,7 +311,6 @@ this.props.dispatch({
                           </div>
                         )}
                       </PopupState>
-
                       <Button
                         onClick={() => this.deleteBook(item)}
                         size="small"
@@ -330,10 +327,6 @@ this.props.dispatch({
           </Grid>
         </Container>
         <div>
-          {/* {this.props.reduxState.details != null ?
-          <BookDetails/>
-        :
-        <></>} */}
         </div>
         </Fade>
       </main>
@@ -341,7 +334,6 @@ this.props.dispatch({
     );
   }
 }
-// this allows us to use <App /> in index.js
 const mapReduxStateToProps = (reduxState) => ({
   reduxState,
 });

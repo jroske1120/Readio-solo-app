@@ -7,7 +7,7 @@ function* submitQuizSaga(action) {
         yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
     } catch (error) {
     }
-}
+ }
 
 function* getQuizSaga(action) {
     try {
@@ -25,9 +25,8 @@ function* editFeedbackSaga(action) {
 }
 
 function* quizSaga() {
-    yield takeLatest('SUBMIT_QUIZ', submitQuizSaga);
-    yield takeLatest('FETCH_QUIZZES', getQuizSaga);
     yield takeLatest('SUBMIT_FEEDBACK', editFeedbackSaga);
+    yield takeLatest('SUBMIT_QUIZ', submitQuizSaga);
   }
 
 export default quizSaga;

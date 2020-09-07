@@ -56,6 +56,7 @@ if (this.props.reduxState.details[0] != null){
 
   render() {
     const { classes } = this.props;
+    const state = this.state;
     return (
       <div>        
         <Fade left>
@@ -74,7 +75,7 @@ if (this.props.reduxState.details[0] != null){
               multiline
               rows={3}
               variant="outlined"
-              value={this.state.question_1}
+              value={state.question_1}
               onChange={this.handleInputChangeFor('question_1')}
             />
           </div>
@@ -85,7 +86,7 @@ if (this.props.reduxState.details[0] != null){
               multiline
               rows={3}
               variant="outlined"
-              value={this.state.question_2}
+              value={state.question_2}
               onChange={this.handleInputChangeFor('question_2')}
             />
           </div>
@@ -96,7 +97,7 @@ if (this.props.reduxState.details[0] != null){
               multiline
               rows={3}
               variant="outlined"
-              value={this.state.question_3}
+              value={state.question_3}
               onChange={this.handleInputChangeFor('question_3')}
             />
           </div>
@@ -107,7 +108,7 @@ if (this.props.reduxState.details[0] != null){
               multiline
               rows={3}
               variant="outlined"
-              value={this.state.question_4}
+              value={state.question_4}
               onChange={this.handleInputChangeFor('question_4')}
             />
           </div>
@@ -116,24 +117,13 @@ if (this.props.reduxState.details[0] != null){
           variant="contained" color="primary"
           onClick={this.submitQuiz}>Submit</Button>
           </div>
-          
         </form>
         </Fade>
-        {/* <form>
-                    {this.props.reduxState.questions.map((item, index) => (
-                        <p key={index}> <label htmlFor='question_1'>{item.question_1}</label>
-                            <input type="text" name="question_1" />
-                        </p>))}
-                </form> */}
-
       </div>
     );
   }
 }
 
-// Instead of taking everything from state, we just want the user info.
-
-// this allows us to use <App /> in index.js
 const mapReduxStateToProps = (reduxState) => ({
   reduxState
 });

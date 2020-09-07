@@ -1,5 +1,12 @@
-import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import axios from "axios";
+import { put, takeLatest } from "redux-saga/effects";
+
+function* fetchDetailSaga(action) {
+  try {
+    const response = yield axios.get("/details/" + action.payload);
+    yield put({ type: "SET_DETAILS", payload: response.data });
+  } catch (error) {}
+}
 
 function* fetchProfileBookSaga() {
     try {
@@ -51,14 +58,12 @@ function* rateBookSaga(action) {
   }
 }
 
-
 function* profileBooksSaga() {
-    yield takeLatest('FETCH_PROFILE_BOOKS', fetchProfileBookSaga);
-    yield takeLatest('FETCH_DETAILS', fetchDetailSaga);
-    yield takeLatest('DELETE_BOOK', deleteBookSaga);
-    yield takeLatest('FINISH_BOOK', finishBookSaga);
-    yield takeLatest('RATE_BOOK', rateBookSaga);
-    yield takeLatest('FETCH_QUIZ', fetchQuestionSaga);
-  }
+  yield takeLatest("DELETE_BOOK", deleteBookSaga);
+  yield takeLatest("FETCH_DETAILS", fetchDetailSaga);
+  yield takeLatest("FETCH_PROFILE_BOOKS", fetchProfileBookSaga);
+  yield takeLatest("FINISH_BOOK", finishBookSaga);
+  yield takeLatest("RATE_BOOK", rateBookSaga);
+}
 
 export default profileBooksSaga;

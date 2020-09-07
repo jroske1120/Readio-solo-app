@@ -71,14 +71,15 @@ class BookListItem extends Component {
     }
     goToDetails = () => {
         // calls SET_DETAILS (details reducer) with 
-        //payload of the selected movie's details
+        //payload of the selected book's details
         this.props.dispatch({ type: 'SET_DETAILS', payload: { ...this.props.item } })
-        //Then pushes history and brings us to the selected movies' details
+        //Then pushes history and brings us to the selected books' details
         this.props.history.push('/details');
     }
 
     render() {
         const { classes } = this.props;
+        const item = this.props.item;
         return (
             <div>
                 <Fade up>
@@ -95,13 +96,13 @@ class BookListItem extends Component {
                             <CardMedia
                                 className={classes.media}
                                 component="img"
-                                image={this.props.item.volumeInfo.imageLinks.thumbnail}
-                                alt={this.props.item.volumeInfo.title} />
+                                image={item.volumeInfo.imageLinks.thumbnail}
+                                alt={item.volumeInfo.title} />
                                 </div>
                             <CardContent>
                                 <Typography
                                     gutterBottom variant="h5" component="h5">
-                                    {this.props.item.volumeInfo.title}
+                                    {item.volumeInfo.title}
                                 </Typography>
                                 
                                 <Accordion className={classes.acc}>
@@ -116,16 +117,10 @@ class BookListItem extends Component {
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <Typography>
-                                            {this.props.item.volumeInfo.description}
+                                            {item.volumeInfo.description}
                                         </Typography>
                                     </AccordionDetails>
                                 </Accordion>
-                                {/* <hr color="black" />
-                                <Typography
-                                    variant="body2" component="p">
-                                    {this.props.item.volumeInfo.description}
-                                </Typography>
-                                <hr /> */}
                                 <Typography
                                     variant="body2"
                                     color="textSecondary"
@@ -137,7 +132,7 @@ class BookListItem extends Component {
                             className={classes.readButton}
                             variant="contained" color="primary"
                         ><a className={classes.urlButton}
-                            href={this.props.item.accessInfo.webReaderLink}
+                            href={item.accessInfo.webReaderLink}
                             rel="noopener noreferrer"
                             target="_blank">
                                 Read it!
@@ -146,7 +141,6 @@ class BookListItem extends Component {
                             variant="contained" color="primary"
                             className={classes.addButton}
                             onClick={this.addToProfile}>Add to Profile</Button>
-                        {/* <button onClick={this.goToDetails}>See details</button> */}
                     </Card>
                 </Grid>
                 </Fade>

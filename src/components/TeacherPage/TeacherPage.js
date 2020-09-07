@@ -92,6 +92,19 @@ class TeacherPage extends Component {
     });
   };
 
+  submitFeedback = (questions) => {
+    this.props.dispatch({
+      type: "SUBMIT_FEEDBACK",
+      payload: {
+        quiz_feedback: this.state.quiz_feedback,
+        quiz_score: this.state.quiz_score,
+        user_id: this.props.reduxState.questions[0].user_id,
+        book_id: questions.book_id,
+      },
+    });
+    this.props.dispatch({ type: "FETCH_STUDENTS" });
+  }; 
+
   viewQuiz = (student) => {
     this.props.dispatch({ type: "FETCH_QUIZZES", payload: student });
   };

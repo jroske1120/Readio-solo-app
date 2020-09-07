@@ -17,17 +17,6 @@ function* getBookSaga(action){
     } catch (error) {
     }
   }
-
-  function* addBookSaga(action){
-    try {
-      // get request that sends search query
-      const response = yield axios.post('/api/searchFullText', action.payload)
-      yield put({type:"FETCH_PROFILE_BOOKS", payload: response.data})
-      yield put({ type: 'UNSET_SEARCH' });
-    } catch (error) {
-    }
-  }
-
   
 function* searchSaga() {
   yield takeLatest('ADD_BOOK', addBookSaga);

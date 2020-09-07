@@ -27,14 +27,6 @@ function* fetchProfileBookSaga() {
     }
   }
 
-  function* fetchDetailSaga(action) {
-    try {
-        const response = yield axios.get('/details/'+ action.payload)
-        yield put({ type: 'SET_DETAILS', payload: response.data })
-    } catch (error) {
-    }
-}
-
 function* deleteBookSaga(action) {
     try {
         const response = yield axios.delete('/profile/'+ action.payload.book_id)

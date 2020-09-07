@@ -24,13 +24,7 @@ function* fetchStudents(action) {
     } catch (error) {
     }
 }
-function* addStudentSaga(action){
-  try {
-    const response = yield axios.post('/student', action.payload)
-    yield put({type:"FETCH_STUDENTS", payload: response.data})
-  } catch (error) {
-  }
-}
+
   function* studentSaga() {
     yield takeLatest('ADD_STUDENT', addStudentSaga);
     yield takeLatest('FETCH_STUDENTS', fetchStudents);

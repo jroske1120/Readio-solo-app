@@ -23,19 +23,10 @@ class QuizPage extends Component {
     finish_quiz: true
   };
 
-  fillerAnswers = () => {
-    this.setState({
-      question_1:`I am similar to the main character because I don't really like to work, and I'll do anything to get out of doing my chores.`,
-      question_2: ` The tone of this text is playful. An example of this is in the main character's sarcasm.`,
-      question_3: `If I were the author, I would be more explicit about the racial injustices surrounding Native Americans. `,
-      question_4: `This book reminds me of the book, The Lord of the Flies. In that book, the characters demonstrate the two sides of Tom: carefree and reckless or coming of age with a hidden desire to fit in.`,
-    });
-  }
   submitQuiz = (event) => {
 if (this.props.reduxState.details[0] != null){
 
     event.preventDefault();
-    console.log(this.state)
     this.props.dispatch({
       type: 'SUBMIT_QUIZ',
       payload: {
@@ -63,25 +54,19 @@ if (this.props.reduxState.details[0] != null){
     });
   }
 
-  componentDidMount() {
-    // this.props.dispatch({ type: 'FETCH_QUIZ' });
-  }
-
-  // This is main user profile
   render() {
     const { classes } = this.props;
     return (
       <div>        
         <Fade left>
         <form>
-        <h2 onClick={this.fillerAnswers}>Quiz Questions
+        <h2>Quiz Questions
         {this.props.reduxState.details[0] != null ?
             <span> for {this.props.reduxState.details[0].book_title}</span>
             : <></>
           }
 
         </h2>
-          {/* <h1>Quiz for {this.props.reduxState.details[0].book_title}</h1> */}
           <div>
             1. How are you similar to or different from one of the characters?<br></br>
             <TextField

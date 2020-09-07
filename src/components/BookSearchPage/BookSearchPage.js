@@ -38,7 +38,6 @@ class BookSearchPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log('handleSubmit:', this.state.search);
     this.props.dispatch({ type: "FETCH_BOOKS", payload: this.state.search })
     this.setState({
       search: ''
@@ -46,7 +45,6 @@ class BookSearchPage extends Component {
   }
 
   handleChange = (event) => {
-    console.log('in search field', event.target.value);
     this.setState({
       search: event.target.value
     })

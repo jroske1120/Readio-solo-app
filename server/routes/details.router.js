@@ -14,7 +14,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
             res.send(result.rows);
         })
         .catch((error) => {
-            console.log('Error making SELECT for details:', error);
             res.sendStatus(500);
         });
 });
@@ -28,7 +27,6 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         .then((result) => {
             res.send(result.rows);
         }).catch((error) => {
-            console.log('Error PUT /profile', error);
             res.sendStatus(500);
         })
 });

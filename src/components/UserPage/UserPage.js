@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
-// import BookDetails from "../BookDetails/BookDetails";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -57,53 +56,11 @@ const styles = (theme) => ({
   readButton: {
     color: 'white',
     textDecoration: 'none',
-    // border: '1px solid black',
-    // float: 'left',
 },
-  // flex: {
-  //   display: 'flex',
-  //   margin: 50,
-  //   justifyContent: 'space-evenly',
-  //   flexWrap: 'wrap',
-  // },
-  // root: {
-  //   // display: 'flex',
-  //   flexWrap: 'wrap',
-  //   justifyContent: 'space-around',
-  //   paddingTop: 0,
-  //   padding: 10,
-  // },
-  // border: {
-  //   display: 'flex',
-  //   position: 'relative',
-  //   padding: '2px',
-  //   border: '1px solid silver',
-  //   borderRadius: '20px',
-  //   boxShadow: '-3px 3px 10px black',
-  //   width: '40%',
-  //   maxWidth: 400,
-  //   minWidth: 350,
-  // },
-  // gridList: {
-  //   // width: 400,
-  //   height: 400,
-  //   margin: 50,
-  //   border: 'double 40px transparent',
-  //   borderRadius: '20px',
-  //   boxShadow: 'inset 0 0 9px white',
-  //   backgroundColor: 'black',
-  //   backgroundOrigin: 'border-box',
-  //   backgroundClip: 'content-box, border-box',
-  //   backgroundImage: `linear-gradient(#363636, #363636), radial-gradient(circle at top right, #6d6d6d,black)`,
-  // },
   icon: {
     color: "rgba(255, 255, 255, 0.54)",
     padding: 3,
   },
-  // button: {
-  //   margin: 50,
-  //   textAlign: 'center',
-  // },
 });
 
 class UserPage extends Component {
@@ -140,15 +97,10 @@ class UserPage extends Component {
   };
 
   rateBook = (student_rating, item) => {
-    console.log("rating is...", student_rating);
-    console.log("item is...", item);
-    this.props.dispatch({
+this.props.dispatch({
       type: "RATE_BOOK",
       payload: { item, student_rating },
     });
-    // this.setState({
-    //   student_rating
-    // });
   };
 
   finishBook = (item) => {
@@ -175,7 +127,6 @@ class UserPage extends Component {
       },
     }).then((result) => {
       if (result.dismiss === Swal.DismissReason.timer) {
-        console.log("I was closed by the timer");
       }
     });
   };

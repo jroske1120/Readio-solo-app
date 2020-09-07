@@ -65,9 +65,7 @@ const styles = (theme) => ({
 
 class BookListItem extends Component {
 
-    //this.state.user.id
     addToProfile = (event) => {
-        console.log('book to add...', { ...this.props.item })
         this.props.dispatch({ type: 'ADD_BOOK', payload: { ...this.props.item } })
         this.props.history.push('/home');
     }

@@ -9,13 +9,11 @@ import {
 import {connect} from 'react-redux';
 
 import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
 import BookSearchPage from '../BookSearchPage/BookSearchPage'
 import QuizPage from '../QuizPage/QuizPage'
 import TeacherPage from '../TeacherPage/TeacherPage'
@@ -56,11 +54,7 @@ class App extends Component {
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
-            <ProtectedRoute
-              exact
-              path="/info"
-              component={InfoPage}
-            />
+            
             <ProtectedRoute
               exact path="/search"
               component={BookSearchPage}
@@ -85,9 +79,6 @@ class App extends Component {
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
-          {/* <Route exact path='/search' component={BookSearchPage} /> */}
-
-          <Footer />
         </div>
       </Router>
   )}

@@ -10,7 +10,6 @@ function* fetchProfileBookSaga() {
       const response = yield axios.get('/profile', config);
       yield put({ type: 'SET_BOOKS', payload: response.data });
     } catch (error) {
-      console.log('book get request failed', error);
     }
   }
   function* fetchQuestionSaga(action) {
@@ -18,46 +17,37 @@ function* fetchProfileBookSaga() {
       const response = yield axios.get('/quiz');
       yield put({ type: 'SET_QUIZ', payload: response.data });
     } catch (error) {
-      console.log('quiz get request failed', error);
     }
   }
 
   function* fetchDetailSaga(action) {
-    console.log('in detailsSaga...', action.payload)
     try {
         const response = yield axios.get('/details/'+ action.payload)
         yield put({ type: 'SET_DETAILS', payload: response.data })
     } catch (error) {
-        console.log('issue with details get saga:', error)
     }
 }
 
 function* deleteBookSaga(action) {
-    console.log('in deleteBookSaga...', action.payload)
     try {
         const response = yield axios.delete('/profile/'+ action.payload.book_id)
         yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
     } catch (error) {
-        console.log('issue with deleteBookSaga :', error)
     }
 }
 function* finishBookSaga(action) {
-    console.log('in finishBookSaga...', action.payload)
     try {
         const response = yield axios.put('/profile/'+ action.payload.book_id)
         yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
     } catch (error) {
-        console.log('issue with finishBookSaga :', error)
     }
 }
 
 function* rateBookSaga(action) {
-  console.log('in rateBookSaga...', action.payload.item.book_id)
   try {
       const response = yield axios.put(`/details/${action.payload.item.book_id}`, action.payload)
       yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
   } catch (error) {
-      console.log('issue with finishBookSaga :', error)
   }
 }
 

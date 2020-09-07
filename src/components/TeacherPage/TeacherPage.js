@@ -52,16 +52,8 @@ class TeacherPage extends Component {
     quiz_score: " ",
   };
 
-  fillerAnswers = () => {
-    this.setState({
-      quiz_feedback: `I really like what you said in your connection. Keep it up!`,
-      quiz_score: 100,
-    });
-  };
   submitFeedback = (questions) => {
-    // event.preventDefault();
-    console.log("state is..", this.state);
-    console.log("questions are,", questions);
+
     this.props.dispatch({
       type: "SUBMIT_FEEDBACK",
       payload: {
@@ -72,7 +64,7 @@ class TeacherPage extends Component {
       },
     });
     this.props.dispatch({ type: "FETCH_STUDENTS" });
-  }; // end registerUser
+  }; 
 
   handleInputChangeFor = (propertyName) => (event) => {
     this.setState({
@@ -82,7 +74,6 @@ class TeacherPage extends Component {
 
   componentDidMount() {
     this.props.dispatch({ type: "FETCH_STUDENTS" });
-    // still need reducer and saga, and router for this
   }
 
   removeStudent = (student) => {
@@ -104,7 +95,7 @@ class TeacherPage extends Component {
   viewQuiz = (student) => {
     this.props.dispatch({ type: "FETCH_QUIZZES", payload: student });
   };
-  // This is main user profile
+
   render() {
     const { classes } = this.props;
     return (
@@ -204,7 +195,7 @@ class TeacherPage extends Component {
               <Table className={classes.table} aria-label="simple table">
                 {this.props.reduxState.questions.length > 0 ? (
                   <TableHead>
-                    <TableRow onClick={this.fillerAnswers}>
+                    <TableRow >
                       <TableCell className={classes.tableHead}>Book Title</TableCell>
                       <TableCell className={classes.tableHead}>Question 1</TableCell>
                       <TableCell className={classes.tableHead}>Question 2</TableCell>

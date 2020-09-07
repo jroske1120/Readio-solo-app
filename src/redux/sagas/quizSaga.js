@@ -6,9 +6,8 @@ function* submitQuizSaga(action) {
         const response = yield axios.put(`/quiz/${action.payload.book_id}`, action.payload)
         yield put({ type: 'FETCH_PROFILE_BOOKS', payload: response.data })
     } catch (error) {
-        console.log('issue with submitQuizSaga :', error)
     }
-}
+ }
 
 function* getQuizSaga(action) {
     try {
@@ -27,9 +26,8 @@ function* editFeedbackSaga(action) {
 }
 
 function* quizSaga() {
-    yield takeLatest('SUBMIT_QUIZ', submitQuizSaga);
-    yield takeLatest('FETCH_QUIZZES', getQuizSaga);
     yield takeLatest('SUBMIT_FEEDBACK', editFeedbackSaga);
+    yield takeLatest('SUBMIT_QUIZ', submitQuizSaga);
   }
 
 export default quizSaga;

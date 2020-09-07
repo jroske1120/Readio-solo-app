@@ -40,12 +40,12 @@ class BookDetails extends Component {
         payload: this.props.match.params.id,
       });
     }
-    console.log("this.props.reduxState...", this.props.reduxState);
   }
 
   finishBook = (item) => {
     this.props.dispatch({ type: "FINISH_BOOK", payload: item });
   };
+  
   render() {
     const { classes } = this.props;
     const details = this.props.reduxState.details;

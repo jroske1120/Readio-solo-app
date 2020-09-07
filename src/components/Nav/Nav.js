@@ -11,7 +11,6 @@ const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
       <h1 className="nav-title">READ.IO 
-       {/* {props.reduxState.user.username} */}
        </h1>
     </Link>
     <div className="nav-right">
@@ -52,9 +51,6 @@ const Nav = (props) => (
         : <></>
       }
       {/* Always show this link since the about page is not protected */}
-      {/* <Link className="nav-link" to="/about">
-        About
-      </Link> */}
     </div>
   </div>
 );

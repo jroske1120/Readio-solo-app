@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 
 const LogOutButton = props => (
-  <IconButton>
+  // <IconButton>
     <ExitToAppRoundedIcon
       alt="Log Out"
       title="Log Out"
@@ -13,7 +13,7 @@ const LogOutButton = props => (
       onClick={() => props.dispatch({ type: 'LOGOUT' })}
     />
 
-  </IconButton>
+ 
 );
 
 // This component doesn't need 'mapStateToProps'
